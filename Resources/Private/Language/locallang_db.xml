@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'dialog'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_dialog_domain_model_discussion">Discussion</label>
+			<label index="tx_dialog_domain_model_discussion.title">Title</label>
+			<label index="tx_dialog_domain_model_discussion.mode">Mode</label>
+			<label index="tx_dialog_domain_model_discussion.last_activity">Last Activity</label>
+			<label index="tx_dialog_domain_model_discussion.hash">Hash</label>
+			<label index="tx_dialog_domain_model_discussion.threads">Threads</label>
+			<label index="tx_dialog_domain_model_discussion.posts">Posts</label>
+			<label index="tx_dialog_domain_model_thread">Thread</label>
+			<label index="tx_dialog_domain_model_thread.hash">Hash</label>
+			<label index="tx_dialog_domain_model_thread.posts">Posts</label>
+			<label index="tx_dialog_domain_model_post">Post</label>
+			<label index="tx_dialog_domain_model_post.subject">Subject</label>
+			<label index="tx_dialog_domain_model_post.content">Content</label>
+			<label index="tx_dialog_domain_model_post.hash">Hash</label>
+			<label index="tx_dialog_domain_model_post.replies">Replies</label>
+			<label index="tx_dialog_domain_model_post.published">Published</label>
+			<label index="tx_dialog_domain_model_poster">Poster</label>
+			<label index="tx_dialog_domain_model_poster.name">Name</label>
+			<label index="tx_dialog_domain_model_poster.email">Email</label>
+			<label index="tx_dialog_domain_model_poster.web">Web</label>
+            <label index="discussion.discussion.index">Forum list</label>
+            <label index="discussion.discussion.write">Write Post</label>
+            <label index="discussion.discussion.report">Report content (requires argument)</label>
+            <label index="discussion.discussion.post">Save Post (requires argument)</label>
+		</languageKey>
+	</data>
+</T3locallang>

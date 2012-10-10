@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+	  xmlns:fed="http://fedext.net/ns/fed/ViewHelpers"
+	  xmlns:dialog="http://fedext.net/ns/dialog/ViewHelpers"
+	  xmlns:f="http://typo3.org/ns/fluid/ViewHelpers">
+<head>
+	<title></title>
+</head>
+<body>
+
+{namespace fed=Tx_Fed_ViewHelpers}
+{namespace flux=Tx_Flux_ViewHelpers}
+{namespace notify=Tx_Notify_ViewHelpers}
+{namespace dialog=Tx_Dialog_ViewHelpers}
+<f:layout name="Discussion" />
+
+<f:section name="Toolbar">
+	<div class="navbar">
+		<div class="navbar-inner">
+			<div class="container">
+				<li class="brand"><f:translate key="title" /></li>
+				<ul class="nav pull-right">
+					<li class="{dialog:equals(a: view, b: 'list', then: 'active')}">
+						<f:link.action action="index" class="nav pull-left"><i class="icon-home icon-white"></i> <f:translate key="home" /></f:link.action>
+					</li>
+					<f:if condition="{discussion}">
+						<f:if condition="{settings.enableHeroUnit} < 1">
+							<li class="{dialog:equals(a: view, b: 'write', then: 'active')}">
+								<f:link.action action="write" arguments="{discussion: discussion.uid}" class="nav pull-left"><i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></f:link.action>
+							</li>
+						</f:if>
+					</f:if>
+				</ul>
+			</div>
+		</div>
+	</div>
+</f:section>
+
+<f:section name="HeroUnit">
+	<div class="hero-unit">
+		<div class="row-fluid">
+			<f:if condition="{thread}">
+				<f:then>
+					<div class="span9">
+						<h1>{thread.subject}</h1>
+						<p>{discussion.title}</p>
+					</div>
+					<div class="span3 hero-unit-button">
+						<f:link.action action="write" arguments="{discussion: discussion.uid, thread: thread.uid}" class="btn btn-large btn-primary white">
+							<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
+						</f:link.action>
+						<fed:loaded extensionKey="notify">
+							<notify:widget.subscribe mode="1" object="{thread}" fields="posts"
+								settings="{display: { mode: 'button', button: {class: 'btn btn-small'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
+						</fed:loaded>
+					</div>
+				</f:then>
+				<f:else>
+					<div class="span9">
+						<h1>{discussion.title}</h1>
+						<f:if condition="{discussion.description}">
+							<f:then>
+								<p><f:format.html>{discussion.description}</f:format.html></p>
+							</f:then>
+								<f:else>
+								<p><f:translate key="noDescription" /></p>
+							</f:else>
+						</f:if>
+					</div>
+					<div class="span3 hero-unit-button">
+						<f:link.action action="write" arguments="{discussion: discussion.uid}" class="btn btn-large btn-primary white">
+							<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
+						</f:link.action>
+						<fed:loaded extensionKey="notify">
+							<notify:widget.subscribe mode="1" object="{discussion}" fields="threads"
+								settings="{display: { mode: 'button', button: {class: 'btn btn-small'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
+						</fed:loaded>
+					</div>
+				</f:else>
+			</f:if>
+		</div>
+	</div>
+</f:section>
+
+<f:section name="BreadCrumb">
+	<p class="breadcrumb-container">
+		<f:link.action action="index"><f:translate key="discussions" /></f:link.action>
+		<f:if condition="{discussion}">
+			<i class="icon-chevron-right icon-faded"></i> <f:link.action action="show" arguments="{discussion: discussion.uid}">{discussion.title}</f:link.action>
+		</f:if>
+		<f:if condition="{thread}">
+			<i class="icon-chevron-right icon-faded"></i> <f:link.action action="show" arguments="{discussion: discussion.uid, thread: thread.uid}">{thread.subject}</f:link.action>
+		</f:if>
+		<f:if condition="{parent}">
+			<i class="icon-chevron-right icon-faded"></i> <a href="#" class="active">{post.subject}</a>
+		</f:if>
+	</p>
+</f:section>
+
+<f:section name="Head">
+	<f:if condition="{settings.enableBreadCrumb}">
+		<f:render section="BreadCrumb" arguments="{_all}" />
+	</f:if>
+	<f:if condition="{settings.enableHeroUnit}">
+		<f:render section="HeroUnit" arguments="{_all}" />
+	</f:if>
+</f:section>
+
+<f:section name="Discussions">
+	<f:if condition="{discussions}">
+		<f:then>
+			<div class="row-fluid">
+		    	<div class="span8">
+					<h2><f:translate key="discussions" /></h2>
+					<table class="table table-bordered">
+						<tbody>
+							<f:for each="{discussions}" as="discussionItem" iteration="iteration">
+								<tr>
+									<td>
+										<f:link.action action="show" arguments="{discussion: discussionItem.uid}">{discussionItem.title}</f:link.action><br />
+										<em><f:translate key="by" /> {discussionItem.poster.name}</em>
+									</td>
+									<td class="options">
+										<i class="icon-time"></i> <f:format.date format="{settings.dateFormat}">{discussionItem.crdate}</f:format.date><br />
+										<i class="icon-comment"></i> <f:count><dialog:related discussion="{discussionItem}" /></f:count>
+									</td>
+								</tr>
+							</f:for>
+						</tbody>
+					</table>
+				</div>
+				<div class="span4">
+					<h2><f:translate key="latestPosts" /></h2>
+					<table class="table table-bordered">
+						<tbody>
+							<f:for each="{latest}" as="latestItem">
+								<tr>
+									<td>
+										<a href="{dialog:threadPostLink(post: latestItem)}">{latestItem.subject}</a><br />
+										<em><f:format.date format="{settings.dateFormat}">{latestItem.crdate}</f:format.date> {latestItem.poster.name}</em>
+									</td>
+									<td class="latest-items-options">
+										<i class="icon-comment"></i> <f:count><dialog:related hash="{latestItem.hash}" /></f:count>
+									</td>
+								</tr>
+							</f:for>
+						</tbody>
+					</table>
+		    	</div>
+			</div>
+		</f:then>
+		<f:else>
+			<f:translate key="noDiscussions" />
+		</f:else>
+	</f:if>
+	<f:if condition="{settings.enableDirectCommenting}">
+		<f:then>
+			<f:render section="Write" arguments="{_all}" />
+		</f:then>
+		<f:else>
+			<f:link.action action="write" class="btn btn-large btn-primary white">
+				<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
+			</f:link.action>
+		</f:else>
+	</f:if>
+</f:section>
+
+<f:section name="Discussion">
+	<f:render section="Head" arguments="{_all}" />
+	<f:if condition="{discussion.threads}">
+		<f:then>
+			<table class="table table-striped table-bordered">
+				<tbody>
+					<f:for each="{discussion.threads}" as="threadItem">
+						<tr>
+							<td><f:link.action action="show" arguments="{discussion: discussion.uid, thread: threadItem.uid}"><f:if condition="{threadItem.subject}" then="{threadItem.subject}" else="No subject" /></f:link.action></td>
+							<td class="options">
+								<i class="icon-time"></i> <f:format.date format="{settings.dateFormat}">{threadItem.crdate}</f:format.date>
+								<i class="icon-comment"></i> <f:count><dialog:related hash="{threadItem.hash}" /></f:count>
+							</td>
+						</tr>
+					</f:for>
+				</tbody>
+				<f:if condition="{settings.enableHeroUnit} < 1">
+					<tfoot>
+						<tr>
+							<td colspan="2">
+								<f:link.action action="write" arguments="{discussion: discussion.uid}" class="btn btn-primary white">
+									<i class="icon-comment icon-white"></i> <f:translate key="thread.start" />
+								</f:link.action>
+							</td>
+							</tr>
+					</tfoot>
+				</f:if>
+			</table>
+		</f:then>
+		<f:else>
+			<p class="label"><f:translate key="noThreads" /></p>
+		</f:else>
+	</f:if>
+	<f:if condition="{settings.enableDirectCommenting}">
+		<f:render section="Write" arguments="{_all}" />
+	</f:if>
+</f:section>
+
+<f:section name="DiscussionThread">
+	<f:render section="Head" arguments="{_all}" />
+	<fed:data.var name="offset" value="0" />
+	<f:for each="{thread.posts}" as="postItem" iteration="iteration">
+		<f:if condition="{iteration.isFirst}">
+			<f:then>
+				<f:render section="PostFirst" arguments="{_all}" />
+			</f:then>
+			<f:else>
+				<f:render section="Post" arguments="{_all}" />
+			</f:else>
+		</f:if>
+	</f:for>
+	<f:if condition="{settings.enableDirectCommenting}">
+		<f:render section="Write" arguments="{_all}" />
+	</f:if>
+</f:section>
+
+<f:section name="Thread">
+	THREAD
+</f:section>
+
+<f:section name="PostFirst">
+	<div class="row-fluid post-first">
+		<div class="span2">
+			<f:render section="Poster" arguments="{_all}" />
+		</div>
+		<div class="span10">
+			<h4>{postItem.subject}</h4>
+			<f:format.html>{postItem.content}</f:format.html>
+			<f:render section="PostOptions" arguments="{_all}" />
+		</div>
+		<f:if condition="{postItem.replies}">
+			<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread}" />
+		</f:if>
+	</div>
+</f:section>
+
+<f:section name="Post">
+	<div class="post-container">
+		<a name="p{postItem.uid}"></a>
+		<div class="row-fluid post{f:if(condition: offset, else: '-first')}">
+			<f:if condition="{offset}">
+				<f:then>
+					<div class="span2">
+						<f:render section="Poster" arguments="{_all}" />
+					</div>
+					<div class="span{offset}">&nbsp;</div>
+				</f:then>
+				<f:else>
+					<div class="span2">
+						<f:render section="Poster" arguments="{_all}" />
+					</div>
+				</f:else>
+			</f:if>
+			<div class="span{dialog:subtract(a: 10, b: offset)}">
+				<h4>{postItem.subject}</h4>
+				<f:format.html>{postItem.content}</f:format.html>
+				<f:if condition="{hideOptions} < 1">
+					<f:render section="PostOptions" arguments="{_all}" />
+				</f:if>
+			</div>
+		</div>
+		<f:if condition="{hideChildren} < 1">
+			<f:if condition="{postItem.replies}">
+				<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread}" />
+			</f:if>
+		</f:if>
+	</div>
+</f:section>
+
+<f:section name="Replies">
+	<div class="replies">
+		<f:for each="{postItem.replies}" as="reply">
+			<f:render section="Post" arguments="{postItem: reply, offset: offset, discussion: discussion, thread: thread}" />
+		</f:for>
+	</div>
+</f:section>
+
+<f:section name="Poster">
+	<div class="poster">
+		<h4>{postItem.poster.name}</h4>
+		<p><i class="icon-time"></i> <f:format.date format="{settings.dateFormat}">{postItem.crdate}</f:format.date></p>
+		<f:if condition="{postItem.poster.web}">
+			<p><a href="http://{postItem.poster.web}"><i class="icon-bookmark"></i>{postItem.poster.web}</a></p>
+		</f:if>
+	</div>
+</f:section>
+
+<f:section name="PostOptions">
+	<div class="form-actions post-options">
+		<f:link.action action="write" arguments="{discussion: discussion.uid, thread: thread.uid, parent: postItem.uid}" class="btn btn-mini btn-primary white">
+			<i class="icon-comment icon-white"></i> <f:translate key="replyTo" /> {postItem.poster.name}</a>
+		</f:link.action>
+		<f:if condition="{settings.enableInappropriateContentReporting}">
+			<f:link.action action="report" arguments="{post: postItem.uid}" class="btn btn-mini push-right">
+				<i class="icon-exclamation-sign"></i> <f:translate key="reportInappropriate" />
+			</f:link.action>
+		</f:if>
+		<fed:loaded extensionKey="notify">
+			<notify:widget.subscribe mode="1" object="{postItem}" fields="replies"
+				settings="{display: { mode: 'button', button: {class: 'btn btn-mini'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
+		</fed:loaded>
+	</div>
+</f:section>
+
+<f:section name="Write">
+	<div class="write">
+		<f:if condition="{parent}">
+			<f:render section="BreadCrumb" arguments="{_all}" />
+		</f:if>
+		<h2>
+			<f:if condition="{parent}">
+				<f:then>
+					<f:translate key="replyTo" /> {parent.poster.name}: <em>{parent.subject}</em>
+				</f:then>
+				<f:else>
+					<f:if condition="{discussion}">
+						<f:then>
+							<f:translate key="thread.start" />
+						</f:then>
+						<f:else>
+							<f:translate key="discussion.start" />
+						</f:else>
+					</f:if>
+				</f:else>
+			</f:if>
+		</h2>
+		<f:if condition="{parent}">
+			<blockquote>
+				<f:format.nl2br>{parent.content}</f:format.nl2br>
+			</blockquote>
+			<h2><f:translate key="writeReply" /></h2>
+		</f:if>
+		<f:form action="post" object="{post}" name="post" class="form-vertical">
+			<f:if condition="{discussion}">
+				<f:form.hidden name="discussion" value="{f:if(condition: discussion, then: discussion.uid, else: 0)}" />
+			</f:if>
+			<f:if condition="{thread}">
+				<f:form.hidden name="thread" value="{thread.uid}" />
+			</f:if>
+			<f:if condition="{parent}">
+				<f:form.hidden name="parent" value="{parent.uid}" />
+			</f:if>
+			<div class="mini-layout container-fluid">
+				<div class="row-fluid">
+					<div class="span4">
+						<fieldset>
+							<legend><f:translate key="personalInfo" /></legend>
+							<div class="control-group{f:if(condition: errors.name, then: ' error')}">
+								<label class="control-label" for="name"><f:translate key="tx_dialog_domain_model_poster.name" /></label>
+								<div class="controls">
+									<f:form.textfield property="poster.name" value="{poster.name}" id="name" class="input-xlarge" errorClass="{settings.errorClass}" />
+								</div>
+							</div>
+								<div class="control-group{f:if(condition: errors.email, then: ' error')}">
+								<label class="control-label" for="email"><f:translate key="tx_dialog_domain_model_poster.email" /></label>
+								<div class="controls">
+									<div class="input-prepend">
+										<span class="add-on email"><i class="icon-envelope"></i></span>
+										<f:form.textfield property="poster.email" value="{poster.email}" id="email" class="input-xlarge email" errorClass="{settings.errorClass}" />
+										<p class="help-block"><f:translate key="emailFieldMessage" /></p>
+									</div>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="web">Web</label>
+								<div class="controls">
+									<div class="input-prepend">
+										<span class="add-on web">http://</span>
+										<f:form.textfield property="poster.web" value="{poster.web}" id="web" class="input-large web" errorClass="{settings.errorClass}" />
+										<p class="help-block"><f:translate key="webFieldMessage" /></p>
+									</div>
+								</div>
+							</div>
+							<f:if condition="{poster.identifier}">
+								<div class="form-actions">
+									<fed:script>
+										jQuery(document).ready(function($) { $('#removeAndForget').popover(<f:escape>{</f:escape>"title": "<f:translate key="forgetAndRemove" />", "content": "<f:translate key="forgetAndRemoveTitle" />"}); <f:escape>}</f:escape>);
+									</fed:script>
+									<f:link.action action="forget" arguments="{identifier: poster.identifier, remove: 1}" id="removeAndForget" class="btn btn-inverse"><f:translate key="forgetAndRemove" /></f:link.action>
+									<f:link.action action="forget" arguments="{identifier: poster.identifier}" class="btn btn-danger"><f:translate key="forget" /></f:link.action>
+								</div>
+							</f:if>
+						</fieldset>
+					</div>
+					<div class="span8">
+						<fieldset>
+							<legend><f:translate key="tx_dialog_domain_model_post" /></legend>
+							<div class="control-group">
+								<label class="control-label" for="subject"><f:translate key="tx_dialog_domain_model_post.subject" /></label>
+								<div class="control">
+									<f:form.textfield property="subject" id="subject" class="input-xxlarge" errorClass="{settings.errorClass}" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="words"><f:translate key="tx_dialog_domain_model_post.content" /></label>
+								<div class="control">
+									<f:form.textarea property="content" rows="9" cols="60" id="words" errorClass="{settings.errorClass}" />
+									<p class="help-block"><f:translate key="allowedHtml" /> <f:for each="{settings.allowedHtmlTags->fed:explode()}" as="allowedTag" iteration="tagIteration">
+										<code><f:format.htmlentities><{allowedTag}></f:format.htmlentities></code>
+									</f:for>
+								</div>
+							</div>
+							<div class="form-actions right">
+								<f:if condition="{discussion}">
+									<f:then>
+										<f:if condition="{thread}">
+											<f:then>
+												<f:link.action action="show" class="btn" arguments="{discussion: discussion.uid, thread: thread.uid}"><i class="icon-remove black"></i> <f:translate key="buttonCancel" /></f:link.action>
+											</f:then>
+											<f:else>
+												<f:link.action action="show" class="btn" arguments="{discussion: discussion.uid}"><i class="icon-remove black"></i> <f:translate key="buttonCancel" /></f:link.action>
+											</f:else>
+										</f:if>
+									</f:then>
+									<f:else>
+										<f:link.action action="index" class="btn"><i class="icon-remove black"></i> <f:translate key="buttonCancel" /></f:link.action>
+									</f:else>
+								</f:if>
+								<button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> <f:translate key="buttonSend" /></button>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+			</div>
+		</f:form>
+	</div>
+</f:section>
+
+<f:section name="Report">
+	<f:render section="BreadCrumb" arguments="{_all}" />
+	<f:if condition="{confirmed}">
+		<f:then>
+			<h1><f:translate key="reportReceived" /></h1>
+			<p><f:translate key="reportReceivedThanks" /></p>
+			<p><f:link.action class="btn btn-primary white" action="show" arguments="{discussion: discussion.uid, thread: thread.uid}"><f:translate key="reportReturn" /></f:link.action></p>
+		</f:then>
+		<f:else>
+			<h1><f:translate key="reportHeader" /></h1>
+			<f:render section="Post" arguments="{postItem: post, hideChildren: 1, hideOptions: 1}" />
+			<p>&nbsp;</p>
+			<f:form action="report" class="form-horizontal">
+				<f:form.hidden name="post" value="{post.uid}" />
+				<f:form.hidden name="confirmed" value="1" />
+				<fieldset>
+					<legend><f:translate key="reportLegend" /></legend>
+					<h1><f:translate key="reportWhatWillHappen" /></h1>
+						<p><f:translate key="reportWhatWillHappenElaboration" /></p>
+					<div class="form-actions">
+						<fed:script>
+							jQuery(document).ready(function($) { $('#confirmReport').popover(<f:escape>{</f:escape>"title": "<f:translate key="reportTitle" />", "content": "<f:translate key="reportHover" />"}); <f:escape>}</f:escape>);
+						</fed:script>
+						<button type="submit" class="btn btn-danger" id="confirmReport"><f:translate key="reportSendButton" /></button> <f:translate key="or" />
+						<f:link.action action="show" class="btn btn-inverse white" arguments="{discussion: discussion.uid, thread: thread.uid}"><f:translate key="reportReturn" /></f:link.action>
+					</div>
+				</fieldset>
+			</f:form>
+		</f:else>
+	</f:if>
+</f:section>
+
+</body>
+</html>

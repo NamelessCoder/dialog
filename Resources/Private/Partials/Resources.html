@@ -1,0 +1,22 @@
+{namespace fed=Tx_Fed_ViewHelpers}
+
+<f:section name="Shared">
+	<fed:pageRenderer.addJsFile file="{f:uri.resource(path: 'Javascripts/Bootstrap.min.js')}" />
+	<fed:pageRenderer.addCssFile file="{f:uri.resource(path: 'Stylesheets/Bootstrap.css')}" />
+</f:section>
+
+<f:section name="Chat">
+	<fed:pageRenderer.addJsFile file="{f:uri.resource(path: 'Javascripts/Plugins/Init.js')}" />
+	<fed:pageRenderer.addJsFile file="{f:uri.resource(path: 'Javascripts/Plugins/Chat.js')}" />
+	<fed:pageRenderer.addCssFile file="{f:uri.resource(path: 'Stylesheets/Common.css')}" />
+	<fed:pageRenderer.addCssFile file="{f:uri.resource(path: 'Stylesheets/Chat.css')}" />
+	<fed:pageRenderer.addJsFooterInlineCode name="dialog-chat-{id}" compress="TRUE" block="{initScript}" />
+</f:section>
+
+<f:section name="Comment">
+
+</f:section>
+
+<f:section name="Discussion">
+
+</f:section>

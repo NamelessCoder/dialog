@@ -1,0 +1,18 @@
+{namespace fed=Tx_Fed_ViewHelpers}
+
+<f:section name="SetName">
+	<a href="javascript:;" class="tx-dialog-set-name-link">Change name ({name})</a>
+	<div class="tx-dialog-set-name">
+		<input type="text" class="tx-dialog-name" value="{name}" />
+		<button type="button" class="tx-dialog-name-button">Set name</button>
+		<button type="button" class="tx-dialog-name-cancel-button">Cancel</button>
+	</div>
+</f:section>
+
+<f:section name="Input">
+	<textarea class="tx-dialog-chat-input"></textarea>
+</f:section>
+
+<f:section name="Text">
+	<div class="tx-dialog-chat-text">Loading text...</div>
+</f:section>

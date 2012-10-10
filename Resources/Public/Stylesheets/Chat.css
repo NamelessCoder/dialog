@@ -1,0 +1,47 @@
+.tx-dialog-chat-input {
+	width: 100%;
+	margin-bottom: 4px;
+	min-height: 3em;
+}
+
+.tx-dialog-chat-line {
+	margin: 0.25em 0px 0.25em 0px;
+	padding: 0.25em 0px 0.25em 0px;
+	border-bottom: 1px solid #ECECEC;
+}
+
+.tx-dialog-chat-name,
+.tx-dialog-chat-time {
+	display: block;
+	float: left;
+}
+
+.tx-dialog-chat-time {
+	width: 50px;
+	font-style: italic;
+	color: #BEBEBE;
+}
+
+.tx-dialog-chat-name {
+	color: 666666;
+	margin-right: 8px;
+}
+
+.tx-dialog-chat-text {
+	max-height: 294px;
+	overflow: scroll;
+	overflow-x: hidden;
+	margin-bottom: 4px;
+}
+
+.tx-dialog-chat-line.me {
+	color: green;
+}
+
+.tx-dialog-chat-line.me .tx-dialog-chat-name {
+	color: 66BB66;
+}
+
+.tx-dialog-set-name {
+	display: none;
+}

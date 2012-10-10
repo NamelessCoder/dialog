@@ -1,0 +1,89 @@
+.tx-dialog {
+
+}
+
+.tx-dialog a:hover {
+    text-decoration: none !important;
+}
+
+.tx-dialog span.email {
+    width: 20px;
+}
+
+.tx-dialog input.email {
+    width: 240px;
+}
+
+.tx-dialog span.web {
+    width: 50px;
+}
+
+.tx-dialog input.web {
+    width: 210px;
+}
+
+.tx-dialog textarea {
+    width: 99%;
+    height: 110px;
+}
+
+.tx-dialog .mini-layout {
+    padding: 0px;
+}
+
+.white {
+    color: #FFFFFF !important;
+}
+
+.black {
+    color: #000000 !important;
+}
+
+.post-options {
+    padding: 6px;
+}
+
+.post {
+    margin-bottom: 1em;
+    padding-top: 1em;
+}
+
+.post-first {
+    border-top: 1px solid #EFEFEF;
+    padding-top: 1em;
+}
+
+.f3-form-error {
+    border-color: #B94A48;
+    background-color: transparent !important;
+}
+
+td.time {
+    width: 80px;
+}
+
+.breadcrumb-container .icon-faded {
+    opacity: 0.5;
+}
+
+.hero-unit-button .btn {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.poster h4, .poster p {
+    margin-bottom: 0.3em;
+}
+
+td.options {
+    width: 115px;
+    white-space: nowrap;
+}
+
+td.latest-items-options {
+    white-space: nowrap;
+}
+
+.form-actions.right {
+    text-align: right;
+}

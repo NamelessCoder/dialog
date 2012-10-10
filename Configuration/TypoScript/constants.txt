@@ -1,0 +1,14 @@
+plugin.tx_dialog {
+	view {
+		# cat=plugin.tx_dialog/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:dialog/Resources/Private/Templates/
+		# cat=plugin.tx_dialog/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:dialog/Resources/Private/Partials/
+		# cat=plugin.tx_dialog/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:dialog/Resources/Private/Layouts/
+	}
+	persistence {
+		# cat=plugin.tx_dialog//a; type=int+; label=Default storage PID
+		storagePid = 
+	}
+}

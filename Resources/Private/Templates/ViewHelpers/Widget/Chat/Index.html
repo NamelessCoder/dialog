@@ -1,0 +1,26 @@
+{namespace fed=Tx_Fed_ViewHelpers}
+{namespace flux=Tx_Flux_ViewHelpers}
+
+<f:layout name="Chat" />
+
+<f:section name="Configuration">
+	<flux:flexform id="dialog-chat" label="Dialog: Chat" description="Adds a chat plugin on your page">
+		<flux:flexform.field.input name="settings.chat.chatId" label="Chat ID - if empty, defaults to current page's UID" />
+	</flux:flexform>
+</f:section>
+
+<f:section name="Preview">
+	PREVIEW
+</f:section>
+
+<f:section name="SetName">
+	<f:render partial="Chat/Components" section="SetName" arguments="{_all}" />
+</f:section>
+
+<f:section name="Input">
+	<f:render partial="Chat/Components" section="Input" arguments="{_all}" />
+</f:section>
+
+<f:section name="Text">
+	<f:render partial="Chat/Components" arguments="Text" arguments="{_all}" />
+</f:section>

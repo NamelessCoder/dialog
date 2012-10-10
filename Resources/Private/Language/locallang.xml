@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the Dialog - Lightweight discussion module extension in the FRONTEND</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+
+			<label index="title">Dialog</label>
+			<label index="forget">Log out</label>
+			<label index="forgetAndRemove">Reset identity</label>
+			<label index="forgetAndRemoveTitle">If you are experiencing problems, this button will reset your profile data and log you out.</label>
+			<label index="by">By</label>
+			<label index="home">Home</label>
+			<label index="noDescription">This discussion has no description.</label>
+			<label index="discussions">Discussions</label>
+			<label index="noDiscussions">No discussions</label>
+			<label index="noThreads">No subjects yet - be the first!</label>
+			<label index="replyTo">Reply to</label>
+			<label index="reportInappropriate">Report inappropriate content</label>
+			<label index="writeReply">Write your reply:</label>
+			<label index="personalInfo">Personal info</label>
+			<label index="emailFieldMessage">Your email will be recorded but not displayed.</label>
+			<label index="webFieldMessage">Please do not include http:// in your URL.</label>
+			<label index="allowedHtml">Allowed HTML:</label>
+			<label index="latestPosts">Latest posts</label>
+
+			<label index="reportTitle">Report post</label>
+			<label index="reportHover">Don't worry - you will remain anonymous. However, if you suspect illegal activity please contact us directly.</label>
+			<label index="reportHeader">Do you wish to report this post?</label>
+			<label index="reportReceived">Report received</label>
+			<label index="reportReceived">We have received your report - thank you!</label>
+			<label index="reportReturn">Return to discussion</label>
+			<label index="reportLegend">Confirm report before sending</label>
+			<label index="reportWhatWillHappen">What will happen?</label>
+			<label index="reportWhatWillHappenElaboration">By reporting the posting an email will be sent to the site administrator. The administrator will take further action as necessary.</label>
+			<label index="reportSendButton">Send report</label>
+			<label index="or">or</label>
+
+			<label index="buttonSend">I'm done - send</label>
+			<label index="buttonCancel">I changed my mind</label>
+
+			<label index="records">Records</label>
+			<label index="discussions">Discussions</label>
+			<label index="discussion.start">Start new discussion</label>
+			<label index="thread.start">Start new subject</label>
+			<label index="reply.start">Reply to</label>
+
+			<label index="email.authorization.subject">Please authorize your email addres</label>			
+			<label index="email.salutation">Dear %s,</label>
+			<label index="email.signature">Kind regards,
+%s</label>
+			<label index="email.authorization.explanation">You receive this email because you have not yet
+authorized this email address for commenting:
+
+	%s
+
+If you are the person who posted the comment that now
+requires authentication, you may use the links below to
+authorize (and store - or forget) your personal details.
+
+For easier commenting you can store your authorization in
+a cookie (which you can later remove using the "forget"
+link below). If you are on a shared computer currently you
+should pick the "store in session" link below.
+
+Store authorization in cookie (permanent):
+%s
+
+Store authorization in session (temporary):
+%s
+
+Forget this authorization (and let me re-authorize if needed):
+%s</label>
+
+			<label index="tx_dialog_domain_model_discussion">Discussion</label>
+			<label index="tx_dialog_domain_model_discussion.title">Title</label>
+			<label index="tx_dialog_domain_model_discussion.mode">Mode</label>
+			<label index="tx_dialog_domain_model_discussion.last_activity">Last activity</label>
+			<label index="tx_dialog_domain_model_discussion.hash">Hash identifier</label>
+			<label index="tx_dialog_domain_model_discussion.threads">Threads</label>
+			<label index="tx_dialog_domain_model_discussion.posts">Posts</label>
+			<label index="tx_dialog_domain_model_thread">Thread</label>
+			<label index="tx_dialog_domain_model_thread.hash">Hash identifier</label>
+			<label index="tx_dialog_domain_model_thread.posts">Posts</label>
+			<label index="tx_dialog_domain_model_post">Words</label>
+			<label index="tx_dialog_domain_model_post.content">Message text</label>
+			<label index="tx_dialog_domain_model_post.hash">Hash identifier</label>
+			<label index="tx_dialog_domain_model_post.replies">Replies</label>
+			<label index="tx_dialog_domain_model_post.subject">Subject</label>
+
+			<label index="tx_dialog_domain_model_poster">Poster</label>
+			<label index="tx_dialog_domain_model_poster.name">Name</label>
+			<label index="tx_dialog_domain_model_poster.email">Email</label>
+		</languageKey>
+
+		<languageKey index="da" type="array">
+
+			<label index="title">Dialog</label>
+			<label index="forget">Log ud</label>
+			<label index="forgetAndRemove">Nulstil profil</label>
+			<label index="forgetAndRemoveTitle">Hvis du oplever problemer kan du nulstille dine profil-data og samtidig logge ud ved at trykke på denne knap.</label>
+			<label index="by">Af</label>
+			<label index="home">Oversigt</label>
+			<label index="noDescription">Denne diskussion har ingen beskrivelse.</label>
+			<label index="discussions">Diskussioner</label>
+			<label index="noDiscussions">Ingen diskussioner</label>
+			<label index="noThreads">Ingen emner - vær den første!</label>
+			<label index="replyTo">Besvar</label>
+			<label index="reportInappropriate">Anmeld indhold</label>
+			<label index="writeReply">Skriv dit svar:</label>
+			<label index="personalInfo">Personoplysninger</label>
+			<label index="emailFieldMessage">Din email bliver gemt men ikke vist.</label>
+			<label index="webFieldMessage">Inkludér venligst ikke http:// i din URL.</label>
+			<label index="allowedHtml">Tilladt HTML:</label>
+			<label index="latestPosts">Nyeste svar</label>
+
+			<label index="buttonSend">Send svar</label>
+			<label index="buttonCancel">Annullér</label>
+
+			<label index="records">Database-data</label>
+			<label index="discussions">Diskussioner</label>
+			<label index="discussion.start">Start ny diskussion</label>
+			<label index="thread.start">Start nyt emne</label>
+			<label index="reply.start">Besvar</label>
+
+			<label index="email.salutation">Dear %s,</label>
+			<label index="email.signature">Kind regards,
+%s</label>
+			<label index="email.authorization.subject">Please authorize your email addres</label>			
+			<label index="email.authorization.explanation">You receive this email because you have not yet
+authorized this email address for commenting:
+
+	%s
+
+If you are the person who posted the comment that now
+requires authentication, you may use the links below to
+authorize (and store - or forget) your personal details.
+
+For easier commenting you can store your authorization in
+a cookie (which you can later remove using the "forget"
+link below). If you are on a shared computer currently you
+should pick the "store in session" link below.
+
+Store authorization in cookie (permanent):
+%s
+
+Store authorization in session (temporary):
+%s
+
+Forget this authorization (and let me re-authorize if needed):
+%s</label>
+
+			<label index="tx_dialog_domain_model_discussion">Diskussion</label>
+			<label index="tx_dialog_domain_model_discussion.title">Emne</label>
+			<label index="tx_dialog_domain_model_discussion.mode">Måde</label>
+			<label index="tx_dialog_domain_model_discussion.last_activity">Sidste aktivitet</label>
+			<label index="tx_dialog_domain_model_discussion.hash">Checksum (hash)</label>
+			<label index="tx_dialog_domain_model_discussion.threads">Emner</label>
+			<label index="tx_dialog_domain_model_discussion.posts">Svar</label>
+			<label index="tx_dialog_domain_model_thread">Emne</label>
+			<label index="tx_dialog_domain_model_thread.hash">Checksum (hash)</label>
+			<label index="tx_dialog_domain_model_thread.posts">Svar</label>
+			<label index="tx_dialog_domain_model_post">Besked</label>
+			<label index="tx_dialog_domain_model_post.content">Beskedens tekst</label>
+			<label index="tx_dialog_domain_model_post.hash">Checksum (hash)</label>
+			<label index="tx_dialog_domain_model_post.replies">Besvarelser</label>
+			<label index="tx_dialog_domain_model_post.subject">Subject</label>
+
+			<label index="tx_dialog_domain_model_poster">Person</label>
+			<label index="tx_dialog_domain_model_poster.name">Navn</label>
+			<label index="tx_dialog_domain_model_poster.email">Email</label>
+		</languageKey>
+<languageKey index="dk" type="array">
+
+			<label index="title">Dialog</label>
+			<label index="forget">Log ud</label>
+			<label index="forgetAndRemove">Nulstil profil</label>
+			<label index="forgetAndRemoveTitle">Hvis du oplever problemer kan du nulstille dine profil-data og samtidig logge ud ved at trykke på denne knap.</label>
+			<label index="by">Af</label>
+			<label index="home">Oversigt</label>
+			<label index="noDescription">Denne diskussion har ingen beskrivelse.</label>
+			<label index="discussions">Diskussioner</label>
+			<label index="noDiscussions">Ingen diskussioner</label>
+			<label index="noThreads">Ingen emner - vær den første!</label>
+			<label index="replyTo">Besvar</label>
+			<label index="reportInappropriate">Anmeld indhold</label>
+			<label index="writeReply">Skriv dit svar:</label>
+			<label index="personalInfo">Personoplysninger</label>
+			<label index="emailFieldMessage">Din email bliver gemt men ikke vist.</label>
+			<label index="webFieldMessage">Inkludér venligst ikke http:// i din URL.</label>
+			<label index="allowedHtml">Tilladt HTML:</label>
+			<label index="latestPosts">Nyeste svar</label>
+
+			<label index="buttonSend">Send svar</label>
+			<label index="buttonCancel">Annullér</label>
+
+			<label index="records">Database-data</label>
+			<label index="discussions">Diskussioner</label>
+			<label index="discussion.start">Start ny diskussion</label>
+			<label index="thread.start">Start nyt emne</label>
+			<label index="reply.start">Besvar</label>
+
+			<label index="email.salutation">Dear %s,</label>
+			<label index="email.signature">Kind regards,
+%s</label>
+			<label index="email.authorization.subject">Please authorize your email addres</label>
+			<label index="email.authorization.explanation">You receive this email because you have not yet
+authorized this email address for commenting:
+
+	%s
+
+If you are the person who posted the comment that now
+requires authentication, you may use the links below to
+authorize (and store - or forget) your personal details.
+
+For easier commenting you can store your authorization in
+a cookie (which you can later remove using the "forget"
+link below). If you are on a shared computer currently you
+should pick the "store in session" link below.
+
+Store authorization in cookie (permanent):
+%s
+
+Store authorization in session (temporary):
+%s
+
+Forget this authorization (and let me re-authorize if needed):
+%s</label>
+
+			<label index="tx_dialog_domain_model_discussion">Diskussion</label>
+			<label index="tx_dialog_domain_model_discussion.title">Emne</label>
+			<label index="tx_dialog_domain_model_discussion.mode">Måde</label>
+			<label index="tx_dialog_domain_model_discussion.last_activity">Sidste aktivitet</label>
+			<label index="tx_dialog_domain_model_discussion.hash">Checksum (hash)</label>
+			<label index="tx_dialog_domain_model_discussion.threads">Emner</label>
+			<label index="tx_dialog_domain_model_discussion.posts">Svar</label>
+			<label index="tx_dialog_domain_model_thread">Emne</label>
+			<label index="tx_dialog_domain_model_thread.hash">Checksum (hash)</label>
+			<label index="tx_dialog_domain_model_thread.posts">Svar</label>
+			<label index="tx_dialog_domain_model_post">Besked</label>
+			<label index="tx_dialog_domain_model_post.content">Beskedens tekst</label>
+			<label index="tx_dialog_domain_model_post.hash">Checksum (hash)</label>
+			<label index="tx_dialog_domain_model_post.replies">Besvarelser</label>
+			<label index="tx_dialog_domain_model_post.subject">Subject</label>
+
+			<label index="tx_dialog_domain_model_poster">Person</label>
+			<label index="tx_dialog_domain_model_poster.name">Navn</label>
+			<label index="tx_dialog_domain_model_poster.email">Email</label>
+		</languageKey>
+
+	</data>
+</T3locallang>

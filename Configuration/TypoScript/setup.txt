@@ -1,0 +1,34 @@
+plugin.tx_dialog {
+	settings {
+		loadJQuery = 0
+		dateFormat = Y-m-d H:i
+		allowedHtmlTags = pre,code,quote,blockquote,link,list,em,strong
+		popularityHalflife = 86400
+		enableHeroUnit = 1
+		enableToolbar = 1
+		enableDirectCommenting = 1
+		enableInappropriateContentReporting = 1
+		errorClass = f3-form-error
+		responsePrefix = Re:
+		numberOfLatestPosts = 5
+		cookieLifetime = 8046000
+		posting {
+			cleaning {
+				# a value of 3 here allows a single line of space between lines
+				maximumConsequetiveLineBreaksAllowed = 3
+			}
+		}
+		email {
+			fromEmail =
+			fromName =
+		}
+	}
+	view {
+		templateRootPath = {$plugin.tx_dialog.view.templateRootPath}
+		partialRootPath = {$plugin.tx_dialog.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_dialog.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_dialog.persistence.storagePid}
+	}
+}
