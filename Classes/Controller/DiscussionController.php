@@ -26,6 +26,7 @@
 /**
  * @package Dialog
  * @subpackage Controller
+ * @route NoMatch('bypass')
  */
 class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller_ActionController {
 
