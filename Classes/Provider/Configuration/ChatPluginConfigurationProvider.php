@@ -36,7 +36,7 @@ class Tx_Dialog_Provider_Configuration_ChatPluginConfigurationProvider
 	 * NOTE: Still must be an empty string due to bug in TYPO3 core's hook call
 	 * @var string
 	 */
-	protected $fieldName = '';
+	protected $fieldName = 'pi_flexform';
 
 	/**
 	 * @var string
