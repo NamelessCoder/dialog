@@ -2,12 +2,6 @@
 {namespace dialog=Tx_Dialog_ViewHelpers}
 <f:layout name="Discussion" />
 
-<f:if condition="{settings.loadJQuery}">
-	<fed:jQuery jQueryVersion="1" />
-</f:if>
-<fed:pageRenderer.addJsFooterFile file="{f:uri.resource(path: 'Javascripts/Bootstrap.min.js')}" compress="FALSE" />
-<fed:pageRenderer.addJsFooterFile file="{f:uri.resource(path: 'Javascripts/Plugins/bootstrap-tooltip.js')}" compress="FALSE" />
-<fed:pageRenderer.addJsFooterFile file="{f:uri.resource(path: 'Javascripts/Plugins/bootstrap-popover.js')}" compress="FALSE" />
 <f:if condition="{settings.includeDefaultStyles} > 0">
 	<f:then>
 		<fed:pageRenderer.addCssFile file="{f:uri.resource(path: 'Stylesheets/Bootstrap.css')}" compress="FALSE" />
