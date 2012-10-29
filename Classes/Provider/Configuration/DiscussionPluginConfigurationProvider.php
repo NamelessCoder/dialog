@@ -33,12 +33,6 @@ class Tx_Dialog_Provider_Configuration_DiscussionPluginConfigurationProvider
 	implements Tx_Flux_Provider_PluginConfigurationProviderInterface {
 
 	/**
-	 * NOTE: Still must be an empty string due to bug in TYPO3 core's hook call
-	 * @var string
-	 */
-	protected $fieldName = 'pi_flexform';
-
-	/**
 	 * @var string
 	 */
 	protected $extensionKey = 'dialog';
@@ -47,16 +41,6 @@ class Tx_Dialog_Provider_Configuration_DiscussionPluginConfigurationProvider
 	 * @var string
 	 */
 	protected $listType = 'dialog_discussion';
-
-	/**
-	 * @var string
-	 */
-	protected $configurationSectionName = 'Configuration';
-
-	/**
-	 * @var integer
-	 */
-	protected $priority = 0;
 
 	/**
 	 * @var array
