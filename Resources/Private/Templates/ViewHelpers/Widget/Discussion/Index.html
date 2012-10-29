@@ -16,7 +16,6 @@
 <f:section name="Configuration">
 	<flux:flexform id="comment-flexform" label="Comment Plugin FlexForm">
 		<flux:flexform.sheet name="display" label="Display options">
-			<flux:flexform.field.checkbox name="settings.loadJQuery" label="Load jQuery (enable if you don't already have jQuery included)" />
 			<flux:flexform.field.checkbox name="settings.enableHeroUnit" label="Display 'HeroUnit'" />
 			<flux:flexform.field.checkbox name="settings.enableToolbar" label="Display Toolbar" />
 			<flux:flexform.field.checkbox name="settings.enableDirectCommenting" label="Display 'Add new subject' form below thread" />
@@ -34,7 +33,7 @@
 		</flux:flexform.sheet>
 		<fed:comment>
 		<flux:flexform.sheet name="records" label="LLL:EXT:dialog/Resources/Private/Language/locallang.xml:records">
-			<flux:flexform.field.select 	name="settings.discussions" label="LLL:EXT:dialog/Resources/Private/Language/locallang.xml:discussions"
+			<flux:flexform.field.select name="settings.discussions" label="LLL:EXT:dialog/Resources/Private/Language/locallang.xml:discussions"
 				table="{tableName}" multiple="TRUE" maxItems="99999" size="5">
 				<flux:flexform.field.wizard.add table="{tableName}" />
 				<flux:flexform.field.wizard.edit />
