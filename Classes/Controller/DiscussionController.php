@@ -33,9 +33,11 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	/**
 	 * Renders the initial view for Discussions
 	 *
+	 * @param Tx_Dialog_Domain_Model_Discussion $discussion
+	 * @param Tx_Dialog_Domain_Model_Thread $thread
 	 * @return string
 	 */
-	public function indexAction() {
+	public function indexAction(Tx_Dialog_Domain_Model_Discussion $discussion = NULL, Tx_Dialog_Domain_Model_Thread $thread = NULL) {
 		$this->assignDiscussionTemplateVariables();
 		$this->view->assign('view', 'Discussions');
 		$this->view->assign('latest', $this->postRepository->findLatest($this->settings['numberOfLatestPosts']));
@@ -43,8 +45,8 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	}
 
 	/**
-	 * @param NULL|Tx_Dialog_Domain_Model_Discussion $discussion
-	 * @param NULL|Tx_Dialog_Domain_Model_Thread $thread
+	 * @param Tx_Dialog_Domain_Model_Discussion $discussion
+	 * @param Tx_Dialog_Domain_Model_Thread $thread
 	 */
 	public function showAction(Tx_Dialog_Domain_Model_Discussion $discussion=NULL, Tx_Dialog_Domain_Model_Thread $thread=NULL) {
 		$this->assignDiscussionTemplateVariables();
