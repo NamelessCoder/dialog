@@ -36,6 +36,8 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	 * @param Tx_Dialog_Domain_Model_Discussion $discussion
 	 * @param Tx_Dialog_Domain_Model_Thread $thread
 	 * @return string
+	 * @route NoMatch('bypass') $discussion
+	 * @route NoMatch('bypass') $thread
 	 */
 	public function indexAction(Tx_Dialog_Domain_Model_Discussion $discussion = NULL, Tx_Dialog_Domain_Model_Thread $thread = NULL) {
 		$this->assignDiscussionTemplateVariables();
@@ -47,14 +49,15 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	/**
 	 * @param Tx_Dialog_Domain_Model_Discussion $discussion
 	 * @param Tx_Dialog_Domain_Model_Thread $thread
+	 * @return string
 	 */
-	public function showAction(Tx_Dialog_Domain_Model_Discussion $discussion=NULL, Tx_Dialog_Domain_Model_Thread $thread=NULL) {
+	public function showAction(Tx_Dialog_Domain_Model_Discussion $discussion = NULL, Tx_Dialog_Domain_Model_Thread $thread = NULL) {
 		$this->assignDiscussionTemplateVariables();
 		if ($discussion && $thread) {
 			$mode = 'DiscussionThread';
-		} else if ($thread) {
+		} elseif ($thread) {
 			$mode = 'Thread';
-		} else if ($discussion) {
+		} elseif ($discussion) {
 			$mode = 'Discussion';
 		} else {
 			$this->forward('index');
