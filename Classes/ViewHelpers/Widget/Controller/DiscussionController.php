@@ -37,5 +37,3 @@ class Tx_Dialog_ViewHelpers_Widget_Controller_DiscussionController extends Tx_Fl
 	}
 
 }
-
-?>

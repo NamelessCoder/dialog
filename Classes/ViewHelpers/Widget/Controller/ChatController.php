@@ -93,7 +93,4 @@ class Tx_Dialog_ViewHelpers_Widget_Controller_ChatController extends Tx_Fluid_Co
 		return $initScript;
 	}
 
-
-
 }
-?>

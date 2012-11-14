@@ -44,4 +44,3 @@ class Tx_Dialog_ViewHelpers_Widget_Controller_CommentController extends Tx_Fluid
 	}
 
 }
-?>
