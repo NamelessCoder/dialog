@@ -1,0 +1,14 @@
+{namespace fed=Tx_Fed_ViewHelpers}
+{namespace dialog=Tx_Dialog_ViewHelpers}
+<f:layout name="Comment" />
+
+<f:if condition="{settings.includeDefaultStyles} > 0">
+	<f:if condition="{settings.customStyleSheet}">
+		<fed:pageRenderer.addCssFile file="{settings.customStyleSheet}" compress="FALSE" />
+	</f:if>
+</f:if>
+<fed:pageRenderer.addCssFile file="{f:uri.resource(path: 'Stylesheets/Common.css')}" compress="FALSE" />
+
+<div class="tx-dialog tx-dialog-comment">
+	<f:render partial="Comment/Components" section="{view}" arguments="{_all}" />
+</div>
