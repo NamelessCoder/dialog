@@ -8,8 +8,21 @@
 	</f:if>
 </f:if>
 <fed:pageRenderer.addCssFile file="{f:uri.resource(path: 'Stylesheets/Common.css')}" compress="FALSE" />
+<fed:pageRenderer.addCssFile file="{f:uri.resource(path: 'Stylesheets/Comment.css')}" compress="FALSE" />
 
-<div class="tx-dialog tx-dialog-comment">
-	<f:render partial="Comment/Components" section="{view}" arguments="{_all}" optional="TRUE" />
-	<f:render partial="Discussion/Components" section="Form" arguments="{_all}" />
-</div>
+<f:if condition="{placeholder}">
+	<f:then>
+		<div class="tx-dialog tx-dialog-comment placeholder"
+			data-url-form="{f:widget.uri(action: 'form', ajax: 1, arguments: {ajax: 1})}"
+			data-url-post="{f:widget.uri(action: 'write', ajax: 1, arguments: {ajax: 1})}"
+			data-url-close="{f:widget.uri(action: 'index', ajax: 1)}">
+			<f:format.raw>{placeholder}</f:format.raw>
+		</div>
+	</f:then>
+	<f:else>
+		<div class="tx-dialog tx-dialog-comment full">
+			<f:render partial="Comment/Components" section="{view}" arguments="{_all}" optional="TRUE" />
+			<f:render partial="Discussion/Components" section="Form" arguments="{_all}" />
+		</div>
+	</f:else>
+</f:if>

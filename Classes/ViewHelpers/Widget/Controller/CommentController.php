@@ -30,10 +30,76 @@
 class Tx_Dialog_ViewHelpers_Widget_Controller_CommentController extends Tx_Fluid_Core_Widget_AbstractWidgetController {
 
 	/**
+	 * @var Tx_Dialog_Domain_Repository_DiscussionRepository
+	 */
+	protected $discussionRepository;
+
+	/**
+	 * @var Tx_Dialog_Domain_Repository_PostRepository
+	 */
+	protected $postRepository;
+
+	/**
+	 * @var Tx_Dialog_Domain_Repository_PosterRepository
+	 */
+	protected $posterRepository;
+
+	/**
+	 * @param Tx_Dialog_Domain_Repository_DiscussionRepository $discussionRepository
+	 * @return void
+	 */
+	public function injectDiscussionRepository(Tx_Dialog_Domain_Repository_DiscussionRepository $discussionRepository) {
+		$this->discussionRepository = $discussionRepository;
+	}
+
+	/**
+	 * @param Tx_Dialog_Domain_Repository_PostRepository $postRepository
+	 * @return void
+	 */
+	public function injectPostRepository(Tx_Dialog_Domain_Repository_PostRepository $postRepository) {
+		$this->postRepository = $postRepository;
+	}
+
+	/**
+	 * @param Tx_Dialog_Domain_Repository_PosterRepository $posterRepository
+	 * @return void
+	 */
+	public function injectPosterRepository(Tx_Dialog_Domain_Repository_PosterRepository $posterRepository) {
+		$this->posterRepository = $posterRepository;
+	}
+
+	/**
 	 * @return string
 	 */
 	public function indexAction() {
 		$this->view->assignMultiple($this->widgetConfiguration);
+		if ($this->request->hasArgument('ajax')) {
+			$this->view->assign('placeholder', FALSE);
+		}
+		return $this->view->render();
+	}
+
+	/**
+	 * @param boolean $ajax
+	 * @return string
+	 */
+	public function formAction($ajax = FALSE) {
+		return $this->indexAction();
+	}
+
+	/**
+	 * @param string $subject
+	 * @param string $comment
+	 * @return void
+	 */
+	public function postAction($subject, $comment) {
+		$discussion = $this->discussionRepository->findOneByHash($this->widgetConfiguration['hash']);
+		if (!$discussion) {
+			$discussion = $this->objectManager->create('Tx_Dialog_Domain_Model_Discussion');
+		}
+		$post = $this->objectManager->create('Tx_Dialog_Domain_Model_Post');
+		#$poster = $thi
+		return $this->indexAction();
 	}
 
 }
