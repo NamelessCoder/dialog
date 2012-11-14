@@ -3,14 +3,9 @@
 <f:layout name="Discussion" />
 
 <f:if condition="{settings.includeDefaultStyles} > 0">
-	<f:then>
-		<fed:pageRenderer.addCssFile file="{f:uri.resource(path: 'Stylesheets/Bootstrap.css')}" compress="FALSE" />
-	</f:then>
-	<f:else>
-		<f:if condition="{settings.customStyleSheet}">
-			<fed:pageRenderer.addCssFile file="{settings.customStyleSheet}" compress="FALSE" />
-		</f:if>
-	</f:else>
+	<f:if condition="{settings.customStyleSheet}">
+		<fed:pageRenderer.addCssFile file="{settings.customStyleSheet}" compress="FALSE" />
+	</f:if>
 </f:if>
 <fed:pageRenderer.addCssFile file="{f:uri.resource(path: 'Stylesheets/Common.css')}" compress="FALSE" />
 

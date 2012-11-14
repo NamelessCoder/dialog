@@ -24,12 +24,9 @@
 			<flux:flexform.field.checkbox name="settings.enableInappropriateContentReporting" label="Enable reporting of inappropriate content" />
 		</flux:flexform.sheet>
 		<flux:flexform.sheet name="style" label="Styles">
-			<flux:flexform.field.checkbox name="settings.includeDefaultStyles" label="Include default stylesheet?" requestUpdate="TRUE" />
-			<f:if condition="{settings.includeDefaultStyles} < 1">
-				<flux:flexform.field.input name="settings.customStyleSheet" label="Custom style sheet file">
-					<flux:flexform.field.wizard.link />
-				</flux:flexform.field.input>
-			</f:if>
+			<flux:flexform.field.input name="settings.customStyleSheet" label="Custom style sheet file">
+				<flux:flexform.field.wizard.link />
+			</flux:flexform.field.input>
 		</flux:flexform.sheet>
 		<fed:comment>
 		<flux:flexform.sheet name="records" label="LLL:EXT:dialog/Resources/Private/Language/locallang.xml:records">
@@ -51,10 +48,6 @@
 				<td><f:count><fed:explode>{settings.discussions}</fed:explode></f:count></td>
 			</tr>
 		</f:if>
-		<tr>
-			<td>Load jQuery:</td>
-			<td><f:if condition="{settings.loadJQuery}" then="Yes" else="No" /></td>
-		</tr>
 		<tr>
 			<td>Display Hero Unit:</td>
 			<td><f:if condition="{settings.enableHeroUnit}" then="Yes" else="No" /></td>
