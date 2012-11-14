@@ -421,15 +421,15 @@
 				<f:then>
 					<f:if condition="{thread}">
 						<f:then>
-							<f:link.action action="show" class="btn" arguments="{discussion: discussion.uid, thread: thread.uid}"><i class="icon-remove black"></i> <f:translate key="buttonCancel" /></f:link.action>
+							<f:link.action action="show" class="btn btn-cancel" arguments="{discussion: discussion.uid, thread: thread.uid}"><i class="icon-remove black"></i> <f:translate key="buttonCancel" /></f:link.action>
 						</f:then>
 						<f:else>
-							<f:link.action action="show" class="btn" arguments="{discussion: discussion.uid}"><i class="icon-remove black"></i> <f:translate key="buttonCancel" /></f:link.action>
+							<f:link.action action="show" class="btn btn-cancel" arguments="{discussion: discussion.uid}"><i class="icon-remove black"></i> <f:translate key="buttonCancel" /></f:link.action>
 						</f:else>
 					</f:if>
 				</f:then>
 				<f:else>
-					<f:link.action action="index" class="btn"><i class="icon-remove black"></i> <f:translate key="buttonCancel" /></f:link.action>
+					<f:link.action action="index" class="btn btn-cancel"><i class="icon-remove black"></i> <f:translate key="buttonCancel" /></f:link.action>
 				</f:else>
 			</f:if>
 			<button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> <f:translate key="buttonSend" /></button>
