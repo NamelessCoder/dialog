@@ -400,11 +400,18 @@
 
 <f:section name="Form">
 	<fieldset>
-		<legend><f:translate key="tx_dialog_domain_model_post" /></legend>
-		<div class="control-group">
+		<f:if condition="{customTitle}">
+			<f:then>
+				<legend>{customTitle}</legend>
+			</f:then>
+			<f:else>
+				<legend><f:translate key="tx_dialog_domain_model_post" /></legend>
+			</f:else>
+		</f:if>
+		<div class="control-group {f:if(condition: presetSubject, then: 'has-preset-subject')}">
 			<label class="control-label" for="subject"><f:translate key="tx_dialog_domain_model_post.subject" /></label>
 			<div class="control">
-				<f:form.textfield property="subject" id="subject" class="input-xxlarge" errorClass="{settings.errorClass}" />
+				<f:form.textfield property="subject" id="subject" class="input-xxlarge" errorClass="{settings.errorClass}" value="{presetSubject}" />
 			</div>
 		</div>
 		<div class="control-group">

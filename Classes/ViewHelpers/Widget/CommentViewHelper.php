@@ -32,6 +32,11 @@
 class Tx_Dialog_ViewHelpers_Widget_CommentViewHelper extends Tx_Dialog_ViewHelpers_Widget_AbstractJQueryWidgetViewHelper {
 
 	/**
+	 * @var boolean
+	 */
+	protected $ajaxWidget = TRUE;
+
+	/**
 	 * @var Tx_Dialog_ViewHelpers_Widget_Controller_CommentController
 	 */
 	protected $controller;
@@ -47,7 +52,8 @@ class Tx_Dialog_ViewHelpers_Widget_CommentViewHelper extends Tx_Dialog_ViewHelpe
 	 * Initialize
 	 */
 	public function initializeArguments() {
-		
+		$this->registerArgument('presetSubject', 'string', 'Optional prefilled subject for comment form');
+		$this->registerArgument('customTitle', 'string', 'Optional custom title for fieldset, defaults to TCA label for the Post table');
 	}
 
 	/**
@@ -58,4 +64,3 @@ class Tx_Dialog_ViewHelpers_Widget_CommentViewHelper extends Tx_Dialog_ViewHelpe
 	}
 
 }
-?>

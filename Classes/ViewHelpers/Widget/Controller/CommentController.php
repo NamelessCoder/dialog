@@ -30,17 +30,10 @@
 class Tx_Dialog_ViewHelpers_Widget_Controller_CommentController extends Tx_Fluid_Core_Widget_AbstractWidgetController {
 
 	/**
-	 * @return void
-	 */
-	public function initializeAction() {
-
-	}
-
-	/**
 	 * @return string
 	 */
 	public function indexAction() {
-
+		$this->view->assignMultiple($this->widgetConfiguration);
 	}
 
 }

@@ -10,6 +10,6 @@
 <fed:pageRenderer.addCssFile file="{f:uri.resource(path: 'Stylesheets/Common.css')}" compress="FALSE" />
 
 <div class="tx-dialog tx-dialog-comment">
-	<f:render partial="Comment/Components" section="{view}" arguments="{_all}" />
+	<f:render partial="Comment/Components" section="{view}" arguments="{_all}" optional="TRUE" />
 	<f:render partial="Discussion/Components" section="Form" arguments="{_all}" />
 </div>
