@@ -6,7 +6,6 @@ var chatTimer = setInterval(function() {
 			"refreshFrequency": 1000
 		};
 		var options = jQuery.extend(defaults, options);
-		//console.log(options);
 		return this.each(function() {
 			var element = jQuery(this);
 			var timer = setInterval(updateText, options.refreshFrequency);
