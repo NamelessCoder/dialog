@@ -390,47 +390,51 @@
 						</fieldset>
 					</div>
 					<div class="span8">
-						<fieldset>
-							<legend><f:translate key="tx_dialog_domain_model_post" /></legend>
-							<div class="control-group">
-								<label class="control-label" for="subject"><f:translate key="tx_dialog_domain_model_post.subject" /></label>
-								<div class="control">
-									<f:form.textfield property="subject" id="subject" class="input-xxlarge" errorClass="{settings.errorClass}" />
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label" for="words"><f:translate key="tx_dialog_domain_model_post.content" /></label>
-								<div class="control">
-									<f:form.textarea property="content" rows="9" cols="60" id="words" errorClass="{settings.errorClass}" />
-									<p class="help-block"><f:translate key="allowedHtml" /> <f:for each="{settings.allowedHtmlTags->fed:explode()}" as="allowedTag" iteration="tagIteration">
-										<code><f:format.htmlentities><{allowedTag}></f:format.htmlentities></code>
-									</f:for>
-								</div>
-							</div>
-							<div class="form-actions right">
-								<f:if condition="{discussion}">
-									<f:then>
-										<f:if condition="{thread}">
-											<f:then>
-												<f:link.action action="show" class="btn" arguments="{discussion: discussion.uid, thread: thread.uid}"><i class="icon-remove black"></i> <f:translate key="buttonCancel" /></f:link.action>
-											</f:then>
-											<f:else>
-												<f:link.action action="show" class="btn" arguments="{discussion: discussion.uid}"><i class="icon-remove black"></i> <f:translate key="buttonCancel" /></f:link.action>
-											</f:else>
-										</f:if>
-									</f:then>
-									<f:else>
-										<f:link.action action="index" class="btn"><i class="icon-remove black"></i> <f:translate key="buttonCancel" /></f:link.action>
-									</f:else>
-								</f:if>
-								<button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> <f:translate key="buttonSend" /></button>
-							</div>
-						</fieldset>
+						<f:render section="Form" arguments="{_all}" />
 					</div>
 				</div>
 			</div>
 		</f:form>
 	</div>
+</f:section>
+
+<f:section name="Form">
+	<fieldset>
+		<legend><f:translate key="tx_dialog_domain_model_post" /></legend>
+		<div class="control-group">
+			<label class="control-label" for="subject"><f:translate key="tx_dialog_domain_model_post.subject" /></label>
+			<div class="control">
+				<f:form.textfield property="subject" id="subject" class="input-xxlarge" errorClass="{settings.errorClass}" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="words"><f:translate key="tx_dialog_domain_model_post.content" /></label>
+			<div class="control">
+				<f:form.textarea property="content" rows="9" cols="60" id="words" errorClass="{settings.errorClass}" />
+				<p class="help-block allowed-html"><f:translate key="allowedHtml" /> <f:for each="{settings.allowedHtmlTags->fed:explode()}" as="allowedTag" iteration="tagIteration">
+					<code><f:format.htmlentities><{allowedTag}></f:format.htmlentities></code>
+				</f:for>
+			</div>
+		</div>
+		<div class="form-actions right">
+			<f:if condition="{discussion}">
+				<f:then>
+					<f:if condition="{thread}">
+						<f:then>
+							<f:link.action action="show" class="btn" arguments="{discussion: discussion.uid, thread: thread.uid}"><i class="icon-remove black"></i> <f:translate key="buttonCancel" /></f:link.action>
+						</f:then>
+						<f:else>
+							<f:link.action action="show" class="btn" arguments="{discussion: discussion.uid}"><i class="icon-remove black"></i> <f:translate key="buttonCancel" /></f:link.action>
+						</f:else>
+					</f:if>
+				</f:then>
+				<f:else>
+					<f:link.action action="index" class="btn"><i class="icon-remove black"></i> <f:translate key="buttonCancel" /></f:link.action>
+				</f:else>
+			</f:if>
+			<button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> <f:translate key="buttonSend" /></button>
+		</div>
+	</fieldset>
 </f:section>
 
 <f:section name="Report">
