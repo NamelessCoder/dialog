@@ -259,8 +259,12 @@
 				</f:else>
 			</f:if>
 			<div class="span{dialog:subtract(a: 10, b: offset)}">
-				<h4>{postItem.subject}</h4>
-				<f:format.html>{postItem.content}</f:format.html>
+				<h4 class="subject">
+					{postItem.subject}
+				</h4>
+				<div class="content">
+					<f:format.html>{postItem.content}</f:format.html>
+				</div>
 				<f:if condition="{hideOptions} < 1">
 					<f:render section="PostOptions" arguments="{_all}" />
 				</f:if>
