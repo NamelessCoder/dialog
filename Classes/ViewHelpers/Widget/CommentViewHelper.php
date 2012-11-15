@@ -63,6 +63,7 @@ class Tx_Dialog_ViewHelpers_Widget_CommentViewHelper extends Tx_Dialog_ViewHelpe
 		$this->registerArgument('presetSubject', 'string', 'Optional prefilled subject for comment form');
 		$this->registerArgument('customTitle', 'string', 'Optional custom title for fieldset, defaults to TCA label for the Post table');
 		$this->registerArgument('placeholder', 'string', 'Optional placeholder - if used, form is not loaded until the placeholder is clicked. The placeholder can be anything you like.');
+		$this->registerArgument('width', 'array', 'Array of column widths, example: {poster: 3, postContent: 9} - uses bootstrap 12-column grid so total must be at maximum 12 but less is allowed', FALSE, array('poster' => 3, 'postContent' => 9));
 	}
 
 	/**

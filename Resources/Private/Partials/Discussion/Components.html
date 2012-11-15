@@ -247,18 +247,18 @@
 		<div class="row-fluid post{f:if(condition: offset, else: '-first')}">
 			<f:if condition="{offset}">
 				<f:then>
-					<div class="span2">
+					<div class="span{f:if(condition: width.poster, then: width.poster, else: 2)}">
 						<f:render section="Poster" arguments="{_all}" />
 					</div>
 					<div class="span{offset}">&nbsp;</div>
 				</f:then>
 				<f:else>
-					<div class="span2">
+					<div class="span{f:if(condition: width.poster, then: width.poster, else: 2)}">
 						<f:render section="Poster" arguments="{_all}" />
 					</div>
 				</f:else>
 			</f:if>
-			<div class="span{dialog:subtract(a: 10, b: offset)}">
+			<div class="span{dialog:subtract(a: '{f:if(condition: width.postContent, then: width.postContent, else: 10)}', b: offset)}">
 				<h4 class="subject">
 					{postItem.subject}
 				</h4>
