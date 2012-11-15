@@ -9,23 +9,22 @@
 </f:if>
 <fed:pageRenderer.addCssFile file="{f:uri.resource(path: 'Stylesheets/Common.css')}" compress="FALSE" />
 <fed:pageRenderer.addCssFile file="{f:uri.resource(path: 'Stylesheets/Comment.css')}" compress="FALSE" />
-
 <f:if condition="{placeholder}">
 	<f:then>
 		<div class="tx-dialog tx-dialog-comment placeholder"
-			data-url-form="{f:widget.uri(action: 'form', ajax: 1, arguments: {ajax: 1})}"
-			data-url-post="{f:widget.uri(action: 'write', ajax: 1, arguments: {ajax: 1})}"
-			data-url-close="{f:widget.uri(action: 'index', ajax: 1)}">
-			<f:format.raw>{placeholder}</f:format.raw>
+		    data-url-form="{f:widget.uri(action: 'form', ajax: 1, arguments: {ajax: 1, hash: hash})}"
+			data-url-post="{f:widget.uri(action: 'write', ajax: 1, arguments: {ajax: 1, hash: hash})}"
+			data-url-close="{f:widget.uri(action: 'form', ajax: 1, arguments: {hash: hash})}">
+			<f:format.raw><f:format.printf arguments="{0: '{discussion.posts -> f:count()}'}">{placeholder}</f:format.printf></f:format.raw>
+			<f:count>{discussion.posts}</f:count> {discussion.title}
 		</div>
 	</f:then>
 	<f:else>
-		<div class="tx-dialog tx-dialog-comment full">
-			<f:for each="{discussion.posts}" as="post">
-				<f:render partial="Discussion/Components" section="Post"
-					arguments="{postItem: post, discussion: discussion, hideOptions: 1, width: width}" optional="TRUE" />
-			</f:for>
-			<f:render partial="Discussion/Components" section="Form" arguments="{_all}" />
-		</div>
+		<f:for each="{discussion.posts}" as="post">
+			<f:render partial="Discussion/Components" section="Post"
+				arguments="{postItem: post, discussion: discussion, hideOptions: 1, width: width}" optional="TRUE" />
+		</f:for>
+		<input type="hidden" id="hash" value="{hash}" />
+		<f:render partial="Discussion/Components" section="Form" arguments="{_all}" />
 	</f:else>
 </f:if>

@@ -15,9 +15,15 @@
 				});
 			};
 			var closeCommentForm = function() {
-				element.load(urlClose, function() {
-					element.addClass('placeholder').removeClass('full');
-					element.bind('click', loadCommentForm);
+				jQuery.ajax({
+					url: urlClose,
+					type: 'get',
+					complete: function(response) {
+						var returnedBody = jQuery(response.responseText);
+						element.html(returnedBody.html());
+						element.addClass('placeholder').removeClass('full');
+						element.bind('click', loadCommentForm);
+					}
 				});
 			};
 			var applyCommentFormListeners = function() {
@@ -28,7 +34,8 @@
 			var submitCommentForm = function() {
 				var postData = {
 					subject: element.find('#subject').val(),
-					comment: element.find('#words').val()
+					comment: element.find('#words').val(),
+					hash: element.find('#hash').val()
 				};
 				if (typeof postData == 'undefined' || postData.comment.length < 1) {
 					element.find('#words').parent().parent().addClass('error');

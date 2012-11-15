@@ -69,34 +69,45 @@ class Tx_Dialog_ViewHelpers_Widget_Controller_CommentController extends Tx_Fluid
 	}
 
 	/**
+	 * @param string $hash
+	 * @param boolean $ajax
 	 * @return string
 	 */
-	public function indexAction() {
-		$discussion = $this->discussionRepository->getOrCreateByHash($this->widgetConfiguration['hash'], TRUE);
+	public function indexAction($hash = NULL, $ajax = FALSE) {
+		if ($hash === NULL) {
+			$hash = $this->widgetConfiguration['hash'];
+		}
+		$discussion = $this->discussionRepository->getOrCreateByHash($hash, TRUE);
 		$this->view->assignMultiple($this->widgetConfiguration);
 		if ($this->request->hasArgument('ajax')) {
 			$this->view->assign('placeholder', FALSE);
 		}
 		$this->view->assign('view', 'Discussion');
 		$this->view->assign('discussion', $discussion);
+		$this->view->assign('hash', $hash);
+		$this->view->assign('ajax', $ajax);
+		#return $discussion->getUid();
 		return $this->view->render();
 	}
 
 	/**
+	 * @param string $hash
 	 * @param boolean $ajax
 	 * @return string
 	 */
-	public function formAction($ajax = FALSE) {
-		return $this->indexAction();
+	public function formAction($hash, $ajax = FALSE) {
+		#return $hash;
+		return $this->indexAction($hash, $ajax);
 	}
 
 	/**
+	 * @param string $hash
 	 * @param string $subject
 	 * @param string $comment
 	 * @return void
 	 */
-	public function writeAction($subject, $comment) {
-		$discussion = $this->discussionRepository->getOrCreateByHash($this->widgetConfiguration['hash'], TRUE);
+	public function writeAction($hash, $subject, $comment) {
+		$discussion = $this->discussionRepository->getOrCreateByHash($hash, TRUE);
 		/** @var $post Tx_Dialog_Domain_Model_Post */
 		$post = $this->objectManager->create('Tx_Dialog_Domain_Model_Post');
 		$poster = $this->posterRepository->getOrCreatePoster(TRUE);
@@ -110,8 +121,7 @@ class Tx_Dialog_ViewHelpers_Widget_Controller_CommentController extends Tx_Fluid
 		} else {
 			$this->discussionRepository->add($discussion);
 		}
-		$this->objectManager->get('Tx_Extbase_Persistence_ManagerInterface')->persistAll();
-		return $this->indexAction();
+		return;
 	}
 
 }
