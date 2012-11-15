@@ -10,6 +10,7 @@
 			var loadCommentForm = function() {
 				element.load(urlForm, function() {
 					element.removeClass('placeholder').addClass('full').unbind('click');
+					element.find('button[type="submit"]').removeAttr('disabled');
 					applyCommentFormListeners();
 				});
 			};
@@ -29,6 +30,13 @@
 					subject: element.find('#subject').val(),
 					comment: element.find('#words').val()
 				};
+				if (typeof postData == 'undefined' || postData.comment.length < 1) {
+					element.find('#words').parent().parent().addClass('error');
+					return;
+				} else {
+					element.find('#words').parent().parent().removeClass('error');
+				};
+				element.find('button[type="submit"]').attr('disabled', 'disabled');
 				jQuery.ajax({
 					url: urlPost,
 					type: 'post',
