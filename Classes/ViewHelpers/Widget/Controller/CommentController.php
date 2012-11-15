@@ -86,7 +86,6 @@ class Tx_Dialog_ViewHelpers_Widget_Controller_CommentController extends Tx_Fluid
 		$this->view->assign('discussion', $discussion);
 		$this->view->assign('hash', $hash);
 		$this->view->assign('ajax', $ajax);
-		#return $discussion->getUid();
 		return $this->view->render();
 	}
 
@@ -96,7 +95,6 @@ class Tx_Dialog_ViewHelpers_Widget_Controller_CommentController extends Tx_Fluid
 	 * @return string
 	 */
 	public function formAction($hash, $ajax = FALSE) {
-		#return $hash;
 		return $this->indexAction($hash, $ajax);
 	}
 

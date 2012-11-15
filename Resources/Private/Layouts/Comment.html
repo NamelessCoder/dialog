@@ -16,7 +16,6 @@
 			data-url-post="{f:widget.uri(action: 'write', ajax: 1, arguments: {ajax: 1, hash: hash})}"
 			data-url-close="{f:widget.uri(action: 'form', ajax: 1, arguments: {hash: hash})}">
 			<f:format.raw><f:format.printf arguments="{0: '{discussion.posts -> f:count()}'}">{placeholder}</f:format.printf></f:format.raw>
-			<f:count>{discussion.posts}</f:count> {discussion.title}
 		</div>
 	</f:then>
 	<f:else>
