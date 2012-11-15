@@ -146,7 +146,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 			Tx_Dialog_Domain_Model_Thread $thread=NULL,
 			Tx_Dialog_Domain_Model_Post $parent=NULL,
 			$errors=array()) {
-		$poster = $this->getPoster();
+		$poster = $this->posterRepository->getOrCreatePoster();
 		if ($poster === NULL) {
 			$poster = $this->objectManager->create('Tx_Dialog_Domain_Model_Poster');
 		}
@@ -200,13 +200,13 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		$now = new DateTime();
 
 		$requestAuthorizationEmail = FALSE;
-		$poster = $this->getPoster();
+		$poster = $this->$this->posterRepository->getOrCreatePoster();
 		if (!$poster && $this->posterRepository->findByEmail($post->getPoster()->getEmail())->count() > 0) {
 			$poster = $this->posterRepository->findOneByEmail($post->getPoster()->getEmail());
 			$post->setPublished(0);
 			$requestAuthorizationEmail = TRUE;
 		} else {
-			$poster = $this->getPoster();
+			$poster = $this->posterRepository->getOrCreatePoster();
 			if ($poster) {
 				$post->setPublished(1);
 			} else {

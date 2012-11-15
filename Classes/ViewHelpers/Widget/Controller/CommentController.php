@@ -72,10 +72,13 @@ class Tx_Dialog_ViewHelpers_Widget_Controller_CommentController extends Tx_Fluid
 	 * @return string
 	 */
 	public function indexAction() {
+		$discussion = $this->discussionRepository->getOrCreateByHash($this->widgetConfiguration['hash'], TRUE);
 		$this->view->assignMultiple($this->widgetConfiguration);
 		if ($this->request->hasArgument('ajax')) {
 			$this->view->assign('placeholder', FALSE);
 		}
+		$this->view->assign('view', 'Discussion');
+		$this->view->assign('discussion', $discussion);
 		return $this->view->render();
 	}
 
@@ -92,13 +95,22 @@ class Tx_Dialog_ViewHelpers_Widget_Controller_CommentController extends Tx_Fluid
 	 * @param string $comment
 	 * @return void
 	 */
-	public function postAction($subject, $comment) {
-		$discussion = $this->discussionRepository->findOneByHash($this->widgetConfiguration['hash']);
-		if (!$discussion) {
-			$discussion = $this->objectManager->create('Tx_Dialog_Domain_Model_Discussion');
-		}
+	public function writeAction($subject, $comment) {
+		$discussion = $this->discussionRepository->getOrCreateByHash($this->widgetConfiguration['hash'], TRUE);
+		/** @var $post Tx_Dialog_Domain_Model_Post */
 		$post = $this->objectManager->create('Tx_Dialog_Domain_Model_Post');
-		#$poster = $thi
+		$poster = $this->posterRepository->getOrCreatePoster(TRUE);
+		$post->setPoster($poster);
+		$post->setSubject($subject);
+		$post->setContent($comment);
+		$discussion->addPost($post);
+		$this->postRepository->add($post);
+		if ($discussion->getUid()) {
+			$this->discussionRepository->update($discussion);
+		} else {
+			$this->discussionRepository->add($discussion);
+		}
+		$this->objectManager->get('Tx_Extbase_Persistence_ManagerInterface')->persistAll();
 		return $this->indexAction();
 	}
 

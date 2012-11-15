@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2012 Claus Due <claus@wildside.dk>, Wildside A/S
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -35,6 +35,22 @@
 class Tx_Dialog_Domain_Repository_DiscussionRepository extends Tx_Dialog_Persistence_Repository {
 
 
+	/**
+	 * @param string $hash
+	 * @param boolean $autoAddIfMissing
+	 * @return Tx_Dialog_Domain_Model_Discussion|NULL
+	 */
+	public function getOrCreateByHash($hash, $autoAddIfMissing) {
+		/** @var $discussion Tx_Dialog_Domain_Model_Discussion */
+		$discussion = $this->findOneByHash($hash);
+		if (!$discussion) {
+			$discussion = $this->objectManager->create('Tx_Dialog_Domain_Model_Discussion');
+			$discussion->setHash($hash);
+			if ($autoAddIfMissing) {
+				$this->add($discussion);
+			}
+		}
+		return $discussion;
+	}
 
 }
-?>

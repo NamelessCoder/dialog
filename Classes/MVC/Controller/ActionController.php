@@ -116,7 +116,7 @@ abstract class Tx_Dialog_MVC_Controller_ActionController extends Tx_Extbase_MVC_
 		$view->setPartialRootPath($paths['partialRootPath']);
 		$view->setTemplateRootPath($paths['templateRootPath'] . 'ViewHelpers/Widget/');
 		$view->assign('settings', $this->settings);
-		$view->assign('poster', $this->getPoster());
+		$view->assign('poster', $this->posterRepository->getOrCreatePoster());
 		$this->view = $view;
 	}
 
@@ -131,26 +131,6 @@ abstract class Tx_Dialog_MVC_Controller_ActionController extends Tx_Extbase_MVC_
 			$discussions = $this->discussionRepository->findAll();
 		}
 		$this->view->assign('discussions', $discussions);
-	}
-
-	/**
-	 * @return Tx_Dialog_Domain_Model_Poster
-	 */
-	protected function getPoster() {
-		if ($_SESSION['dialog_poster_identifier'] != '' || $_COOKIE['dialog_poster_identifier'] != '') {
-			$poster = $this->posterRepository->findOneByIdentifier($_COOKIE['dialog_poster_identifier'] ? $_COOKIE['dialog_poster_identifier'] : $_SESSION['dialog_poster_identifier']);
-		} elseif ($GLOBALS['TSFE']->fe_user->user) {
-			$userRecord = $GLOBALS['TSFE']->fe_user->user;
-			$poster = $this->posterRepository->findOneByEmail($userRecord['email']);
-			if (!$poster) {
-				$poster = $this->objectManager->create('Tx_Dialog_Domain_Model_Poster');
-				$poster->setName($userRecord['name']);
-				$poster->setEmail($userRecord['email']);
-			}
-		} else {
-			$poster = NULL;
-		}
-		return $poster;
 	}
 
 }
