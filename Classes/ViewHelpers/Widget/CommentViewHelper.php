@@ -49,10 +49,33 @@ class Tx_Dialog_ViewHelpers_Widget_CommentViewHelper extends Tx_Dialog_ViewHelpe
 	protected $controller;
 
 	/**
+	 * @var string
+	 */
+	protected $backupPluginName;
+
+	/**
 	 * @param Tx_Dialog_ViewHelpers_Widget_Controller_CommentController $controller
 	 */
 	public function injectController(Tx_Dialog_ViewHelpers_Widget_Controller_CommentController $controller) {
 		$this->controller = $controller;
+	}
+
+	/**
+	 * @return void
+	 */
+	public function initialize() {
+			// Note: This is sort of, kid of, a hack. It ensures that "pluginName" is
+			// available to the controller - in order to fix an issue with a Widget from
+			// one Extension inside a Widget from another extension. Yo dawg.
+		$this->backupPluginName = $this->controllerContext->getRequest()->getPluginName();
+		$this->controllerContext->getRequest()->setPluginName('Comment');
+	}
+
+	/**
+	 * @return void
+	 */
+	public function __destruct() {
+		$this->controllerContext->getRequest()->setPluginName($this->backupPluginName);
 	}
 
 	/**
