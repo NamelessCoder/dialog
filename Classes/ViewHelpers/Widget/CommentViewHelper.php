@@ -72,13 +72,6 @@ class Tx_Dialog_ViewHelpers_Widget_CommentViewHelper extends Tx_Dialog_ViewHelpe
 	}
 
 	/**
-	 * @return void
-	 */
-	public function __destruct() {
-		$this->controllerContext->getRequest()->setPluginName($this->backupPluginName);
-	}
-
-	/**
 	 * Initialize
 	 */
 	public function initializeArguments() {
@@ -94,7 +87,9 @@ class Tx_Dialog_ViewHelpers_Widget_CommentViewHelper extends Tx_Dialog_ViewHelpe
 	 */
 	public function render() {
 		$GLOBALS['TSFE']->additionalHeaderData['dialog-comment'] = $this->getScriptBlock();
-		return $this->initiateSubRequest();
+		$content =  $this->initiateSubRequest();
+		$this->controllerContext->getRequest()->setPluginName($this->backupPluginName);
+		return $content;
 	}
 
 	/**
