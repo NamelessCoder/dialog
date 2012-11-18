@@ -353,47 +353,49 @@
 			</f:if>
 			<div class="mini-layout container-fluid">
 				<div class="row-fluid">
-					<div class="span4">
-						<fieldset>
-							<legend><f:translate key="personalInfo" /></legend>
-							<div class="control-group{f:if(condition: errors.name, then: ' error')}">
-								<label class="control-label" for="name"><f:translate key="tx_dialog_domain_model_poster.name" /></label>
-								<div class="controls">
-									<f:form.textfield property="poster.name" value="{poster.name}" id="name" class="input-xlarge" errorClass="{settings.errorClass}" />
-								</div>
-							</div>
-								<div class="control-group{f:if(condition: errors.email, then: ' error')}">
-								<label class="control-label" for="email"><f:translate key="tx_dialog_domain_model_poster.email" /></label>
-								<div class="controls">
-									<div class="input-prepend">
-										<span class="add-on email"><i class="icon-envelope"></i></span>
-										<f:form.textfield property="poster.email" value="{poster.email}" id="email" class="input-xlarge email" errorClass="{settings.errorClass}" />
-										<p class="help-block"><f:translate key="emailFieldMessage" /></p>
+					<fed:auth.deny anyFrontendUser="TRUE">
+						<div class="span4">
+							<fieldset>
+								<legend><f:translate key="personalInfo" /></legend>
+								<div class="control-group{f:if(condition: errors.name, then: ' error')}">
+									<label class="control-label" for="name"><f:translate key="tx_dialog_domain_model_poster.name" /></label>
+									<div class="controls">
+										<f:form.textfield property="poster.name" value="{poster.name}" id="name" class="input-xlarge" errorClass="{settings.errorClass}" />
 									</div>
 								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label" for="web">Web</label>
-								<div class="controls">
-									<div class="input-prepend">
-										<span class="add-on web">http://</span>
-										<f:form.textfield property="poster.web" value="{poster.web}" id="web" class="input-large web" errorClass="{settings.errorClass}" />
-										<p class="help-block"><f:translate key="webFieldMessage" /></p>
+									<div class="control-group{f:if(condition: errors.email, then: ' error')}">
+									<label class="control-label" for="email"><f:translate key="tx_dialog_domain_model_poster.email" /></label>
+									<div class="controls">
+										<div class="input-prepend">
+											<span class="add-on email"><i class="icon-envelope"></i></span>
+											<f:form.textfield property="poster.email" value="{poster.email}" id="email" class="input-xlarge email" errorClass="{settings.errorClass}" />
+											<p class="help-block"><f:translate key="emailFieldMessage" /></p>
+										</div>
 									</div>
 								</div>
-							</div>
-							<f:if condition="{poster.identifier}">
-								<div class="form-actions">
-									<fed:script>
-										jQuery(document).ready(function($) { $('#removeAndForget').popover(<f:escape>{</f:escape>"title": "<f:translate key="forgetAndRemove" />", "content": "<f:translate key="forgetAndRemoveTitle" />"}); <f:escape>}</f:escape>);
-									</fed:script>
-									<f:link.action action="forget" arguments="{identifier: poster.identifier, remove: 1}" id="removeAndForget" class="btn btn-inverse"><f:translate key="forgetAndRemove" /></f:link.action>
-									<f:link.action action="forget" arguments="{identifier: poster.identifier}" class="btn btn-danger"><f:translate key="forget" /></f:link.action>
+								<div class="control-group">
+									<label class="control-label" for="web">Web</label>
+									<div class="controls">
+										<div class="input-prepend">
+											<span class="add-on web">http://</span>
+											<f:form.textfield property="poster.web" value="{poster.web}" id="web" class="input-large web" errorClass="{settings.errorClass}" />
+											<p class="help-block"><f:translate key="webFieldMessage" /></p>
+										</div>
+									</div>
 								</div>
-							</f:if>
-						</fieldset>
-					</div>
-					<div class="span8">
+								<f:if condition="{poster.identifier}">
+									<div class="form-actions">
+										<fed:script>
+											jQuery(document).ready(function($) { $('#removeAndForget').popover(<f:escape>{</f:escape>"title": "<f:translate key="forgetAndRemove" />", "content": "<f:translate key="forgetAndRemoveTitle" />"}); <f:escape>}</f:escape>);
+										</fed:script>
+										<f:link.action action="forget" arguments="{identifier: poster.identifier, remove: 1}" id="removeAndForget" class="btn btn-inverse"><f:translate key="forgetAndRemove" /></f:link.action>
+										<f:link.action action="forget" arguments="{identifier: poster.identifier}" class="btn btn-danger"><f:translate key="forget" /></f:link.action>
+									</div>
+								</f:if>
+							</fieldset>
+						</div>
+					</fed:auth.deny>
+					<div class="span{fed:auth.deny(anyFrontendUser: 1, then: 8, else: 12)}">
 						<f:render section="Form" arguments="{_all}" />
 					</div>
 				</div>
