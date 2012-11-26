@@ -12,6 +12,21 @@ plugin.tx_dialog {
 		responsePrefix = Re:
 		numberOfLatestPosts = 5
 		cookieLifetime = 8046000
+		subscription {
+			components {
+				heroUnit {
+					# this is an array of settings as used by the Widget for subscriptions, from EXT:dialog
+					display {
+						mode = Button
+						link {
+						    subscribed = Notifications enabled
+						    unsubscribed = Enable notifications
+						    title = Click to enable notifications sent to your email address
+						}
+					}
+				}
+			}
+		}
 		posting {
 			cleaning {
 				# a value of 3 here allows a single line of space between lines
