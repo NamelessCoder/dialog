@@ -1,6 +1,5 @@
 plugin.tx_dialog {
 	settings {
-		loadJQuery = 0
 		dateFormat = Y-m-d H:i
 		allowedHtmlTags = pre,code,quote,blockquote,link,list,em,strong
 		popularityHalflife = 86400
