@@ -51,7 +51,7 @@
 						</f:link.action>
 						<fed:loaded extensionKey="notify">
 							<notify:widget.subscribe mode="1" object="{thread}" fields="posts"
-								settings="{display: { mode: 'button', button: {class: 'btn btn-small'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
+								settings="{settings.subscription.components.heroUnit}" />
 						</fed:loaded>
 					</div>
 				</f:then>
@@ -297,7 +297,7 @@
 </f:section>
 
 <f:section name="PostOptions">
-	<div class="form-actions post-options">
+	<div class="post-options well well-small">
 		<f:link.action action="write" arguments="{discussion: discussion.uid, thread: thread.uid, parent: postItem.uid}" class="btn btn-mini btn-primary white">
 			<i class="icon-comment icon-white"></i> <f:translate key="replyTo" /> {postItem.poster.name}</a>
 		</f:link.action>
@@ -360,7 +360,7 @@
 								<div class="control-group{f:if(condition: errors.name, then: ' error')}">
 									<label class="control-label" for="name"><f:translate key="tx_dialog_domain_model_poster.name" /></label>
 									<div class="controls">
-										<f:form.textfield property="poster.name" value="{poster.name}" id="name" class="input-xlarge" errorClass="{settings.errorClass}" />
+										<f:form.textfield class="poster-name" property="poster.name" value="{poster.name}" id="name" errorClass="{settings.errorClass}" />
 									</div>
 								</div>
 									<div class="control-group{f:if(condition: errors.email, then: ' error')}">
@@ -368,7 +368,7 @@
 									<div class="controls">
 										<div class="input-prepend">
 											<span class="add-on email"><i class="icon-envelope"></i></span>
-											<f:form.textfield property="poster.email" value="{poster.email}" id="email" class="input-xlarge email" errorClass="{settings.errorClass}" />
+											<f:form.textfield property="poster.email" value="{poster.email}" id="email" class="email poster-email" errorClass="{settings.errorClass}" />
 											<p class="help-block"><f:translate key="emailFieldMessage" /></p>
 										</div>
 									</div>
@@ -378,7 +378,7 @@
 									<div class="controls">
 										<div class="input-prepend">
 											<span class="add-on web">http://</span>
-											<f:form.textfield property="poster.web" value="{poster.web}" id="web" class="input-large web" errorClass="{settings.errorClass}" />
+											<f:form.textfield property="poster.web" value="{poster.web}" id="web" class="web poster-web" errorClass="{settings.errorClass}" />
 											<p class="help-block"><f:translate key="webFieldMessage" /></p>
 										</div>
 									</div>
@@ -405,7 +405,7 @@
 </f:section>
 
 <f:section name="Form">
-	<fieldset>
+	<fieldset class="words-form">
 		<f:if condition="{customTitle}">
 			<f:then>
 				<legend>{customTitle}</legend>
