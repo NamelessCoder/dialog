@@ -35,11 +35,13 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	 *
 	 * @param Tx_Dialog_Domain_Model_Discussion $discussion
 	 * @param Tx_Dialog_Domain_Model_Thread $thread
+	 * @param integer $page
 	 * @return string
 	 * @route NoMatch('bypass') $discussion
 	 * @route NoMatch('bypass') $thread
+	 * @route NoMatch('bypass') $page
 	 */
-	public function indexAction(Tx_Dialog_Domain_Model_Discussion $discussion = NULL, Tx_Dialog_Domain_Model_Thread $thread = NULL) {
+	public function indexAction(Tx_Dialog_Domain_Model_Discussion $discussion = NULL, Tx_Dialog_Domain_Model_Thread $thread = NULL, $page = 1) {
 		$this->assignDiscussionTemplateVariables();
 		$this->view->assign('view', 'Discussions');
 		$this->view->assign('latest', $this->postRepository->findLatest($this->settings['numberOfLatestPosts']));
@@ -49,9 +51,10 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	/**
 	 * @param Tx_Dialog_Domain_Model_Discussion $discussion
 	 * @param Tx_Dialog_Domain_Model_Thread $thread
+	 * @param integer $page
 	 * @return string
 	 */
-	public function showAction(Tx_Dialog_Domain_Model_Discussion $discussion = NULL, Tx_Dialog_Domain_Model_Thread $thread = NULL) {
+	public function showAction(Tx_Dialog_Domain_Model_Discussion $discussion = NULL, Tx_Dialog_Domain_Model_Thread $thread = NULL, $page = 1) {
 		$this->assignDiscussionTemplateVariables();
 		if ($discussion && $thread) {
 			$mode = 'DiscussionThread';
@@ -130,21 +133,24 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	/**
 	 * Renders the "add new" form (url params describe what to add and where)
 	 *
-	 * @param Tx_Dialog_Domain_Model_Post $post
 	 * @param Tx_Dialog_Domain_Model_Discussion $discussion
 	 * @param Tx_Dialog_Domain_Model_Thread $thread
 	 * @param Tx_Dialog_Domain_Model_Post $parent
+	 * @param Tx_Dialog_Domain_Model_Post $post
 	 * @param array $errors
 	 * @return string
-	 * @dontvalidate $post
 	 * @dontvalidate $discussion
 	 * @dontvalidate $thread
+	 * @dontvalidate $parent
+	 * @dontvalidate $post
+	 * @route off $post
+	 * @route off $errors
 	 */
 	public function writeAction(
-			Tx_Dialog_Domain_Model_Post $post=NULL,
 			Tx_Dialog_Domain_Model_Discussion $discussion=NULL,
 			Tx_Dialog_Domain_Model_Thread $thread=NULL,
 			Tx_Dialog_Domain_Model_Post $parent=NULL,
+			Tx_Dialog_Domain_Model_Post $post=NULL,
 			$errors=array()) {
 		$poster = $this->posterRepository->getOrCreatePoster();
 		if ($poster === NULL) {
