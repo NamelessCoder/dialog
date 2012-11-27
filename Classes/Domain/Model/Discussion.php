@@ -77,6 +77,7 @@ class Tx_Dialog_Domain_Model_Discussion extends Tx_Extbase_DomainObject_Abstract
 	 * Threads
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Dialog_Domain_Model_Thread>
+	 * @lazy
 	 */
 	protected $threads;
 
@@ -84,6 +85,7 @@ class Tx_Dialog_Domain_Model_Discussion extends Tx_Extbase_DomainObject_Abstract
 	 * Posts
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Dialog_Domain_Model_Post>
+	 * @lazy
 	 */
 	protected $posts;
 

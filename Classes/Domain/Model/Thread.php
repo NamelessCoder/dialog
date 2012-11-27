@@ -51,6 +51,7 @@ class Tx_Dialog_Domain_Model_Thread extends Tx_Extbase_DomainObject_AbstractEnti
 	 * Posts
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Dialog_Domain_Model_Post>
+	 * @lazy
 	 */
 	protected $posts;
 

@@ -64,6 +64,7 @@ class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity
 	 * Replies
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Dialog_Domain_Model_Post>
+	 * @lazy
 	 */
 	protected $replies;
 
