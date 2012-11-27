@@ -32,7 +32,7 @@ class Tx_Dialog_ViewHelpers_Widget_DiscussionViewHelper extends Tx_Fluid_Core_Wi
 	/**
 	 * @var string
 	 */
-	protected $ajaxWidget = TRUE;
+	protected $ajaxWidget = FALSE;
 
 	/**
 	 * @var Tx_Dialog_ViewHelpers_Widget_Controller_DiscussionController
