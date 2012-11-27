@@ -30,10 +30,26 @@
 class Tx_Dialog_ViewHelpers_Widget_Controller_DiscussionController extends Tx_Fluid_Core_Widget_AbstractWidgetController {
 
 	/**
+	 * @var Tx_Dialog_Domain_Repository_ThreadRepository
+	 */
+	protected $threadRepository;
+
+	/**
+	 * @param Tx_Dialog_Domain_Repository_ThreadRepository $threadRepository
+	 * @return void
+	 */
+	public function injectThreadRepository(Tx_Dialog_Domain_Repository_ThreadRepository $threadRepository) {
+		$this->threadRepository = $threadRepository;
+	}
+
+	/**
 	 * @return string
 	 */
 	public function indexAction() {
 		$this->view->assignMultiple($this->widgetConfiguration);
+		if (TRUE === isset($this->widgetConfiguration['discussion'])) {
+			$this->view->assign('threads', $this->threadRepository->findByDiscussion($this->widgetConfiguration['discussion']->getUid()));
+		}
 	}
 
 }

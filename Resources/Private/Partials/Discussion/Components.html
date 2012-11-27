@@ -50,7 +50,7 @@
 							<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
 						</f:link.action>
 						<fed:loaded extensionKey="notify">
-							<notify:widget.subscribe mode="1" object="{thread}" fields="posts"
+							<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_discussion" uid="{discussion.uid}" fields="posts"
 								settings="{settings.subscription.components.heroUnit}" />
 						</fed:loaded>
 					</div>
@@ -72,7 +72,7 @@
 							<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
 						</f:link.action>
 						<fed:loaded extensionKey="notify">
-							<notify:widget.subscribe mode="1" object="{discussion}" fields="threads"
+							<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_discussion" uid="{discussion.uid}" fields="threads"
 								settings="{display: { mode: 'button', button: {class: 'btn btn-small'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
 						</fed:loaded>
 					</div>
@@ -167,32 +167,34 @@
 
 <f:section name="Discussion">
 	<f:render section="Head" arguments="{_all}" />
-	<f:if condition="{discussion.threads}">
+	<f:if condition="{threads}">
 		<f:then>
-			<table class="table table-striped table-bordered">
-				<tbody>
-					<f:for each="{discussion.threads}" as="threadItem">
-						<tr>
-							<td><f:link.action action="show" arguments="{discussion: discussion.uid, thread: threadItem.uid}"><f:if condition="{threadItem.subject}" then="{threadItem.subject}" else="No subject" /></f:link.action></td>
-							<td class="options">
-								<i class="icon-time"></i> <f:format.date format="{settings.dateFormat}">{threadItem.crdate}</f:format.date>
-								<i class="icon-comment"></i> <f:count><dialog:related hash="{threadItem.hash}" /></f:count>
-							</td>
-						</tr>
-					</f:for>
-				</tbody>
-				<f:if condition="{settings.enableHeroUnit} < 1">
-					<tfoot>
-						<tr>
-							<td colspan="2">
-								<f:link.action action="write" arguments="{discussion: discussion.uid}" class="btn btn-primary white">
-									<i class="icon-comment icon-white"></i> <f:translate key="thread.start" />
-								</f:link.action>
-							</td>
+			<f:widget.paginate objects="{threads}" as="paginatedThreads" configuration="{itemsPerPage: settings.itemsPerPage, insertAbove: 1, insertBelow: 1}">
+				<table class="table table-striped table-bordered">
+					<tbody>
+						<f:for each="{paginatedThreads}" as="threadItem">
+							<tr>
+								<td><f:link.action action="show" arguments="{discussion: discussion.uid, thread: threadItem.uid}"><f:if condition="{threadItem.subject}" then="{threadItem.subject}" else="No subject" /></f:link.action></td>
+								<td class="options">
+									<i class="icon-time"></i> <f:format.date format="{settings.dateFormat}">{threadItem.crdate}</f:format.date>
+									<i class="icon-comment"></i> <f:count><dialog:related hash="{threadItem.hash}" /></f:count>
+								</td>
 							</tr>
-					</tfoot>
-				</f:if>
-			</table>
+						</f:for>
+					</tbody>
+					<f:if condition="{settings.enableHeroUnit} < 1">
+						<tfoot>
+							<tr>
+								<td colspan="2">
+									<f:link.action action="write" arguments="{discussion: discussion.uid}" class="btn btn-primary white">
+										<i class="icon-comment icon-white"></i> <f:translate key="thread.start" />
+									</f:link.action>
+								</td>
+								</tr>
+						</tfoot>
+					</f:if>
+				</table>
+			</f:widget.paginate>
 		</f:then>
 		<f:else>
 			<p class="label"><f:translate key="noThreads" /></p>
@@ -307,7 +309,7 @@
 			</f:link.action>
 		</f:if>
 		<fed:loaded extensionKey="notify">
-			<notify:widget.subscribe mode="1" object="{postItem}" fields="replies"
+			<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_post" uid="{postItem.uid}" fields="replies"
 				settings="{display: { mode: 'button', button: {class: 'btn btn-mini'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
 		</fed:loaded>
 	</div>

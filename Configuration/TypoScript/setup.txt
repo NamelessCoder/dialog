@@ -10,6 +10,7 @@ plugin.tx_dialog {
 		errorClass = f3-form-error
 		responsePrefix = Re:
 		numberOfLatestPosts = 5
+		itemsPerPage = 20
 		cookieLifetime = 8046000
 		subscription {
 			components {
@@ -41,6 +42,7 @@ plugin.tx_dialog {
 		templateRootPath = {$plugin.tx_dialog.view.templateRootPath}
 		partialRootPath = {$plugin.tx_dialog.view.partialRootPath}
 		layoutRootPath = {$plugin.tx_dialog.view.layoutRootPath}
+		widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_dialog.view.templateRootPath}
 	}
 	persistence {
 		storagePid = {$plugin.tx_dialog.persistence.storagePid}

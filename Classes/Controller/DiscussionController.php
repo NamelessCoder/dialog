@@ -65,6 +65,9 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		} else {
 			$this->forward('index');
 		}
+		if ($discussion) {
+			$this->view->assign('threads', $this->threadRepository->findByDiscussion($discussion->getUid()));
+		}
 		$this->view->assign('view', $mode);
 		$this->view->assign('discussion', $discussion);
 		$this->view->assign('thread', $thread);
