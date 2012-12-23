@@ -113,9 +113,10 @@
 		<f:then>
 			<h2><f:translate key="discussions" /></h2>
 			<f:for each="{discussions}" as="discussionItem" iteration="iteration">
+				<span class="label label-info thread-last-update pull-right"><f:format.date format="{settings.dateFormat}">{discussionItem.crdate}</f:format.date></span>
 				<h4>
 					<f:link.action action="show" arguments="{discussion: discussionItem.uid}">
-						<span class="label label-info thread-last-update pull-right"><f:format.date format="{settings.dateFormat}">{discussionItem.crdate}</f:format.date></span> {discussionItem.title}
+						{discussionItem.title}
 					</f:link.action>
 					<small>
 						<em><f:translate key="by" /> {discussionItem.poster.name}</em>
