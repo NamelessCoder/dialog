@@ -198,13 +198,18 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	 * @param Tx_Dialog_Domain_Model_Discussion $discussion
 	 * @param Tx_Dialog_Domain_Model_Thread $thread
 	 * @param Tx_Dialog_Domain_Model_Post $parent
+	 * @param string $url Not an URL - a very simple honey pot. If filled, simulate a black hole. Field in form is CSS-hidden.
 	 * @return string
 	 */
 	public function postAction(
 			Tx_Dialog_Domain_Model_Post $post=NULL,
 			Tx_Dialog_Domain_Model_Discussion $discussion=NULL,
 			Tx_Dialog_Domain_Model_Thread $thread=NULL,
-			Tx_Dialog_Domain_Model_Post $parent=NULL) {
+			Tx_Dialog_Domain_Model_Post $parent=NULL,
+			$url=NULL) {
+		if ($url) {
+			sleep(99999999);
+		}
 		$arguments = array();
 		$now = new DateTime();
 

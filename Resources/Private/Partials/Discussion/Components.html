@@ -339,6 +339,9 @@
 			<h2><f:translate key="writeReply" /></h2>
 		</f:if>
 		<f:form action="post" object="{post}" name="post" class="form-vertical">
+			<div style="display: none;">
+				<f:form.hidden name="url" value="" />
+			</div>
 			<f:if condition="{discussion}">
 				<f:form.hidden name="discussion" value="{f:if(condition: discussion, then: discussion.uid, else: 0)}" />
 			</f:if>
