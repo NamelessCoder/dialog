@@ -214,7 +214,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		$now = new DateTime();
 
 		$requestAuthorizationEmail = FALSE;
-		$poster = $this->$this->posterRepository->getOrCreatePoster();
+		$poster = $this->posterRepository->getOrCreatePoster();
 		if (!$poster && $this->posterRepository->findByEmail($post->getPoster()->getEmail())->count() > 0) {
 			$poster = $this->posterRepository->findOneByEmail($post->getPoster()->getEmail());
 			$post->setPublished(0);
