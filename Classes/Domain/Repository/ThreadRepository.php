@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2012 Claus Due <claus@wildside.dk>, Wildside A/S
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -34,7 +34,14 @@
  */
 class Tx_Dialog_Domain_Repository_ThreadRepository extends Tx_Dialog_Persistence_Repository {
 
-
+	/**
+	 * @return Tx_Extbase_Persistence_QueryInterface
+	 */
+	public function createQuery() {
+		$query = parent::createQuery();
+		$query->setOrderings(array('crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING));
+		return $query;
+	}
 
 }
 ?>
