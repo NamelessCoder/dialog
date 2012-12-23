@@ -124,7 +124,7 @@
 				<div class="latest-posts">
 					<f:if condition="{discussionItem.threads}">
 						<dl>
-							<f:for each="{discussionItem.threads -> v:iterator.sort(sortBy: lastUpdate, order: 'DESC') -> v:iterator.slice(length: 5)}" as="threadItem">
+							<f:for each="{discussionItem.threads -> v:iterator.sort(sortBy: lastUpdate, order: 'DESC') -> v:iterator.slice(length: settings.numberOfLatestPosts)}" as="threadItem">
 								<dd>
 									<f:link.action action="show" arguments="{discussion: discussionItem.uid, thread: threadItem.uid}">
 										<span class="label pull-right thread-last-update">
