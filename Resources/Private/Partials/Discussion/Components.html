@@ -51,10 +51,12 @@
 						<f:link.action action="write" arguments="{discussion: discussion.uid, thread: thread.uid}" class="btn btn-large btn-primary white">
 							<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
 						</f:link.action>
-						<fed:loaded extensionKey="notify">
-							<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_discussion" uid="{discussion.uid}" fields="posts"
-								settings="{settings.subscription.components.heroUnit}" />
-						</fed:loaded>
+						<f:if condition="{settings.enableSubscriptions}">
+							<fed:loaded extensionKey="notify">
+								<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_discussion" uid="{discussion.uid}" fields="posts"
+									settings="{settings.subscription.components.heroUnit}" />
+							</fed:loaded>
+						</f:if>
 					</div>
 				</f:then>
 				<f:else>
@@ -73,10 +75,12 @@
 						<f:link.action action="write" arguments="{discussion: discussion.uid}" class="btn btn-large btn-primary white">
 							<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
 						</f:link.action>
-						<fed:loaded extensionKey="notify">
-							<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_discussion" uid="{discussion.uid}" fields="threads"
-								settings="{display: { mode: 'button', button: {class: 'btn btn-small'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
-						</fed:loaded>
+						<f:if condition="{settings.enableSubscriptions}">
+							<fed:loaded extensionKey="notify">
+								<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_discussion" uid="{discussion.uid}" fields="threads"
+									settings="{display: { mode: 'button', button: {class: 'btn btn-small'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
+							</fed:loaded>
+						</f:if>
 					</div>
 				</f:else>
 			</f:if>
@@ -304,10 +308,12 @@
 				<i class="icon-exclamation-sign"></i> <f:translate key="reportInappropriate" />
 			</f:link.action>
 		</f:if>
-		<fed:loaded extensionKey="notify">
-			<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_post" uid="{postItem.uid}" fields="replies"
-				settings="{display: { mode: 'button', button: {class: 'btn btn-mini'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
-		</fed:loaded>
+		<f:if condition="{settings.enableSubscriptions}">
+			<fed:loaded extensionKey="notify">
+				<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_post" uid="{postItem.uid}" fields="replies"
+					settings="{display: { mode: 'button', button: {class: 'btn btn-mini'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
+			</fed:loaded>
+		</f:if>
 	</div>
 </f:section>
 
@@ -341,7 +347,7 @@
 		</f:if>
 		<f:form action="post" object="{post}" name="post" class="form-vertical">
 			<div style="display: none;">
-				<f:form.hidden name="url" value="" />
+				<f:form.textfield name="url" value="" />
 			</div>
 			<f:if condition="{discussion}">
 				<f:form.hidden name="discussion" value="{f:if(condition: discussion, then: discussion.uid, else: 0)}" />

@@ -8,6 +8,8 @@ plugin.tx_dialog {
         enableHeroUnit = 1
         # toolbar: a top navigation toolbar to move between sections
         enableToolbar = 1
+        # subscriptions: if enabled and EXT:notify installed, allows subscription to events (new Posts etc) in the forum
+        enableSubscriptions = 1
         # direct commenting: place Post form inline in all appropriate views
         enableDirectCommenting = 1
         # if enabled, places a button that quickly sends a "user thinks content is inappropriate" email to sysadmin
