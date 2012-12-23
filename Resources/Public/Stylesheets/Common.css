@@ -121,3 +121,15 @@ td.latest-items-options {
 .form-actions.right {
     text-align: right;
 }
+
+.badge.thread-last-update,
+.label.thread-last-update {
+	width: 90px;
+	text-align: right;
+	display: inline-block;
+	margin-top: 2px;
+}
+
+.latest-posts dd:hover {
+	background-color: #FAFAFA;
+}

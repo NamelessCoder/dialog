@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
 	  xmlns:fed="http://fedext.net/ns/fed/ViewHelpers"
 	  xmlns:dialog="http://fedext.net/ns/dialog/ViewHelpers"
+	  xmlns:v="http://fedext.net/ns/vhs/ViewHelpers"
 	  xmlns:f="http://typo3.org/ns/fluid/ViewHelpers">
 <head>
 	<title></title>
@@ -12,6 +13,7 @@
 {namespace flux=Tx_Flux_ViewHelpers}
 {namespace notify=Tx_Notify_ViewHelpers}
 {namespace dialog=Tx_Dialog_ViewHelpers}
+{namespace v=Tx_Vhs_ViewHelpers}
 <f:layout name="Discussion" />
 
 <f:section name="Toolbar">
@@ -109,45 +111,38 @@
 <f:section name="Discussions">
 	<f:if condition="{discussions}">
 		<f:then>
-			<div class="row-fluid">
-		    	<div class="span8">
-					<h2><f:translate key="discussions" /></h2>
-					<table class="table table-bordered">
-						<tbody>
-							<f:for each="{discussions}" as="discussionItem" iteration="iteration">
-								<tr>
-									<td>
-										<f:link.action action="show" arguments="{discussion: discussionItem.uid}">{discussionItem.title}</f:link.action><br />
-										<em><f:translate key="by" /> {discussionItem.poster.name}</em>
-									</td>
-									<td class="options">
-										<i class="icon-time"></i> <f:format.date format="{settings.dateFormat}">{discussionItem.crdate}</f:format.date><br />
-										<i class="icon-comment"></i> <f:count><dialog:related discussion="{discussionItem}" /></f:count>
-									</td>
-								</tr>
+			<h2><f:translate key="discussions" /></h2>
+			<f:for each="{discussions}" as="discussionItem" iteration="iteration">
+				<h4>
+					<f:link.action action="show" arguments="{discussion: discussionItem.uid}">
+						<span class="label label-info thread-last-update pull-right"><f:format.date format="{settings.dateFormat}">{discussionItem.crdate}</f:format.date></span> {discussionItem.title}
+					</f:link.action>
+					<small>
+						<em><f:translate key="by" /> {discussionItem.poster.name}</em>
+					</small>
+				</h4>
+				<div class="latest-posts">
+					<f:if condition="{discussionItem.threads}">
+						<dl>
+							<f:for each="{discussionItem.threads -> v:iterator.sort(sortBy: lastUpdate, order: 'DESC') -> v:iterator.slice(length: 5)}" as="threadItem">
+								<dd>
+									<f:link.action action="show" arguments="{discussion: discussionItem.uid, thread: threadItem.uid}">
+										<span class="label pull-right thread-last-update">
+											<small>
+												<f:format.date format="{settings.dateFormat}">{threadItem.crdate}</f:format.date>
+											</small>
+										</span>
+										{threadItem.subject}
+									</f:link.action>
+									<small>
+										<em><f:translate key="by" /> {threadItem.poster.name}</em>
+									</small>
+								</dd>
 							</f:for>
-						</tbody>
-					</table>
+						</dl>
+					</f:if>
 				</div>
-				<div class="span4">
-					<h2><f:translate key="latestPosts" /></h2>
-					<table class="table table-bordered">
-						<tbody>
-							<f:for each="{latest}" as="latestItem">
-								<tr>
-									<td>
-										<a href="{dialog:threadPostLink(post: latestItem)}">{latestItem.subject}</a><br />
-										<em><f:format.date format="{settings.dateFormat}">{latestItem.crdate}</f:format.date> {latestItem.poster.name}</em>
-									</td>
-									<td class="latest-items-options">
-										<i class="icon-comment"></i> <f:count><dialog:related hash="{latestItem.hash}" /></f:count>
-									</td>
-								</tr>
-							</f:for>
-						</tbody>
-					</table>
-		    	</div>
-			</div>
+			</f:for>
 		</f:then>
 		<f:else>
 			<f:translate key="noDiscussions" />
