@@ -37,6 +37,12 @@ plugin.tx_dialog {
 				}
 			}
 		}
+		markup {
+			# options: default (html), markdown, raw, template. Mode "markdown" requires CLI command "markdown" installed
+			mode = default
+			# if mode = template, a path to a Fluid (Partial) template which renders each Post text
+			template =
+		}
 		posting {
 			cleaning {
 				# a value of 3 here allows a single line of space between lines

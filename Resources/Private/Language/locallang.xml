@@ -24,6 +24,9 @@
 			<label index="emailFieldMessage">Your email will be recorded but not displayed.</label>
 			<label index="webFieldMessage">Please do not include http:// in your URL.</label>
 			<label index="allowedHtml">Allowed HTML:</label>
+			<label index="allowedMarkdown">Markdown enabled</label>
+			<label index="allowedMarkdownExample">__bold text__, _italic text_, [link text](http://link.url/ "optional title of link"), `code styled text`,
+				## Level 2 header text, > block-quoted text.</label>
 			<label index="latestPosts">Latest posts</label>
 
 			<label index="reportTitle">Report post</label>
@@ -47,7 +50,7 @@
 			<label index="thread.start">Start new subject</label>
 			<label index="reply.start">Reply to</label>
 
-			<label index="email.authorization.subject">Please authorize your email addres</label>			
+			<label index="email.authorization.subject">Please authorize your email addres</label>
 			<label index="email.salutation">Dear %s,</label>
 			<label index="email.signature">Kind regards,
 %s</label>
@@ -114,6 +117,8 @@ Forget this authorization (and let me re-authorize if needed):
 			<label index="emailFieldMessage">Din email bliver gemt men ikke vist.</label>
 			<label index="webFieldMessage">Inkludér venligst ikke http:// i din URL.</label>
 			<label index="allowedHtml">Tilladt HTML:</label>
+			<label index="allowedMarkdown">Markdown aktiveret</label>
+			<label index="allowedMarkdownExample">__fed tekst__, _kursiv_, [link tekst](http://link.url/ "frivillig titel"), `code-styling`, ## niveau 2 overskrift, > citeret tekst.</label>
 			<label index="latestPosts">Nyeste svar</label>
 
 			<label index="buttonSend">Send svar</label>
@@ -128,7 +133,7 @@ Forget this authorization (and let me re-authorize if needed):
 			<label index="email.salutation">Dear %s,</label>
 			<label index="email.signature">Kind regards,
 %s</label>
-			<label index="email.authorization.subject">Please authorize your email addres</label>			
+			<label index="email.authorization.subject">Please authorize your email addres</label>
 			<label index="email.authorization.explanation">You receive this email because you have not yet
 authorized this email address for commenting:
 
@@ -191,6 +196,8 @@ Forget this authorization (and let me re-authorize if needed):
 			<label index="emailFieldMessage">Din email bliver gemt men ikke vist.</label>
 			<label index="webFieldMessage">Inkludér venligst ikke http:// i din URL.</label>
 			<label index="allowedHtml">Tilladt HTML:</label>
+			<label index="allowedMarkdown">Markdown aktiveret</label>
+			<label index="allowedMarkdownExample">__fed tekst__, _kursiv_, [link tekst](http://link.url/ "frivillig titel"), `code-styling`, ## niveau 2 overskrift, > citeret tekst.</label>
 			<label index="latestPosts">Nyeste svar</label>
 
 			<label index="buttonSend">Send svar</label>

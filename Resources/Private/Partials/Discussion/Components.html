@@ -234,7 +234,7 @@
 		</div>
 		<div class="span10">
 			<h4>{postItem.subject}</h4>
-			<f:format.html>{postItem.content}</f:format.html>
+			<f:render section="PostItem" arguments="{postItem: postItem}" />
 			<f:render section="PostOptions" arguments="{_all}" />
 		</div>
 		<f:if condition="{postItem.replies}">
@@ -265,7 +265,7 @@
 					{postItem.subject}
 				</h4>
 				<div class="content">
-					<f:format.html>{postItem.content}</f:format.html>
+					<f:render section="PostItem" arguments="{postItem: postItem}" />
 				</div>
 				<f:if condition="{hideOptions} < 1">
 					<f:render section="PostOptions" arguments="{_all}" />
@@ -278,6 +278,24 @@
 			</f:if>
 		</f:if>
 	</div>
+</f:section>
+
+<f:section name="PostItem">
+	<v:switch value="{settings.markup.mode}">
+		<v:case case="raw" break="TRUE">
+			<f:format.raw>{postItem.content}</f:format.raw>
+		</v:case>
+		<v:case case="markdown" break="TRUE">
+			<v:format.markdown>{postItem.content}</v:format.markdown>
+		</v:case>
+		<v:case case="template" break="TRUE">
+			<v:render.template file="{settings.markup.template}" variables="{postItem: postItem, settings: settings}" />
+		</v:case>
+		<v:case case="html" />
+		<v:case case="default">
+			<f:format.html>{postItem.content}</f:format.html>
+		</v:case>
+	</v:switch>
 </f:section>
 
 <f:section name="Replies">
@@ -431,9 +449,22 @@
 			<label class="control-label" for="words"><f:translate key="tx_dialog_domain_model_post.content" /></label>
 			<div class="control">
 				<f:form.textarea property="content" rows="9" cols="60" id="words" errorClass="{settings.errorClass}" />
-				<p class="help-block allowed-html"><f:translate key="allowedHtml" /> <f:for each="{settings.allowedHtmlTags->fed:explode()}" as="allowedTag" iteration="tagIteration">
-					<code><f:format.htmlentities><{allowedTag}></f:format.htmlentities></code>
-				</f:for>
+				<p class="help-block allowed-html">
+					<v:switch value="{settings.markup.mode}">
+						<v:case case="html">
+							<f:translate key="allowedHtml" />
+							<f:for each="{settings.allowedHtmlTags->fed:explode()}" as="allowedTag" iteration="tagIteration">
+								<code><f:format.htmlentities><{allowedTag}></f:format.htmlentities></code>
+							</f:for>
+						</v:case>
+						<v:case case="markdown">
+							<h4>
+								<f:translate key="allowedMarkdown" />
+							</h4>
+							<f:translate key="allowedMarkdownExample" /> <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">http://daringfireball.net/projects/markdown/syntax</a>
+						</v:case>
+					</v:switch>
+				</p>
 			</div>
 		</div>
 		<div class="form-actions right">

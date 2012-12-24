@@ -153,4 +153,3 @@ plugin.tx_dialog.settings {
 
 * File uploads for Posts
 * Editing of own Posts by authenticated users
-* Markdown support as toggle to replace current HTML implementation
