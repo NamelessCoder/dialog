@@ -293,6 +293,9 @@
 		<v:case case="template" break="TRUE">
 			<v:render.template file="{settings.markup.template}" variables="{postItem: postItem, settings: settings}" />
 		</v:case>
+		<v:case case="nl2br" break="TRUE">
+			<f:format.nl2br>{postItem.content}</f:format.nl2br>
+		</v:case>
 		<v:case case="html" />
 		<v:case case="default">
 			<f:format.html>{postItem.content}</f:format.html>

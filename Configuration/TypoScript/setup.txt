@@ -38,7 +38,7 @@ plugin.tx_dialog {
 			}
 		}
 		markup {
-			# options: default (html), markdown, raw, template. Mode "markdown" requires CLI command "markdown" installed
+			# options: default (html), markdown, raw, nl2br, template. Mode "markdown" requires CLI command "markdown" installed
 			mode = default
 			# if mode = template, a path to a Fluid (Partial) template which renders each Post text
 			template =
