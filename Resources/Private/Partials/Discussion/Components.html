@@ -126,23 +126,27 @@
 				</h4>
 				<div class="latest-posts">
 					<f:if condition="{discussionItem.threads}">
-						<dl>
+						<table class="table {settings.postTableClass}">
 							<f:for each="{discussionItem.threads -> v:iterator.sort(sortBy: 'crdate', order: 'DESC') -> v:iterator.slice(length: settings.numberOfLatestPosts)}" as="threadItem">
-								<dd>
-									<f:link.action action="show" arguments="{discussion: discussionItem.uid, thread: threadItem.uid}">
+								<tr>
+									<td>
+										<f:link.action action="show" arguments="{discussion: discussionItem.uid, thread: threadItem.uid}">
+											{threadItem.subject}
+										</f:link.action>
+										<small>
+											<em><f:translate key="by" /> {threadItem.poster.name}</em>
+										</small>
+									</td>
+									<td>
 										<span class="label pull-right thread-last-update">
 											<small>
 												<f:format.date format="{settings.dateFormat}">{threadItem.crdate}</f:format.date>
 											</small>
 										</span>
-										{threadItem.subject}
-									</f:link.action>
-									<small>
-										<em><f:translate key="by" /> {threadItem.poster.name}</em>
-									</small>
-								</dd>
+									</td>
+								</tr>
 							</f:for>
-						</dl>
+						</table>
 					</f:if>
 				</div>
 			</f:for>
@@ -168,7 +172,7 @@
 	<f:if condition="{threads}">
 		<f:then>
 			<f:widget.paginate objects="{threads}" as="paginatedThreads" configuration="{itemsPerPage: settings.itemsPerPage, insertAbove: 1, insertBelow: 1}">
-				<table class="table table-condensed table-striped">
+				<table class="table {settings.postTableClass}">
 					<tbody>
 						<f:for each="{paginatedThreads}" as="threadItem">
 							<tr>

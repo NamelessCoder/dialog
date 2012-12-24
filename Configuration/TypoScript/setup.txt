@@ -20,6 +20,8 @@ plugin.tx_dialog {
         numberOfLatestPosts = 5
         # maximum number of Posts to display per page - currently only applies to Post list
         itemsPerPage = 20
+        # postTableClass: class name (Twitter Bootstrap table classes) of tables containing Posts.
+        postTableClass = table-condensed table-striped
         # duration of the cookie that is sent when a guest user uses the "store in cookie" confirmation link from the confirmation email
         cookieLifetime = 8046000
 		subscription {
