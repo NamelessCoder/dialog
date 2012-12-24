@@ -368,7 +368,7 @@
 			</blockquote>
 			<h2><f:translate key="writeReply" /></h2>
 		</f:if>
-		<f:form action="post" object="{post}" name="post" class="form-vertical">
+		<f:form action="post" object="{post}" name="post">
 			<div style="display: none;">
 				<f:form.textfield name="url" value="" />
 			</div>
@@ -387,34 +387,31 @@
 						<div class="span4">
 							<fieldset>
 								<legend><f:translate key="personalInfo" /></legend>
-								<div class="control-group{f:if(condition: errors.name, then: ' error')}">
-									<label class="control-label" for="name"><f:translate key="tx_dialog_domain_model_poster.name" /></label>
-									<div class="controls">
+								<div class="control-row {f:if(condition: errors.name, then: ' error')}">
+									<label for="name"><f:translate key="tx_dialog_domain_model_poster.name" /></label>
+									<div class="input-prepend">
+										<span class="add-on"><i class="icon-user"></i></span>
 										<f:form.textfield class="poster-name" property="poster.name" value="{poster.name}" id="name" errorClass="{settings.errorClass}" />
 									</div>
 								</div>
-									<div class="control-group{f:if(condition: errors.email, then: ' error')}">
-									<label class="control-label" for="email"><f:translate key="tx_dialog_domain_model_poster.email" /></label>
-									<div class="controls">
-										<div class="input-prepend">
-											<span class="add-on email"><i class="icon-envelope"></i></span>
-											<f:form.textfield property="poster.email" value="{poster.email}" id="email" class="email poster-email" errorClass="{settings.errorClass}" />
-											<p class="help-block"><f:translate key="emailFieldMessage" /></p>
-										</div>
+								<div class="control-row{f:if(condition: errors.email, then: ' error')}">
+									<label for="email"><f:translate key="tx_dialog_domain_model_poster.email" /></label>
+									<div class="input-prepend">
+										<span class="add-on email"><i class="icon-envelope"></i></span>
+										<f:form.textfield property="poster.email" value="{poster.email}" id="email" class="email poster-email" errorClass="{settings.errorClass}" />
+										<p class="help-block"><f:translate key="emailFieldMessage" /></p>
 									</div>
 								</div>
-								<div class="control-group">
-									<label class="control-label" for="web">Web</label>
-									<div class="controls">
-										<div class="input-prepend">
-											<span class="add-on web">http://</span>
-											<f:form.textfield property="poster.web" value="{poster.web}" id="web" class="web poster-web" errorClass="{settings.errorClass}" />
-											<p class="help-block"><f:translate key="webFieldMessage" /></p>
-										</div>
+								<div class="control-row">
+									<label for="web">Web</label>
+									<div class="input-prepend">
+										<span class="add-on web">http://</span>
+										<f:form.textfield property="poster.web" value="{poster.web}" id="web" class="web poster-web" errorClass="{settings.errorClass}" />
+										<p class="help-block"><f:translate key="webFieldMessage" /></p>
 									</div>
 								</div>
 								<f:if condition="{poster.identifier}">
-									<div class="form-actions">
+									<div class="controls-row">
 										<f:link.action action="forget" arguments="{identifier: poster.identifier, remove: 1}" id="removeAndForget" class="btn btn-inverse"><f:translate key="forgetAndRemove" /></f:link.action>
 										<f:link.action action="forget" arguments="{identifier: poster.identifier}" class="btn btn-danger"><f:translate key="forget" /></f:link.action>
 									</div>
@@ -441,34 +438,30 @@
 				<legend><f:translate key="tx_dialog_domain_model_post" /></legend>
 			</f:else>
 		</f:if>
-		<div class="control-group {f:if(condition: presetSubject, then: 'has-preset-subject')}">
-			<label class="control-label" for="subject"><f:translate key="tx_dialog_domain_model_post.subject" /></label>
-			<div class="control">
-				<f:form.textfield property="subject" id="subject" class="input-xxlarge" errorClass="{settings.errorClass}" value="{presetSubject}" />
-			</div>
+		<div class="controls-row">
+			<label for="subject"><f:translate key="tx_dialog_domain_model_post.subject" /></label>
+			<f:form.textfield property="subject" id="subject" class="input-xxlarge" errorClass="{settings.errorClass}" value="{presetSubject}" />
 		</div>
-		<div class="control-group">
-			<label class="control-label" for="words"><f:translate key="tx_dialog_domain_model_post.content" /></label>
-			<div class="control">
-				<f:form.textarea property="content" rows="9" cols="60" id="words" errorClass="{settings.errorClass}" />
-				<p class="help-block allowed-html">
-					<v:switch value="{settings.markup.mode}">
-						<v:case case="html">
-							<f:translate key="allowedHtml" />
-							<f:for each="{settings.allowedHtmlTags->v:iterator.explode()}" as="allowedTag" iteration="tagIteration">
-								<code><f:format.htmlentities><{allowedTag}></f:format.htmlentities></code>
-							</f:for>
-						</v:case>
-						<v:case case="markdown">
-							<h4>
-								<f:translate key="allowedMarkdown" />
-							</h4>
-							<f:translate key="allowedMarkdownExample" /> <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">http://daringfireball.net/projects/markdown/syntax</a>
-						</v:case>
-					</v:switch>
-				</p>
-			</div>
+		<div class="controls-row">
+			<label for="words"><f:translate key="tx_dialog_domain_model_post.content" /></label>
+			<f:form.textarea property="content" rows="9" cols="60" id="words" errorClass="{settings.errorClass}" />
 		</div>
+		<p class="help-block allowed-html">
+			<v:switch value="{settings.markup.mode}">
+				<v:case case="html">
+					<f:translate key="allowedHtml" />
+					<f:for each="{settings.allowedHtmlTags->v:iterator.explode()}" as="allowedTag" iteration="tagIteration">
+						<code><f:format.htmlentities><{allowedTag}></f:format.htmlentities></code>
+					</f:for>
+				</v:case>
+				<v:case case="markdown">
+					<h4>
+						<f:translate key="allowedMarkdown" />
+					</h4>
+					<f:translate key="allowedMarkdownExample" /> <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">http://daringfireball.net/projects/markdown/syntax</a>
+				</v:case>
+			</v:switch>
+		</p>
 		<div class="form-actions right">
 			<f:if condition="{discussion}">
 				<f:then>
