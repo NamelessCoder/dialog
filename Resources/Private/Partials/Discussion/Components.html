@@ -174,7 +174,11 @@
 					<tbody>
 						<f:for each="{paginatedThreads}" as="threadItem">
 							<tr>
-								<td><f:link.action action="show" arguments="{discussion: discussion.uid, thread: threadItem.uid}"><f:if condition="{threadItem.subject}" then="{threadItem.subject}" else="No subject" /></f:link.action></td>
+								<td>
+									<f:link.action action="show" arguments="{discussion: discussion.uid, thread: threadItem.uid}">
+										<f:if condition="{threadItem.subject}" then="{threadItem.subject -> f:format.htmlentities()}" else="No subject" />
+									</f:link.action>
+								</td>
 								<td class="options">
 									<i class="icon-time"></i> <f:format.date format="{settings.dateFormat}">{threadItem.crdate}</f:format.date>
 									<i class="icon-comment"></i> <f:count><dialog:related hash="{threadItem.hash}" /></f:count>
