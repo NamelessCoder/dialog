@@ -168,7 +168,7 @@
 	<f:if condition="{threads}">
 		<f:then>
 			<f:widget.paginate objects="{threads}" as="paginatedThreads" configuration="{itemsPerPage: settings.itemsPerPage, insertAbove: 1, insertBelow: 1}">
-				<table class="table table-striped table-bordered">
+				<table class="table table-condensed table-striped">
 					<tbody>
 						<f:for each="{paginatedThreads}" as="threadItem">
 							<tr>
@@ -440,7 +440,7 @@
 		</f:if>
 		<div class="controls-row">
 			<label for="subject"><f:translate key="tx_dialog_domain_model_post.subject" /></label>
-			<f:form.textfield property="subject" id="subject" class="input-xxlarge" errorClass="{settings.errorClass}" value="{presetSubject}" />
+			<f:form.textfield property="subject" id="subject" class="input-xlarge" errorClass="{settings.errorClass}" value="{presetSubject}" />
 		</div>
 		<div class="controls-row">
 			<label for="words"><f:translate key="tx_dialog_domain_model_post.content" /></label>
