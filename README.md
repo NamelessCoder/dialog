@@ -142,6 +142,12 @@ plugin.tx_dialog.settings {
 		# The name used in emails sent by the system
 		fromName = MySite Forums
 	}
+	markup {
+        # options: default (html), markdown, raw, nl2br, template. Mode "markdown" requires CLI command "markdown" installed
+        mode = default
+        # if mode = template, a path to a Fluid (Partial) template which renders each Post text
+        template =
+    }
 }
 ```
 
