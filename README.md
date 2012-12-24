@@ -13,6 +13,10 @@ for example any record from your own extension or a content element.
 Discussions, Threads or Posts. `Notify` includes a special Timeline View which is very useful as a "My watched threads" interface,
 as well as the necessary logic to send digest-style emails based on Fluid templates.
 
+`Dialog` features multiple formatting syntaxes for texts: the default "html" mode which uses lib.parseFuncHtml, "raw" which does
+no escaping at all (of course only for trusted use!), "nl2br" which strips all HTML but turns line breaks into `<br>` or the more
+advanced "markdown" mode - which uses the CLI utility [Markdown, a simple Perl script](http://daringfireball.net/projects/markdown/).
+
 ## What does it do?
 
 `Dialog` provides plugins and Widgets which have extensive configuration options. Plugins are configured as content elements and
