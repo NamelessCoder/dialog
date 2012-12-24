@@ -64,3 +64,9 @@ plugin.tx_dialog {
 		storagePid = {$plugin.tx_dialog.persistence.storagePid}
 	}
 }
+page.includeCSS.dialogMain = EXT:dialog/Resources/Public/Stylesheets/Common.css
+page.includeCSS.dialogComment = EXT:dialog/Resources/Public/Stylesheets/Comment.css
+page.includeCSS.dialogChat = EXT:dialog/Resources/Public/Stylesheets/Chat.css
+page.includeJS.dialogInit = EXT:dialog/Resources/Public/Javascripts/Plugins/Init.js
+page.includeJS.dialogChat = EXT:dialog/Resources/Public/Javascripts/Plugins/Chat.js
+page.includeJS.dialogComment = EXT:dialog/Resources/Public/Javascripts/Plugins/Comment.js

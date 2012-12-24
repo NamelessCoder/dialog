@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
 	  xmlns:flux="http://fedext.net/ns/flux/ViewHelpers"
-	  xmlns:fed="http://fedext.net/ns/fed/ViewHelpers"
+	  xmlns:v="http://fedext.net/ns/vhs/ViewHelpers"
 	  xmlns:dialog="http://fedext.net/ns/dialog/ViewHelpers"
 	  xmlns:f="http://typo3.org/ns/fluid/ViewHelpers">
 <head>
@@ -9,8 +9,8 @@
 </head>
 <body>
 
-{namespace fed=Tx_Fed_ViewHelpers}
 {namespace flux=Tx_Flux_ViewHelpers}
+{namespace v=Tx_Vhs_ViewHelpers}
 {namespace dialog=Tx_Dialog_ViewHelpers}
 <f:layout name="Discussion" />
 <f:section name="Configuration">
@@ -23,20 +23,6 @@
 			<flux:flexform.field.checkbox name="settings.enableBreadCrumb" label="Display the bread crumb" />
 			<flux:flexform.field.checkbox name="settings.enableInappropriateContentReporting" label="Enable reporting of inappropriate content" />
 		</flux:flexform.sheet>
-		<flux:flexform.sheet name="style" label="Styles">
-			<flux:flexform.field.input name="settings.customStyleSheet" label="Custom style sheet file">
-				<flux:flexform.field.wizard.link />
-			</flux:flexform.field.input>
-		</flux:flexform.sheet>
-		<fed:comment>
-		<flux:flexform.sheet name="records" label="LLL:EXT:dialog/Resources/Private/Language/locallang.xml:records">
-			<flux:flexform.field.select name="settings.discussions" label="LLL:EXT:dialog/Resources/Private/Language/locallang.xml:discussions"
-				table="{tableName}" multiple="TRUE" maxItems="99999" size="5">
-				<flux:flexform.field.wizard.add table="{tableName}" />
-				<flux:flexform.field.wizard.edit />
-			</flux:flexform.field.select>
-		</flux:flexform.sheet>
-		</fed:comment>
 	</flux:flexform>
 </f:section>
 
@@ -45,7 +31,7 @@
 		<f:if condition="{settings.discussions}">
 			<tr>
 				<td><strong>Discussions selected:</strong></td>
-				<td><f:count><fed:explode>{settings.discussions}</fed:explode></f:count></td>
+				<td><f:count>{settings.discussions -> v:iterator.explode()}</f:count></td>
 			</tr>
 		</f:if>
 		<tr>

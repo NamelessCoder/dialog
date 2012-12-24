@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
-	  xmlns:fed="http://fedext.net/ns/fed/ViewHelpers"
 	  xmlns:dialog="http://fedext.net/ns/dialog/ViewHelpers"
 	  xmlns:v="http://fedext.net/ns/vhs/ViewHelpers"
 	  xmlns:f="http://typo3.org/ns/fluid/ViewHelpers">
@@ -9,7 +8,6 @@
 </head>
 <body>
 
-{namespace fed=Tx_Fed_ViewHelpers}
 {namespace flux=Tx_Flux_ViewHelpers}
 {namespace notify=Tx_Notify_ViewHelpers}
 {namespace dialog=Tx_Dialog_ViewHelpers}
@@ -52,10 +50,10 @@
 							<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
 						</f:link.action>
 						<f:if condition="{settings.enableSubscriptions}">
-							<fed:loaded extensionKey="notify">
+							<v:extension.loaded extensionName="Nofity">
 								<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_discussion" uid="{discussion.uid}" fields="posts"
 									settings="{settings.subscription.components.heroUnit}" />
-							</fed:loaded>
+							</v:extension.loaded>
 						</f:if>
 					</div>
 				</f:then>
@@ -76,10 +74,10 @@
 							<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
 						</f:link.action>
 						<f:if condition="{settings.enableSubscriptions}">
-							<fed:loaded extensionKey="notify">
+							<v:extension.loaded extensionName="Nofity">
 								<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_discussion" uid="{discussion.uid}" fields="threads"
 									settings="{display: { mode: 'button', button: {class: 'btn btn-small'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
-							</fed:loaded>
+							</v:extension.loaded>
 						</f:if>
 					</div>
 				</f:else>
@@ -211,7 +209,7 @@
 
 <f:section name="DiscussionThread">
 	<f:render section="Head" arguments="{_all}" />
-	<fed:data.var name="offset" value="0" />
+	<v:var.set name="offset" value="0" />
 	<f:for each="{thread.posts}" as="postItem" iteration="iteration">
 		<f:if condition="{iteration.isFirst}">
 			<f:then>
@@ -331,10 +329,10 @@
 			</f:link.action>
 		</f:if>
 		<f:if condition="{settings.enableSubscriptions}">
-			<fed:loaded extensionKey="notify">
+			<v:extension.loaded extensionName="Nofity">
 				<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_post" uid="{postItem.uid}" fields="replies"
 					settings="{display: { mode: 'button', button: {class: 'btn btn-mini'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
-			</fed:loaded>
+			</v:extension.loaded>
 		</f:if>
 	</div>
 </f:section>
@@ -382,7 +380,7 @@
 			</f:if>
 			<div class="mini-layout container-fluid">
 				<div class="row-fluid">
-					<fed:auth.deny anyFrontendUser="TRUE">
+					<v:security.deny anyFrontendUser="TRUE">
 						<div class="span4">
 							<fieldset>
 								<legend><f:translate key="personalInfo" /></legend>
@@ -414,17 +412,14 @@
 								</div>
 								<f:if condition="{poster.identifier}">
 									<div class="form-actions">
-										<fed:script>
-											jQuery(document).ready(function($) { $('#removeAndForget').popover(<f:escape>{</f:escape>"title": "<f:translate key="forgetAndRemove" />", "content": "<f:translate key="forgetAndRemoveTitle" />"}); <f:escape>}</f:escape>);
-										</fed:script>
 										<f:link.action action="forget" arguments="{identifier: poster.identifier, remove: 1}" id="removeAndForget" class="btn btn-inverse"><f:translate key="forgetAndRemove" /></f:link.action>
 										<f:link.action action="forget" arguments="{identifier: poster.identifier}" class="btn btn-danger"><f:translate key="forget" /></f:link.action>
 									</div>
 								</f:if>
 							</fieldset>
 						</div>
-					</fed:auth.deny>
-					<div class="span{fed:auth.deny(anyFrontendUser: 1, then: 8, else: 12)}">
+					</v:security.deny>
+					<div class="span{v:security.deny(anyFrontendUser: 1, then: 8, else: 12)}">
 						<f:render section="Form" arguments="{_all}" />
 					</div>
 				</div>
@@ -457,7 +452,7 @@
 					<v:switch value="{settings.markup.mode}">
 						<v:case case="html">
 							<f:translate key="allowedHtml" />
-							<f:for each="{settings.allowedHtmlTags->fed:explode()}" as="allowedTag" iteration="tagIteration">
+							<f:for each="{settings.allowedHtmlTags->v:iterator.explode()}" as="allowedTag" iteration="tagIteration">
 								<code><f:format.htmlentities><{allowedTag}></f:format.htmlentities></code>
 							</f:for>
 						</v:case>
@@ -512,9 +507,6 @@
 					<h1><f:translate key="reportWhatWillHappen" /></h1>
 						<p><f:translate key="reportWhatWillHappenElaboration" /></p>
 					<div class="form-actions">
-						<fed:script>
-							jQuery(document).ready(function($) { $('#confirmReport').popover(<f:escape>{</f:escape>"title": "<f:translate key="reportTitle" />", "content": "<f:translate key="reportHover" />"}); <f:escape>}</f:escape>);
-						</fed:script>
 						<button type="submit" class="btn btn-danger" id="confirmReport"><f:translate key="reportSendButton" /></button> <f:translate key="or" />
 						<f:link.action action="show" class="btn btn-inverse white" arguments="{discussion: discussion.uid, thread: thread.uid}"><f:translate key="reportReturn" /></f:link.action>
 					</div>

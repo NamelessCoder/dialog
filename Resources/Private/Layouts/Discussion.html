@@ -1,13 +1,5 @@
-{namespace fed=Tx_Fed_ViewHelpers}
 {namespace dialog=Tx_Dialog_ViewHelpers}
 <f:layout name="Discussion" />
-
-<f:if condition="{settings.includeDefaultStyles} > 0">
-	<f:if condition="{settings.customStyleSheet}">
-		<fed:pageRenderer.addCssFile file="{settings.customStyleSheet}" compress="FALSE" />
-	</f:if>
-</f:if>
-<fed:pageRenderer.addCssFile file="{f:uri.resource(path: 'Stylesheets/Common.css')}" compress="FALSE" />
 
 <div class="tx-dialog tx-dialog-discussion form-horizontal">
 	<f:if condition="{settings.enableToolbar}">
