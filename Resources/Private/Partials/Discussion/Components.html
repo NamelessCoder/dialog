@@ -179,8 +179,9 @@
 			<f:widget.paginate objects="{threads}" as="paginatedThreads"
 					configuration="{
 						itemsPerPage: settings.itemsPerPage,
-						insertAbove: '{f:if(condition: \'{threads -> f:count()} > {settings.itemsPerPage}\', then: 1, else: 0)}',
-						insertBelow: '{f:if(condition: \'{threads -> f:count()} > {settings.itemsPerPage}\', then: 1, else: 0)}'}">
+						insertAbove: '{f:if(condition: \'{threads -> f:count()} > {settings.itemsPerPage}\', then: settings.pagination.above, else: 0)}',
+						insertBelow: '{f:if(condition: \'{threads -> f:count()} > {settings.itemsPerPage}\', then: settings.pagination.below, else: 0)}'
+					}">
 				<table class="table {settings.postTableClass}">
 					<tbody>
 						<f:for each="{paginatedThreads}" as="threadItem">
