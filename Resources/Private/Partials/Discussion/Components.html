@@ -87,18 +87,18 @@
 </f:section>
 
 <f:section name="BreadCrumb">
-	<p class="breadcrumb-container">
-		<f:link.action action="index"><f:translate key="discussions" /></f:link.action>
+	<ul class="breadcrumb breadcrumb-container">
+		<li><f:link.action action="index"><f:translate key="discussions" /></f:link.action></li>
 		<f:if condition="{discussion}">
-			<i class="icon-chevron-right icon-faded"></i> <f:link.action action="show" arguments="{discussion: discussion.uid}">{discussion.title}</f:link.action>
+			<li><span class="divider"><i class="icon-chevron-right icon-faded"></i></span> <f:link.action action="show" arguments="{discussion: discussion.uid}">{discussion.title}</f:link.action></li>
 		</f:if>
 		<f:if condition="{thread}">
-			<i class="icon-chevron-right icon-faded"></i> <f:link.action action="show" arguments="{discussion: discussion.uid, thread: thread.uid}">{thread.subject}</f:link.action>
+			<li><span class="divider"><i class="icon-chevron-right icon-faded"></i></span> <f:link.action action="show" arguments="{discussion: discussion.uid, thread: thread.uid}">{thread.subject}</f:link.action></li>
 		</f:if>
 		<f:if condition="{parent}">
-			<i class="icon-chevron-right icon-faded"></i> <a href="#" class="active">{post.subject}</a>
+			<li><span class="divider"><i class="icon-chevron-right icon-faded"></i></span> <a href="#" class="active">{post.subject}</a></li>
 		</f:if>
-	</p>
+	</ul>
 </f:section>
 
 <f:section name="Head">
