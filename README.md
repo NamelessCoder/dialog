@@ -142,6 +142,10 @@ plugin.tx_dialog.settings {
 	postTableClass = table-condensed table-striped
 	# duration of the cookie that is sent when a guest user uses the "store in cookie" confirmation link from the confirmation email
 	cookieLifetime = 8046000
+	pagination {
+		above = 1
+		below = 1
+	}
 	email {
 		# The email address used to send emails
 		fromEmail = sysop@mysite.com
