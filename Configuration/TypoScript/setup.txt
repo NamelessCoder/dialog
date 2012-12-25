@@ -12,6 +12,8 @@ plugin.tx_dialog {
         enableSubscriptions = 1
         # direct commenting: place Post form inline in all appropriate views
         enableDirectCommenting = 1
+        # bread crumb: track of Discussion -> Thread -> Post path as Bootstrap bread crumb component
+        enableBreadCrumb = 1
         # if enabled, places a button that quickly sends a "user thinks content is inappropriate" email to sysadmin
         enableInappropriateContentReporting = 1
         # discussion creation: If enabled, allows users to create new Discussions (root-level object, should normally be controlled by site admin)
