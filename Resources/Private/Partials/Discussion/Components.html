@@ -176,7 +176,11 @@
 	<f:render section="Head" arguments="{_all}" />
 	<f:if condition="{threads}">
 		<f:then>
-			<f:widget.paginate objects="{threads}" as="paginatedThreads" configuration="{itemsPerPage: settings.itemsPerPage, insertAbove: 1, insertBelow: 1}">
+			<f:widget.paginate objects="{threads}" as="paginatedThreads"
+					configuration="{
+						itemsPerPage: settings.itemsPerPage,
+						insertAbove: '{f:if(condition: \'{threads -> f:count()} > {settings.itemsPerPage}\', then: 1, else: 0)}',
+						insertBelow: '{f:if(condition: \'{threads -> f:count()} > {settings.itemsPerPage}\', then: 1, else: 0)}'}">
 				<table class="table {settings.postTableClass}">
 					<tbody>
 						<f:for each="{paginatedThreads}" as="threadItem">
