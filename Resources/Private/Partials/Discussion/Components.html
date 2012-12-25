@@ -138,7 +138,7 @@
 										</small>
 									</td>
 									<td>
-										<span class="label pull-right thread-last-update">
+										<span class="pull-right thread-last-update">
 											<small>
 												<f:format.date format="{settings.dateFormat}">{threadItem.crdate}</f:format.date>
 											</small>
@@ -155,15 +155,17 @@
 			<f:translate key="noDiscussions" />
 		</f:else>
 	</f:if>
-	<f:if condition="{settings.enableDirectCommenting}">
-		<f:then>
-			<f:render section="Write" arguments="{_all}" />
-		</f:then>
-		<f:else>
-			<f:link.action action="write" class="btn btn-large btn-primary white">
-				<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
-			</f:link.action>
-		</f:else>
+	<f:if condition="{settings.enableDiscussionCreation}">
+		<f:if condition="{settings.enableDirectCommenting}">
+			<f:then>
+				<f:render section="Write" arguments="{_all}" />
+			</f:then>
+			<f:else>
+				<f:link.action action="write" class="btn btn-large btn-primary white">
+					<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
+				</f:link.action>
+			</f:else>
+		</f:if>
 	</f:if>
 </f:section>
 

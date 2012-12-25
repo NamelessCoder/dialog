@@ -14,6 +14,8 @@ plugin.tx_dialog {
         enableDirectCommenting = 1
         # if enabled, places a button that quickly sends a "user thinks content is inappropriate" email to sysadmin
         enableInappropriateContentReporting = 1
+        # discussion creation: If enabled, allows users to create new Discussions (root-level object, should normally be controlled by site admin)
+        enableDiscussionCreation = 0
         # prefix automatically added to Posts' subjects when Post is made as a reply as opposed to a new topic
         responsePrefix = Re:
         # the number of most recent Posts to display in the Discussion list
