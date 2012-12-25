@@ -110,9 +110,15 @@
 <f:section name="Discussions">
 	<f:if condition="{discussions}">
 		<f:then>
-			<h2><f:translate key="discussions" /></h2>
 			<f:for each="{discussions}" as="discussionItem" iteration="iteration">
-				<span class="label label-info thread-last-update pull-right"><f:format.date format="{settings.dateFormat}">{discussionItem.crdate}</f:format.date></span>
+				<div class="pull-right btn-group">
+					<f:link.action action="write" arguments="{discussion: discussionItem.uid}" class="btn btn-mini">
+						<i class="icon-pencil"></i> <f:translate key="thread.start" /></a>
+					</f:link.action>
+					<f:link.action action="show" arguments="{discussion: discussionItem.uid}" class="btn btn-mini">
+						<i class="icon-comment"></i> <f:translate key="thread.view" arguments="{0: '{discussionItem.threads -> f:count()}'}" /></a>
+					</f:link.action>
+				</div>
 				<h4>
 					<f:link.action action="show" arguments="{discussion: discussionItem.uid}">
 						{discussionItem.title}
@@ -159,7 +165,7 @@
 			</f:then>
 			<f:else>
 				<f:link.action action="write" class="btn btn-large btn-primary white">
-					<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
+					<i class="icon-comment icon-white"></i> <f:translate key="discussion.start" /></a>
 				</f:link.action>
 			</f:else>
 		</f:if>
@@ -179,6 +185,9 @@
 									<f:link.action action="show" arguments="{discussion: discussion.uid, thread: threadItem.uid}">
 										<f:if condition="{threadItem.subject}" then="{threadItem.subject -> f:format.htmlentities()}" else="No subject" />
 									</f:link.action>
+									<small>
+										<em><f:translate key="by" /> {threadItem.poster.name}</em>
+									</small>
 								</td>
 								<td class="options">
 									<i class="icon-time"></i> <f:format.date format="{settings.dateFormat}">{threadItem.crdate}</f:format.date>
@@ -206,7 +215,14 @@
 		</f:else>
 	</f:if>
 	<f:if condition="{settings.enableDirectCommenting}">
-		<f:render section="Write" arguments="{_all}" />
+		<f:then>
+			<f:render section="Write" arguments="{_all}" />
+		</f:then>
+		<f:else>
+			<f:link.action action="write" class="btn btn-large btn-primary white">
+				<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
+			</f:link.action>
+		</f:else>
 	</f:if>
 </f:section>
 
