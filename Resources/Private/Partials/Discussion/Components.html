@@ -102,9 +102,6 @@
 </f:section>
 
 <f:section name="Head">
-	<f:if condition="{settings.enableBreadCrumb}">
-		<f:render section="BreadCrumb" arguments="{_all}" />
-	</f:if>
 	<f:if condition="{settings.enableHeroUnit}">
 		<f:render section="HeroUnit" arguments="{_all}" />
 	</f:if>
@@ -348,9 +345,6 @@
 
 <f:section name="Write">
 	<div class="write">
-		<f:if condition="{parent}">
-			<f:render section="BreadCrumb" arguments="{_all}" />
-		</f:if>
 		<h2>
 			<f:if condition="{parent}">
 				<f:then>
@@ -490,7 +484,6 @@
 </f:section>
 
 <f:section name="Report">
-	<f:render section="BreadCrumb" arguments="{_all}" />
 	<f:if condition="{confirmed}">
 		<f:then>
 			<h1><f:translate key="reportReceived" /></h1>
