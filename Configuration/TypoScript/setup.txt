@@ -26,6 +26,8 @@ plugin.tx_dialog {
         itemsPerPage = 20
         # postTableClass: class name (Twitter Bootstrap table classes) of tables containing Posts.
         postTableClass = table-condensed table-striped
+        # last post max characters: number of characters to display from latest post in Discussion/Thread
+        lastPostMaxCharacters = 150
         # duration of the cookie that is sent when a guest user uses the "store in cookie" confirmation link from the confirmation email
         cookieLifetime = 8046000
         pagination {
