@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2012 Claus Due <claus@wildside.dk>, Wildside A/S
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -67,6 +67,11 @@ class Tx_Dialog_Domain_Model_Discussion extends Tx_Extbase_DomainObject_Abstract
 	protected $lastActivity;
 
 	/**
+	 * @var Tx_Dialog_Domain_Model_Post
+	 */
+	protected $lastPost;
+
+	/**
 	 * Hash identifier
 	 *
 	 * @var string
@@ -88,11 +93,6 @@ class Tx_Dialog_Domain_Model_Discussion extends Tx_Extbase_DomainObject_Abstract
 	 * @lazy
 	 */
 	protected $posts;
-
-	/**
-	 * @var integer
-	 */
-	protected $popularity;
 
 	/**
 	 * @var Tx_Dialog_Domain_Model_Poster
@@ -196,6 +196,20 @@ class Tx_Dialog_Domain_Model_Discussion extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
+	 * @param Tx_Dialog_Domain_Model_Post $lastPost
+	 */
+	public function setLastPost($lastPost) {
+		$this->lastPost = $lastPost;
+	}
+
+	/**
+	 * @return Tx_Dialog_Domain_Model_Post
+	 */
+	public function getLastPost() {
+		return $this->lastPost;
+	}
+
+	/**
 	 * Returns the hash
 	 *
 	 * @return string $hash
@@ -290,20 +304,6 @@ class Tx_Dialog_Domain_Model_Discussion extends Tx_Extbase_DomainObject_Abstract
 	 */
 	public function setPosts(Tx_Extbase_Persistence_ObjectStorage $posts) {
 		$this->posts = $posts;
-	}
-
-	/**
-	 * @return integer
-	 */
-	public function getPopularity() {
-		return $this->popularity;
-	}
-
-	/**
-	 * @param integer $popularity
-	 */
-	public function setPopularity($popularity) {
-		$this->popularity = $popularity;
 	}
 
 	/**

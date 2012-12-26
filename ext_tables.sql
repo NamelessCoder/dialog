@@ -11,10 +11,10 @@ CREATE TABLE tx_dialog_domain_model_discussion (
 	description text NOT NULL,
 	mode int(11) DEFAULT '0' NOT NULL,
 	last_activity int(11) DEFAULT '0' NOT NULL,
+	last_post int(11) DEFAULT '0' NOT NULL,
 	hash varchar(255) DEFAULT '' NOT NULL,
 	threads int(11) unsigned DEFAULT '0' NOT NULL,
 	posts int(11) unsigned DEFAULT '0' NOT NULL,
-	popularity int(4) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -58,7 +58,8 @@ CREATE TABLE tx_dialog_domain_model_thread (
 	hash varchar(255) DEFAULT '' NOT NULL,
 	posts int(11) unsigned DEFAULT '0' NOT NULL,
 	poster int(11) unsigned DEFAULT '0' NOT NULL,
-	popularity int(4) unsigned DEFAULT '0' NOT NULL,
+	last_activity int(11) DEFAULT '0' NOT NULL,
+	last_post int(11) DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,

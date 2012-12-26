@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_dialog_domain_model_discussion'] = array(
 	'ctrl' => $TCA['tx_dialog_domain_model_discussion']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, poster, title, description, mode, last_activity, hash, threads, posts, popularity, crdate',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, poster, title, description, mode, last_activity, last_post, hash, threads, posts, crdate',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, poster, title, description, mode, last_activity, hash, threads, posts, popularity, crdate,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, poster, title, description, mode, last_activity, last_post, hash, threads, posts, crdate,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -153,6 +153,15 @@ $TCA['tx_dialog_domain_model_discussion'] = array(
 				'default' => time()
 			),
 		),
+		'last_post' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:dialog/Resources/Private/Language/locallang_db.xml:tx_dialog_domain_model_discussion.last_post',
+			'config' => array(
+				'type' => 'select',
+				'foreign_table' => 'tx_dialog_domain_model_post',
+				'size' => 1
+			),
+		),
 		'hash' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:dialog/Resources/Private/Language/locallang_db.xml:tx_dialog_domain_model_discussion.hash',
@@ -194,11 +203,6 @@ $TCA['tx_dialog_domain_model_discussion'] = array(
 					'showPossibleLocalizationRecords' => 1,
 					'showAllLocalizationLink' => 1
 				),
-			),
-		),
-		'popularity' => array(
-			'config' => array(
-				'type' => 'passthrough',
 			),
 		),
 		'poster' => array(

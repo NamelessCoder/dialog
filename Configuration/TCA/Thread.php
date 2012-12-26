@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_dialog_domain_model_thread'] = array(
 	'ctrl' => $TCA['tx_dialog_domain_model_thread']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, subject, hash, posts, poster, popularity, crdate, discussion',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, subject, hash, last_activity, last_post, posts, poster, crdate, discussion',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, subject, hash, posts, poster, popularity, crdate, discussion,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, subject, hash, last_activity, last_post, posts, poster, crdate, discussion,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -147,17 +147,33 @@ $TCA['tx_dialog_domain_model_thread'] = array(
 				'type' => 'passthrough',
 			),
 		),
-		'popularity' => array(
-			'config' => array(
-				'type' => 'passthrough',
-			),
-		),
 		'poster' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:dialog/Resources/Private/Language/locallang_db.xml:tx_dialog_domain_model_thread.poster',
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'tx_dialog_domain_model_poster',
+				'size' => 1
+			),
+		),
+		'last_activity' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:dialog/Resources/Private/Language/locallang_db.xml:tx_dialog_domain_model_thread.last_activity',
+			'config' => array(
+				'type' => 'input',
+				'size' => 12,
+				'max' => 20,
+				'eval' => 'datetime',
+				'checkbox' => 1,
+				'default' => time()
+			),
+		),
+		'last_post' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:dialog/Resources/Private/Language/locallang_db.xml:tx_dialog_domain_model_thread.last_post',
+			'config' => array(
+				'type' => 'select',
+				'foreign_table' => 'tx_dialog_domain_model_post',
 				'size' => 1
 			),
 		),

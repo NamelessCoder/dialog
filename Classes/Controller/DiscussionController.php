@@ -255,6 +255,8 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 			$discussion->setTitle($post->getSubject());
 			$discussion->setDescription($post->getContent());
 			$discussion->setPoster($poster);
+			$discussion->setLastPost($post);
+			$discussion->setLastActivity($now);
 			$this->discussionRepository->add($discussion);
 			$this->cacheService->clearPageCache(array($GLOBALS['TSFE']->id));
 			$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
@@ -264,20 +266,22 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 			$thread = $this->objectManager->create('Tx_Dialog_Domain_Model_Thread');
 			$thread->setSubject($post->getSubject());
 			$thread->setPoster($poster);
-			$thread->setCrdate($now);
 			$thread->addPost($post);
 			$thread->setHash($hash);
+			$thread->setLastPost($post);
+			$thread->setLastActivity($now);
 			$this->threadRepository->add($thread);
 		} else {
 			$hash = $thread->getHash();
-			$thread->setCrdate($now);
+			$thread->setLastActivity($now);
+			$thread->setLastPost($post);
 			$this->threadRepository->update($thread);
 			$arguments['thread'] = $thread->getUid();
 		}
 		if ($discussion !== NULL) {
 			$arguments['discussion'] = $discussion->getUid();
 			$discussion->addThread($thread);
-			$discussion->setCrdate($now);
+			$discussion->setLastActivity($now);
 			$this->discussionRepository->update($discussion);
 		}
 		if ($parent) {
@@ -290,14 +294,9 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		if ($hash) {
 			$post->setHash($hash);
 		}
-		$post->getCrdate($now);
+		$post->setCrdate($now);
 		$this->postRepository->add($post);
 		$this->flashMessageContainer->add('Your post was added');
-		if (FALSE) {
-				// TODO: re-work scoring
-			$this->calculatePopularityOfThread($post, $thread);
-			$this->calculatePopularityOfDiscussion($discussion);
-		}
 		$this->cacheService->clearPageCache(array($GLOBALS['TSFE']->id));
 		$this->objectManager->get('Tx_Extbase_Persistence_ManagerInterface')->persistAll();
 		$this->uriBuilder->setSection('p' . $post->getUid());
@@ -342,36 +341,6 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 			$_SESSION['dialog_poster_identifier'] = $identifier;
 		}
 		$this->redirect('index');
-	}
-
-	/**
-	 * @param Tx_Dialog_Domain_Model_Post $post
-	 * @param Tx_Dialog_Domain_Model_Thread $thread
-	 * @return void
-	 */
-	protected function calculatePopularityOfThread(Tx_Dialog_Domain_Model_Post $post, Tx_Dialog_Domain_Model_Thread &$thread) {
-		$hash = $post->getHash();
-		$now = time();
-		$halflife = intval($this->settings['popularityHalflife']);
-		$posts = $this->postRepository->findByHash($hash);
-		$popularity = 0.0;
-		foreach ($posts as $relatedPost) {
-			$dateTime = $relatedPost->getCrdate();
-			if ($dateTime) {
-				$timestamp = $dateTime->format('U');
-				$popularity += exp(($timestamp - $now) * log(2) / $halflife);
-			}
-		}
-		$popularity = ceil($popularity);
-		$thread->setPopularity($popularity);
-	}
-
-	/**
-	 * @param Tx_Dialog_Domain_Model_Discussion $discussion
-	 * @return void
-	 */
-	protected function calculatePopularityOfDiscussion(Tx_Dialog_Domain_Model_Discussion $discussion) {
-
 	}
 
 	/**

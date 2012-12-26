@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2012 Claus Due <claus@wildside.dk>, Wildside A/S
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -66,9 +66,16 @@ class Tx_Dialog_Domain_Model_Thread extends Tx_Extbase_DomainObject_AbstractEnti
 	protected $crdate;
 
 	/**
-	 * @var integer
+	 * Last activity
+	 *
+	 * @var DateTime
 	 */
-	protected $popularity;
+	protected $lastActivity;
+
+	/**
+	 * @var Tx_Dialog_Domain_Model_Post
+	 */
+	protected $lastPost;
 
 	/**
 	 * @var Tx_Dialog_Domain_Model_Discussion
@@ -192,17 +199,31 @@ class Tx_Dialog_Domain_Model_Thread extends Tx_Extbase_DomainObject_AbstractEnti
 	}
 
 	/**
-	 * @return integer
+	 * @param DateTime $lastActivity
 	 */
-	public function getPopularity() {
-		return $this->popularity;
+	public function setLastActivity($lastActivity) {
+		$this->lastActivity = $lastActivity;
 	}
 
 	/**
-	 * @param integer $popularity
+	 * @return DateTime
 	 */
-	public function setPopularity($popularity) {
-		$this->popularity = $popularity;
+	public function getLastActivity() {
+		return $this->lastActivity;
+	}
+
+	/**
+	 * @param Tx_Dialog_Domain_Model_Post $lastPost
+	 */
+	public function setLastPost($lastPost) {
+		$this->lastPost = $lastPost;
+	}
+
+	/**
+	 * @return Tx_Dialog_Domain_Model_Post
+	 */
+	public function getLastPost() {
+		return $this->lastPost;
 	}
 
 	/**
