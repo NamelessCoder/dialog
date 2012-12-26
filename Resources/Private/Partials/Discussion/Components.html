@@ -139,6 +139,9 @@
 										<small>
 											<em><f:translate key="by" /> {threadItem.poster.name}</em>
 										</small>
+										<f:if condition="{threadItem.lastPost}">
+											<f:render section="LastPostSnippet" arguments="{post: threadItem.lastPost, threadUid: threadItem.uid, discussionUid: discussionItem.uid}" />
+										</f:if>
 									</td>
 									<td>
 										<span class="pull-right thread-last-update">
@@ -193,6 +196,9 @@
 									<small>
 										<em><f:translate key="by" /> {threadItem.poster.name}</em>
 									</small>
+									<f:if condition="{threadItem.lastPost}">
+										<f:render section="LastPostSnippet" arguments="{post: threadItem.lastPost, threadUid: threadItem.uid, discussionUid: discussion.uid}" />
+									</f:if>
 								</td>
 								<td class="options">
 									<i class="icon-time"></i> <f:format.date format="{settings.dateFormat}">{threadItem.crdate}</f:format.date>
@@ -530,6 +536,17 @@
 			</f:form>
 		</f:else>
 	</f:if>
+</f:section>
+
+<f:section name="LastPostSnippet">
+	<div class="last-post">
+		<small>
+		<f:link.action action="show" arguments="{discussion: discussionUid, thread: threadUid}" section="p{post.uid}">
+			<f:format.crop maxCharacters="{settings.lastPostMaxCharacters}">
+				<i class="icon icon-comment"></i> {post.content}</span>
+			</f:format.crop>
+		</f:link.action> <em><f:translate key="by" /> {post.poster.name}</em></small>
+	</div>
 </f:section>
 
 </body>

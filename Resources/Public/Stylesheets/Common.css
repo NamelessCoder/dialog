@@ -136,3 +136,12 @@ td.latest-items-options {
 .latest-posts dd:hover {
 	background-color: #FAFAFA;
 }
+
+.tx-dialog-discussion .last-post {
+	border-top: 1px solid rgba(0,0,0,0.05);
+	display: block;
+}
+
+.tx-dialog-discussion .last-post .subject {
+	clear: right;
+}
