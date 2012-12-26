@@ -39,7 +39,7 @@ class Tx_Dialog_Domain_Repository_ThreadRepository extends Tx_Dialog_Persistence
 	 */
 	public function createQuery() {
 		$query = parent::createQuery();
-		$query->setOrderings(array('crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING));
+		$query->setOrderings(array('last_activity' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING));
 		return $query;
 	}
 
