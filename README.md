@@ -142,6 +142,10 @@ plugin.tx_dialog.settings {
 	postTableClass = table-condensed table-striped
 	# last post max characters: number of characters to display from latest post in Discussion/Thread
 	lastPostMaxCharacters = 150
+	# file uploads: enable uploading of files when posting
+	enableFileUploads = 1
+	# file uploads: number of file upload fields
+	fileUploadFieldCount = 5
 	# duration of the cookie that is sent when a guest user uses the "store in cookie" confirmation link from the confirmation email
 	cookieLifetime = 8046000
 	pagination {
@@ -173,5 +177,5 @@ plugin.tx_dialog.settings {
 
 ## Roadmap
 
-* File uploads for Posts
+* Indication of new Posts since last visit
 * Editing of own Posts by authenticated users
