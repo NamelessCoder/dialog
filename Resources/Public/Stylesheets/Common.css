@@ -151,10 +151,12 @@ td.latest-items-options {
 	margin-right: 0.5em;
 }
 
+/*
 .tx-dialog-discussion .fileupload-exists {
 	float: none;
 	clear: both;
 }
+*/
 
 .tx-dialog-discussion .controls-row label {
 	margin-top: 1em;
@@ -190,7 +192,12 @@ td.latest-items-options {
 	clear: both;
 }
 
+.tx-dialog-discussion .controls-row.files .btn-file {
+	width: 96px;
+	text-align: center;
+}
+
 .tx-dialog-discussion .controls-row.files.images .thumbnail {
-	width: 36px;
-	height: 36px;
+	width: 85px;
+	height: 85px;
 }

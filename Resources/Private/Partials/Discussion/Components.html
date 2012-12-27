@@ -8,7 +8,6 @@
 </head>
 <body>
 
-{namespace flux=Tx_Flux_ViewHelpers}
 {namespace notify=Tx_Notify_ViewHelpers}
 {namespace dialog=Tx_Dialog_ViewHelpers}
 {namespace v=Tx_Vhs_ViewHelpers}
@@ -495,41 +494,39 @@
 		<f:if condition="{settings.attachments.files.enable}">
 			<div class="controls-row files">
 				<label><f:translate key="attachments" /></label>
-				<div class="controls-row">
-					<v:iterator.loop count="{settings.attachments.files.count}" iteration="iteration">
-						<div class="fileupload fileupload-new" data-provides="fileupload">
-							<button class="btn btn-mini btn-file"><span class="fileupload-new"><f:translate key="chooseFile" /></span>
-								<span class="fileupload-exists"><f:translate key="changeFile" /></span><f:form.upload name="attachments[]" />
-							</button>
-							<span class="fileupload-preview"></span>
-							<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
-						</div>
-					</v:iterator.loop>
-					<div class="allowed-types">
-						{settings.attachments.files.extensions}
+				<v:iterator.loop count="{settings.attachments.files.count}" iteration="iteration">
+					<div class="fileupload fileupload-new" data-provides="fileupload">
+						<button class="btn btn-mini btn-file"><span class="fileupload-new"><f:translate key="chooseFile" /></span>
+							<span class="fileupload-exists"><f:translate key="changeFile" /></span><f:form.upload name="attachments[]" />
+						</button>
+						<span class="fileupload-preview"></span>
+						<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
 					</div>
+				</v:iterator.loop>
+				<div class="allowed-types">
+					{settings.attachments.files.extensions}
 				</div>
 			</div>
 		</f:if>
 		<f:if condition="{settings.attachments.images.enable}">
 			<div class="controls-row files images">
 				<label><f:translate key="images" /></label>
-				<div class="controls-row">
-					<v:iterator.loop count="{settings.attachments.images.count}" iteration="iteration">
-						<div class="fileupload fileupload-new" data-provides="fileupload">
+				<v:iterator.loop count="{settings.attachments.images.count}" iteration="iteration">
+					<div class="fileupload fileupload-new" data-provides="fileupload">
+						<div class="fileupload-new thumbnail">
+							<img src="{settings.attachments.images.placeholder}" alt="{settings.attachments.images.placeholder}" />
+						</div>
+						<div class="fileupload-preview fileupload-exists thumbnail"></div>
+						<div>
 							<button class="btn btn-mini btn-file"><span class="fileupload-new"><f:translate key="chooseFile" /></span>
 								<span class="fileupload-exists"><f:translate key="changeFile" /></span><f:form.upload name="images[]" />
 							</button>
-							<div class="fileupload-new thumbnail">
-								<img src="{settings.attachments.images.placeholder}" alt="{settings.attachments.images.placeholder}" />
-							</div>
-							<div class="fileupload-preview fileupload-exists thumbnail"></div>
-							<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
 						</div>
-					</v:iterator.loop>
-					<div class="allowed-types">
-						{settings.attachments.images.extensions}
+						<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
 					</div>
+				</v:iterator.loop>
+				<div class="allowed-types">
+					{settings.attachments.images.extensions}
 				</div>
 			</div>
 		</f:if>

@@ -45,11 +45,11 @@ plugin.tx_dialog {
 				# image uploads: allowed file extensions
 				extensions = jpg, jpeg, gif, png
 				# image uploads: width of displayed image attachments, TS object syntax i.e. "350m" to scale and maintain aspect, "500c" to crop at width 500. Default tuned to Bootstrap.
-				width = 750m
+				width = 770m
 				# image uploads: height of displayed image attachments, suggest a reasonably high value such as "2000m"
 				height = 2000m
 				# image uploads: placeholder image
-				placeholder = http://www.placehold.it/40x40/EFEFEF/AAAAAA&text=Image
+				placeholder = http://www.placehold.it/85x85/EFEFEF/AAAAAA&text=Image
 				# image uploads: image display class, Bootstrap (or own) CSS name. Useful values: "img-rounded" and "img-polaroid", less useful but also supported is "img-circle". When using "img-polaroid" subtract padding (default: 5+5 px) from image width setting
 				class = img-polaroid
 			}
