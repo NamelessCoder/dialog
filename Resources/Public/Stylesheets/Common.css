@@ -168,6 +168,7 @@ td.latest-items-options {
 	text-align: center;
 }
 
+.tx-dialog-discussion .images,
 .tx-dialog-discussion .attachments {
 	margin-bottom: 1em;
 }
@@ -181,4 +182,15 @@ td.latest-items-options {
 
 .tx-dialog-discussion .attachments a:hover {
 	opacity: 1;
+}
+
+.tx-dialog-discussion .controls-row .allowed-types {
+	font-style: italic;
+	color: #999;
+	clear: both;
+}
+
+.tx-dialog-discussion .controls-row.files.images .thumbnail {
+	width: 36px;
+	height: 36px;
 }

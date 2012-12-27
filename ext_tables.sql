@@ -5,7 +5,7 @@ CREATE TABLE tx_dialog_domain_model_discussion (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
-    poster int(11) unsigned DEFAULT '0' NOT NULL,
+	poster int(11) unsigned DEFAULT '0' NOT NULL,
 
 	title varchar(255) DEFAULT '' NOT NULL,
 	description text NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE tx_dialog_domain_model_thread (
 
 	discussion int(11) unsigned DEFAULT '0' NOT NULL,
 
-    subject varchar(255) DEFAULT '' NOT NULL,
+	subject varchar(255) DEFAULT '' NOT NULL,
 	hash varchar(255) DEFAULT '' NOT NULL,
 	posts int(11) unsigned DEFAULT '0' NOT NULL,
 	poster int(11) unsigned DEFAULT '0' NOT NULL,
@@ -102,11 +102,12 @@ CREATE TABLE tx_dialog_domain_model_post (
 	post int(11) unsigned DEFAULT '0' NOT NULL,
 	poster int(11) unsigned DEFAULT '0' NOT NULL,
 
-  subject varchar(255) DEFAULT '' NOT NULL,
+	subject varchar(255) DEFAULT '' NOT NULL,
 	content text NOT NULL,
 	hash varchar(255) DEFAULT '' NOT NULL,
 	replies int(11) unsigned DEFAULT '0' NOT NULL,
-  attachments text NOT NULL,
+	attachments text NOT NULL,
+	images text NOT NULL,
 	published tinyint(4) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -145,9 +146,9 @@ CREATE TABLE tx_dialog_domain_model_poster (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
-    name varchar(255) DEFAULT '' NOT NULL,
-    email varchar(255) DEFAULT '' NOT NULL,
-    web varchar(255) DEFAULT '' NOT NULL,
+	name varchar(255) DEFAULT '' NOT NULL,
+	email varchar(255) DEFAULT '' NOT NULL,
+	web varchar(255) DEFAULT '' NOT NULL,
 	identifier varchar(255) DEFAULT '' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,

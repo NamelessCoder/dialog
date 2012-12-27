@@ -331,7 +331,17 @@
 			<f:format.html>{postItem.content}</f:format.html>
 		</v:case>
 	</v:switch>
-	<f:if condition="{settings.enableFileUploads}">
+	<f:if condition="{settings.attachments.images.enable}">
+		<f:if condition="{postItem.images}">
+			<div class="images">
+				<f:for each="{postItem.images -> v:iterator.explode()}" as="filename">
+					<f:image class="{settings.attachments.images.class}" src="{uploadFolder}/{filename}" alt="{filename}"
+					         width="{settings.attachments.images.width}" height="{settings.attachments.images.height}" />
+				</f:for>
+			</div>
+		</f:if>
+	</f:if>
+	<f:if condition="{settings.attachments.files.enable}">
 		<f:if condition="{postItem.attachments}">
 			<div class="attachments">
 				<f:for each="{postItem.attachments -> v:iterator.explode()}" as="filename">
@@ -482,11 +492,11 @@
 			<label for="words"><f:translate key="tx_dialog_domain_model_post.content" /></label>
 			<f:form.textarea property="content" rows="9" cols="60" id="words" errorClass="{settings.errorClass}" />
 		</div>
-		<f:if condition="{settings.enableFileUploads}">
+		<f:if condition="{settings.attachments.files.enable}">
 			<div class="controls-row files">
 				<label><f:translate key="attachments" /></label>
 				<div class="controls-row">
-					<v:iterator.loop count="{settings.fileUploadFieldCount}" iteration="iteration">
+					<v:iterator.loop count="{settings.attachments.files.count}" iteration="iteration">
 						<div class="fileupload fileupload-new" data-provides="fileupload">
 							<button class="btn btn-mini btn-file"><span class="fileupload-new"><f:translate key="chooseFile" /></span>
 								<span class="fileupload-exists"><f:translate key="changeFile" /></span><f:form.upload name="attachments[]" />
@@ -495,6 +505,31 @@
 							<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
 						</div>
 					</v:iterator.loop>
+					<div class="allowed-types">
+						{settings.attachments.files.extensions}
+					</div>
+				</div>
+			</div>
+		</f:if>
+		<f:if condition="{settings.attachments.images.enable}">
+			<div class="controls-row files images">
+				<label><f:translate key="images" /></label>
+				<div class="controls-row">
+					<v:iterator.loop count="{settings.attachments.images.count}" iteration="iteration">
+						<div class="fileupload fileupload-new" data-provides="fileupload">
+							<button class="btn btn-mini btn-file"><span class="fileupload-new"><f:translate key="chooseFile" /></span>
+								<span class="fileupload-exists"><f:translate key="changeFile" /></span><f:form.upload name="images[]" />
+							</button>
+							<div class="fileupload-new thumbnail">
+								<img src="{settings.attachments.images.placeholder}" alt="{settings.attachments.images.placeholder}" />
+							</div>
+							<div class="fileupload-preview fileupload-exists thumbnail"></div>
+							<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+						</div>
+					</v:iterator.loop>
+					<div class="allowed-types">
+						{settings.attachments.images.extensions}
+					</div>
 				</div>
 			</div>
 		</f:if>

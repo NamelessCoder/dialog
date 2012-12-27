@@ -213,19 +213,6 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		if ($url) {
 			sleep(99999999);
 		}
-		$files = NULL;
-		if (isset($_FILES['tx_dialog_discussion'])) {
-			$files = array();
-			foreach ($_FILES['tx_dialog_discussion']['tmp_name']['attachments'] as $index => $name) {
-				array_push($files, array(
-					'name' => $_FILES['tx_dialog_discussion']['name']['attachments'][$index],
-					'tmp_name' => $_FILES['tx_dialog_discussion']['tmp_name']['attachments'][$index],
-					'type' => $_FILES['tx_dialog_discussion']['type']['attachments'][$index],
-					'size' => $_FILES['tx_dialog_discussion']['size']['attachments'][$index],
-					'error' => $_FILES['tx_dialog_discussion']['error']['attachments'][$index]
-				));
-			}
-		}
 		$arguments = array();
 		$now = new DateTime();
 
@@ -310,27 +297,9 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		if ($hash) {
 			$post->setHash($hash);
 		}
-		if (is_array($files) && count($files) > 0) {
-			$filenames = array();
-			/** @var $fileHandler t3lib_basicFileFunctions */
-			$fileHandler = t3lib_div::makeInstance('t3lib_basicFileFunctions');
-			$targetDir = PATH_site . $GLOBALS['TCA']['tx_dialog_domain_model_post']['columns']['attachments']['config']['uploadfolder'] . '/';
-			foreach ($files as $uploadedFile) {
-				if (is_uploaded_file($uploadedFile['tmp_name']) === TRUE) {
-					$filename = $uploadedFile['name'];
-					$filename = $fileHandler->cleanFileName($filename);
-					$i = 1;
-					$targetFilename = $targetDir . $filename;
-					while (file_exists($targetFilename)) {
-						$filename = basename($fileHandler->getUniqueName($filename, $targetDir));
-						$targetFilename = $targetDir . $filename;
-					}
-					move_uploaded_file($uploadedFile['tmp_name'], $targetFilename);
-					array_push($filenames, $filename);
-				}
-			}
-			$post->setAttachments(implode(',', $filenames));
-		}
+		$post->setAttachments(implode(',', $this->uploadFiles('attachments', 'files')));
+		$post->setImages(implode(',', $this->uploadFiles('images', 'images')));
+
 		$post->setCrdate($now);
 		$this->postRepository->add($post);
 		$this->cacheService->clearPageCache(array($GLOBALS['TSFE']->id));
@@ -425,6 +394,55 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	protected function buildEmailLink($action, $arguments=array()) {
 		$link = $this->uriBuilder->uriFor($action,$arguments);
 		return $link;
+	}
+
+	/**
+	 * @param string $fieldName
+	 * @param string $settingName
+	 * @return array
+	 */
+	protected function uploadFiles($fieldName, $settingName) {
+		$allowedExtensions = t3lib_div::trimExplode(',', $this->settings['attachments'][$settingName]['extensions']);
+		$extensionMap = $this->settings['attachments']['renaming'];
+		$files = array();
+		if (isset($_FILES['tx_dialog_discussion'])) {
+			foreach ($_FILES['tx_dialog_discussion']['tmp_name'][$fieldName] as $index => $name) {
+				array_push($files, array(
+					'name' => $_FILES['tx_dialog_discussion']['name'][$fieldName][$index],
+					'tmp_name' => $_FILES['tx_dialog_discussion']['tmp_name'][$fieldName][$index],
+					'type' => $_FILES['tx_dialog_discussion']['type'][$fieldName][$index],
+					'size' => $_FILES['tx_dialog_discussion']['size'][$fieldName][$index],
+					'error' => $_FILES['tx_dialog_discussion']['error'][$fieldName][$index]
+				));
+			}
+		}
+		$filenames = array();
+		/** @var $fileHandler t3lib_basicFileFunctions */
+		$fileHandler = t3lib_div::makeInstance('t3lib_basicFileFunctions');
+		$targetDir = PATH_site . $GLOBALS['TCA']['tx_dialog_domain_model_post']['columns'][$fieldName]['config']['uploadfolder'] . '/';
+		foreach ($files as $uploadedFile) {
+			if (is_uploaded_file($uploadedFile['tmp_name']) === TRUE) {
+				$filename = $uploadedFile['name'];
+				$extension = pathinfo($filename, PATHINFO_EXTENSION);
+				if (!in_array($extension, $allowedExtensions)) {
+					continue;
+				}
+				$filename = $fileHandler->cleanFileName($filename);
+				$i = 1;
+				$targetFilename = $targetDir . $filename;
+				while (file_exists($targetFilename)) {
+					$filename = basename($fileHandler->getUniqueName($filename, $targetDir));
+					$targetFilename = $targetDir . $filename;
+				}
+				if (isset($extensionMap[$extension])) {
+					$targetFilename = substr($targetFilename, 0, 0 - strlen($extension)) . $extensionMap[$extension];
+					$filename = substr($filename, 0, 0 - strlen($extension)) . $extensionMap[$extension];
+				}
+				move_uploaded_file($uploadedFile['tmp_name'], $targetFilename);
+				array_push($filenames, $filename);
+			}
+		}
+		return $filenames;
 	}
 
 }

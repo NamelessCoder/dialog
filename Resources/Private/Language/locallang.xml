@@ -44,6 +44,7 @@
 			<label index="buttonSend">I'm done - send</label>
 			<label index="buttonCancel">I changed my mind</label>
 			<label index="attachments">Attachments</label>
+			<label index="images">Images</label>
 			<label index="chooseFile">Choose file</label>
 			<label index="changeFile">Change file</label>
 
@@ -128,6 +129,7 @@ Forget this authorization (and let me re-authorize if needed):
 			<label index="buttonSend">Send svar</label>
 			<label index="buttonCancel">Annullér</label>
 			<label index="attachments">Vedhæftede filer</label>
+			<label index="images">Vedhæftede billeder</label>
 			<label index="chooseFile">Vælg fil</label>
 			<label index="changeFile">Skift fil</label>
 
@@ -211,6 +213,7 @@ Forget this authorization (and let me re-authorize if needed):
 			<label index="buttonSend">Send svar</label>
 			<label index="buttonCancel">Annullér</label>
 			<label index="attachments">Vedhæftede filer</label>
+			<label index="images">Vedhæftede billeder</label>
 			<label index="chooseFile">Vælg fil</label>
 			<label index="changeFile">Skift fil</label>
 

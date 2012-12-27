@@ -185,6 +185,13 @@ $TCA['tx_dialog_domain_model_post'] = array(
 				'uploadfolder' => 'uploads/tx_dialog',
 			),
 		),
+		'images' => array(
+			'config' => array(
+				'type' => 'group',
+				'internal_type' => 'file',
+				'uploadfolder' => 'uploads/tx_dialog',
+			),
+		),
 	),
 );
 ?>

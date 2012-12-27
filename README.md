@@ -103,12 +103,12 @@ The short version better suited for Partials etc.
 
 ```xml
 <v:security.allow frontendUserGroup="{settings.myExtensionsAuthSettings.someGroupUid}">
-    <dialog:widget.comment
-        hash="Tx_MyExt_Domain_Model_MyObject:{object.uid}"
-        presetSubject="Comment: {object.title}"
-        customTitle="{f:translate(key: 'commentsFor', default: 'commentsFor')} {object.title}"
-        placeholder="<i class='icon icon-comments'></i> {f:translate(key: 'commentsPlaceholder', default: 'commentsPlaceholder')} (%s)"
-        />
+	<dialog:widget.comment
+		hash="Tx_MyExt_Domain_Model_MyObject:{object.uid}"
+		presetSubject="Comment: {object.title}"
+		customTitle="{f:translate(key: 'commentsFor', default: 'commentsFor')} {object.title}"
+		placeholder="<i class='icon icon-comments'></i> {f:translate(key: 'commentsPlaceholder', default: 'commentsPlaceholder')} (%s)"
+		/>
 </v:security.allow>
 ```
 
@@ -142,10 +142,34 @@ plugin.tx_dialog.settings {
 	postTableClass = table-condensed table-striped
 	# last post max characters: number of characters to display from latest post in Discussion/Thread
 	lastPostMaxCharacters = 150
-	# file uploads: enable uploading of files when posting
-	enableFileUploads = 1
-	# file uploads: number of file upload fields
-	fileUploadFieldCount = 5
+	attachments {
+		files {
+			# file uploads: enable uploading of files when posting
+			enable = 1
+			# file uploads: number of file upload fields
+			count = 5
+			# file uploads: allowed file extensions
+			extensions = php, js, zip, tar, gz, bz, bz2, doc, docx, odt, odf
+		}
+		images {
+			# image uploads: enable uploading of images when posting
+			enable = 1
+			# image uploads: number of image upload fields
+			count = 5
+			# image uploads: allowed file extensions
+			extensions = jpg, jpeg, gif, png
+			# image uploads: width of displayed image attachments, TS object syntax i.e. "350m" to scale and maintain aspect, "500c" to crop at width 500. Default tuned to Bootstrap.
+			width = 770m
+			# image uploads: height of displayed image attachments, suggest a reasonably high value such as "2000m"
+			height = 2000m
+			# image uploads: placeholder image
+			placeholder = http://www.placehold.it/40x40/EFEFEF/AAAAAA&text=no+image
+		}
+		# extension rename mapping. Uploaded files' extensions are renamed by <original> = <target>
+		renaming {
+			php = phps
+		}
+	}
 	# duration of the cookie that is sent when a guest user uses the "store in cookie" confirmation link from the confirmation email
 	cookieLifetime = 8046000
 	pagination {
@@ -159,11 +183,11 @@ plugin.tx_dialog.settings {
 		fromName = MySite Forums
 	}
 	markup {
-        # options: default (html), markdown, raw, nl2br, template. Mode "markdown" requires CLI command "markdown" installed
-        mode = default
-        # if mode = template, a path to a Fluid (Partial) template which renders each Post text
-        template =
-    }
+		# options: default (html), markdown, raw, nl2br, template. Mode "markdown" requires CLI command "markdown" installed
+		mode = default
+		# if mode = template, a path to a Fluid (Partial) template which renders each Post text
+		template =
+	}
 }
 ```
 

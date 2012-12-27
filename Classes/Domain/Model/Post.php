@@ -89,6 +89,11 @@ class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity
 	protected $attachments;
 
 	/**
+	 * @var string
+	 */
+	protected $images;
+
+	/**
 	 * @var boolean
 	 */
 	protected $published;
@@ -267,6 +272,20 @@ class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity
 	 */
 	public function getAttachments() {
 		return trim($this->attachments, ', ');
+	}
+
+	/**
+	 * @param string $images
+	 */
+	public function setImages($images) {
+		$this->images = trim($images, ', ');
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getImages() {
+		return trim($this->images, ', ');
 	}
 
 	/**
