@@ -84,6 +84,10 @@ plugin.tx_dialog {
 			mode = default
 			# if mode = template, a path to a Fluid (Partial) template which renders each Post text
 			template =
+			# if mode = markdown, this variable determines wether htmlentities() is applied before markdown transformation. May interfere with pasted HTML code examples.
+			markdown.htmlentities = 0
+			# if mode = markdown, this variable determins wether trim() is applied before markdown transformation
+			markdown.trim = 1
 		}
 		posting {
 			cleaning {
@@ -114,3 +118,5 @@ page.includeJS.dialogChat = EXT:dialog/Resources/Public/Javascripts/Plugins/Chat
 page.includeJS.dialogComment = EXT:dialog/Resources/Public/Javascripts/Plugins/Comment.js
 page.includeJSFooter.dialogUploadPlugin = EXT:dialog/Resources/Public/Javascripts/Plugins/bootstrap-fileupload.js
 page.includeCSS.dialogUploadPlugin = EXT:dialog/Resources/Public/Stylesheets/bootstrap-fileupload.min.css
+page.includeJS.dialogPrettifyPlugin = EXT:dialog/Resources/Public/Javascripts/Plugins/Prettify.js
+page.includeCSS.dialogPrettifyPlugin = EXT:dialog/Resources/Public/Stylesheets/PrettifyTheme.css

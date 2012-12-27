@@ -26,7 +26,7 @@
 			<label index="allowedHtml">Allowed HTML:</label>
 			<label index="allowedMarkdown">Markdown enabled</label>
 			<label index="allowedMarkdownExample">__bold text__, _italic text_, [link text](http://link.url/ "optional title of link"), `code styled text`,
-				## Level 2 header text, > block-quoted text.</label>
+				## Level 2 header text, > block-quoted text. Indent blocks of text with two or more spaces for code highlighting. Finish a line before a single line break with two or more spaces for a single line break in output.</label>
 			<label index="latestPosts">Latest posts</label>
 
 			<label index="reportTitle">Report post</label>
@@ -123,7 +123,8 @@ Forget this authorization (and let me re-authorize if needed):
 			<label index="webFieldMessage">Inkludér venligst ikke http:// i din URL.</label>
 			<label index="allowedHtml">Tilladt HTML:</label>
 			<label index="allowedMarkdown">Markdown aktiveret</label>
-			<label index="allowedMarkdownExample">__fed tekst__, _kursiv_, [link tekst](http://link.url/ "frivillig titel"), `code-styling`, ## niveau 2 overskrift, > citeret tekst.</label>
+			<label index="allowedMarkdownExample">__fed tekst__, _kursiv_, [link tekst](http://link.url/ "frivillig titel"), `code-styling`, ## niveau 2 overskrift, > citeret tekst.
+				Indryk blokke af tekst med to eller flere mellemrum for kode-highlighting. Afslut en linje før et enkelt linjeskift med to eller flere mellemrum for ét linjeskift i visningen.</label>
 			<label index="latestPosts">Nyeste svar</label>
 
 			<label index="buttonSend">Send svar</label>
@@ -207,7 +208,8 @@ Forget this authorization (and let me re-authorize if needed):
 			<label index="webFieldMessage">Inkludér venligst ikke http:// i din URL.</label>
 			<label index="allowedHtml">Tilladt HTML:</label>
 			<label index="allowedMarkdown">Markdown aktiveret</label>
-			<label index="allowedMarkdownExample">__fed tekst__, _kursiv_, [link tekst](http://link.url/ "frivillig titel"), `code-styling`, ## niveau 2 overskrift, > citeret tekst.</label>
+			<label index="allowedMarkdownExample">__fed tekst__, _kursiv_, [link tekst](http://link.url/ "frivillig titel"), `code-styling`, ## niveau 2 overskrift, > citeret tekst.
+				Indryk blokke af tekst med to eller flere mellemrum for kode-highlighting. Afslut en linje før et enkelt linjeskift med to eller flere mellemrum for ét linjeskift i visningen.</label>
 			<label index="latestPosts">Nyeste svar</label>
 
 			<label index="buttonSend">Send svar</label>
