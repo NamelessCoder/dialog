@@ -145,3 +145,40 @@ td.latest-items-options {
 .tx-dialog-discussion .last-post .subject {
 	clear: right;
 }
+
+.tx-dialog-discussion .fileupload {
+	float: left;
+	margin-right: 0.5em;
+}
+
+.tx-dialog-discussion .fileupload-exists {
+	float: none;
+	clear: both;
+}
+
+.tx-dialog-discussion .controls-row label {
+	margin-top: 1em;
+}
+
+.tx-dialog-discussion .pagination-small li a {
+	font-size: 80%;
+	padding: 0.5em;
+	line-height: 1.5em;
+	width: 2em;
+	text-align: center;
+}
+
+.tx-dialog-discussion .attachments {
+	margin-bottom: 1em;
+}
+
+.tx-dialog-discussion .attachments a {
+	opacity: 0.75;
+	font-weight: normal;
+	font-size: 100%;
+	padding: 0.2em 0.5em 0.2em 0.5em;
+}
+
+.tx-dialog-discussion .attachments a:hover {
+	opacity: 1;
+}

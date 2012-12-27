@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_dialog_domain_model_post'] = array(
 	'ctrl' => $TCA['tx_dialog_domain_model_post']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, poster, subject, content, hash, replies, crdate, thread, published',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, poster, subject, content, hash, replies, crdate, thread, published, attachments',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, poster, subject, content, hash, replies, crdate, thread, published,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, poster, subject, content, hash, replies, crdate, thread, published, attachments,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -176,6 +176,13 @@ $TCA['tx_dialog_domain_model_post'] = array(
 		'post' => array(
 			'config' => array(
 				'type' => 'passthrough',
+			),
+		),
+		'attachments' => array(
+			'config' => array(
+				'type' => 'group',
+				'internal_type' => 'file',
+				'uploadfolder' => 'uploads/tx_dialog',
 			),
 		),
 	),

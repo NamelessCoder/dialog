@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2012 Claus Due <claus@wildside.dk>, Wildside A/S
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -82,6 +82,11 @@ class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity
 	 * @var Tx_Dialog_Domain_Model_Post
 	 */
 	protected $post;
+
+	/**
+	 * @var string
+	 */
+	protected $attachments;
 
 	/**
 	 * @var boolean
@@ -248,6 +253,20 @@ class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity
 	 */
 	public function setPost(Tx_Dialog_Domain_Model_Post $post=NULL) {
 		$this->post = $post;
+	}
+
+	/**
+	 * @param string $attachments
+	 */
+	public function setAttachments($attachments) {
+		$this->attachments = trim($attachments, ', ');
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAttachments() {
+		return trim($this->attachments, ', ');
 	}
 
 	/**

@@ -102,10 +102,11 @@ CREATE TABLE tx_dialog_domain_model_post (
 	post int(11) unsigned DEFAULT '0' NOT NULL,
 	poster int(11) unsigned DEFAULT '0' NOT NULL,
 
-    subject varchar(255) DEFAULT '' NOT NULL,
+  subject varchar(255) DEFAULT '' NOT NULL,
 	content text NOT NULL,
 	hash varchar(255) DEFAULT '' NOT NULL,
 	replies int(11) unsigned DEFAULT '0' NOT NULL,
+  attachments text NOT NULL,
 	published tinyint(4) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,

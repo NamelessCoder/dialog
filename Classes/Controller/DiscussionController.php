@@ -46,6 +46,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		$this->view->assign('view', 'Discussions');
 		$this->view->assign('latest', $this->postRepository->findLatest($this->settings['numberOfLatestPosts']));
 		$this->view->assign('frontendUser', $GLOBALS['TSFE']->fe_user->user);
+		$this->view->assign('uploadFolder', $GLOBALS['TCA']['tx_dialog_domain_model_post']['columns']['attachments']['config']['uploadfolder']);
 	}
 
 	/**
@@ -72,6 +73,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		$this->view->assign('discussion', $discussion);
 		$this->view->assign('thread', $thread);
 		$this->view->assign('frontendUser', $GLOBALS['TSFE']->fe_user->user);
+		$this->view->assign('uploadFolder', $GLOBALS['TCA']['tx_dialog_domain_model_post']['columns']['attachments']['config']['uploadfolder']);
 	}
 
 	/**
@@ -178,6 +180,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		$this->view->assign('parent', $parent);
 		$this->view->assign('poster', $poster);
 		$this->view->assign('errors', $errors);
+		$this->view->assign('uploadFolder', $GLOBALS['TCA']['tx_dialog_domain_model_post']['columns']['attachments']['config']['uploadfolder']);
 	}
 
 	/**
@@ -209,6 +212,19 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 			$url=NULL) {
 		if ($url) {
 			sleep(99999999);
+		}
+		$files = NULL;
+		if (isset($_FILES['tx_dialog_discussion'])) {
+			$files = array();
+			foreach ($_FILES['tx_dialog_discussion']['tmp_name']['attachments'] as $index => $name) {
+				array_push($files, array(
+					'name' => $_FILES['tx_dialog_discussion']['name']['attachments'][$index],
+					'tmp_name' => $_FILES['tx_dialog_discussion']['tmp_name']['attachments'][$index],
+					'type' => $_FILES['tx_dialog_discussion']['type']['attachments'][$index],
+					'size' => $_FILES['tx_dialog_discussion']['size']['attachments'][$index],
+					'error' => $_FILES['tx_dialog_discussion']['error']['attachments'][$index]
+				));
+			}
 		}
 		$arguments = array();
 		$now = new DateTime();
@@ -294,9 +310,29 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		if ($hash) {
 			$post->setHash($hash);
 		}
+		if (is_array($files) && count($files) > 0) {
+			$filenames = array();
+			/** @var $fileHandler t3lib_basicFileFunctions */
+			$fileHandler = t3lib_div::makeInstance('t3lib_basicFileFunctions');
+			$targetDir = PATH_site . $GLOBALS['TCA']['tx_dialog_domain_model_post']['columns']['attachments']['config']['uploadfolder'] . '/';
+			foreach ($files as $uploadedFile) {
+				if (is_uploaded_file($uploadedFile['tmp_name']) === TRUE) {
+					$filename = $uploadedFile['name'];
+					$filename = $fileHandler->cleanFileName($filename);
+					$i = 1;
+					$targetFilename = $targetDir . $filename;
+					while (file_exists($targetFilename)) {
+						$filename = basename($fileHandler->getUniqueName($filename, $targetDir));
+						$targetFilename = $targetDir . $filename;
+					}
+					move_uploaded_file($uploadedFile['tmp_name'], $targetFilename);
+					array_push($filenames, $filename);
+				}
+			}
+			$post->setAttachments(implode(',', $filenames));
+		}
 		$post->setCrdate($now);
 		$this->postRepository->add($post);
-		$this->flashMessageContainer->add('Your post was added');
 		$this->cacheService->clearPageCache(array($GLOBALS['TSFE']->id));
 		$this->objectManager->get('Tx_Extbase_Persistence_ManagerInterface')->persistAll();
 		$this->uriBuilder->setSection('p' . $post->getUid());

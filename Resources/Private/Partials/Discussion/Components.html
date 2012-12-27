@@ -266,11 +266,11 @@
 		</div>
 		<div class="span10">
 			<h4>{postItem.subject}</h4>
-			<f:render section="PostItem" arguments="{postItem: postItem}" />
+			<f:render section="PostItem" arguments="{postItem: postItem, uploadFolder: uploadFolder}" />
 			<f:render section="PostOptions" arguments="{_all}" />
 		</div>
 		<f:if condition="{postItem.replies}">
-			<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread}" />
+			<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread, uploadFolder: uploadFolder}" />
 		</f:if>
 	</div>
 </f:section>
@@ -297,7 +297,7 @@
 					{postItem.subject}
 				</h4>
 				<div class="content">
-					<f:render section="PostItem" arguments="{postItem: postItem}" />
+					<f:render section="PostItem" arguments="{postItem: postItem, uploadFolder: uploadFolder}" />
 				</div>
 				<f:if condition="{hideOptions} < 1">
 					<f:render section="PostOptions" arguments="{_all}" />
@@ -306,7 +306,7 @@
 		</div>
 		<f:if condition="{hideChildren} < 1">
 			<f:if condition="{postItem.replies}">
-				<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread}" />
+				<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread, uploadFolder: uploadFolder}" />
 			</f:if>
 		</f:if>
 	</div>
@@ -331,12 +331,21 @@
 			<f:format.html>{postItem.content}</f:format.html>
 		</v:case>
 	</v:switch>
+	<f:if condition="{settings.enableFileUploads}">
+		<f:if condition="{postItem.attachments}">
+			<div class="attachments">
+				<f:for each="{postItem.attachments -> v:iterator.explode()}" as="filename">
+					<a class="label label-inverse" href="{uploadFolder}/{filename}"><i class="icon icon-link"></i> {filename}</a>
+				</f:for>
+			</div>
+		</f:if>
+	</f:if>
 </f:section>
 
 <f:section name="Replies">
 	<div class="replies">
 		<f:for each="{postItem.replies}" as="reply">
-			<f:render section="Post" arguments="{postItem: reply, offset: offset, discussion: discussion, thread: thread}" />
+			<f:render section="Post" arguments="{postItem: reply, offset: offset, discussion: discussion, thread: thread, uploadFolder: uploadFolder}" />
 		</f:for>
 	</div>
 </f:section>
@@ -395,7 +404,7 @@
 			</blockquote>
 			<h2><f:translate key="writeReply" /></h2>
 		</f:if>
-		<f:form action="post" object="{post}" name="post">
+		<f:form action="post" object="{post}" name="post" enctype="multipart/form-data">
 			<div style="display: none;">
 				<f:form.textfield name="url" value="" />
 			</div>
@@ -414,28 +423,28 @@
 						<div class="span4">
 							<fieldset>
 								<legend><f:translate key="personalInfo" /></legend>
-								<div class="control-row {f:if(condition: errors.name, then: ' error')}">
+								<div class="controls-row {f:if(condition: errors.name, then: ' error')}">
 									<label for="name"><f:translate key="tx_dialog_domain_model_poster.name" /></label>
 									<div class="input-prepend">
 										<span class="add-on"><i class="icon-user"></i></span>
 										<f:form.textfield class="poster-name" property="poster.name" value="{poster.name}" id="name" errorClass="{settings.errorClass}" />
 									</div>
 								</div>
-								<div class="control-row{f:if(condition: errors.email, then: ' error')}">
+								<div class="controls-row{f:if(condition: errors.email, then: ' error')}">
 									<label for="email"><f:translate key="tx_dialog_domain_model_poster.email" /></label>
 									<div class="input-prepend">
 										<span class="add-on email"><i class="icon-envelope"></i></span>
 										<f:form.textfield property="poster.email" value="{poster.email}" id="email" class="email poster-email" errorClass="{settings.errorClass}" />
-										<p class="help-block"><f:translate key="emailFieldMessage" /></p>
 									</div>
+									<p class="help-block"><f:translate key="emailFieldMessage" /></p>
 								</div>
-								<div class="control-row">
+								<div class="controls-row">
 									<label for="web">Web</label>
 									<div class="input-prepend">
 										<span class="add-on web">http://</span>
 										<f:form.textfield property="poster.web" value="{poster.web}" id="web" class="web poster-web" errorClass="{settings.errorClass}" />
-										<p class="help-block"><f:translate key="webFieldMessage" /></p>
 									</div>
+									<p class="help-block"><f:translate key="webFieldMessage" /></p>
 								</div>
 								<f:if condition="{poster.identifier}">
 									<div class="controls-row">
@@ -473,22 +482,22 @@
 			<label for="words"><f:translate key="tx_dialog_domain_model_post.content" /></label>
 			<f:form.textarea property="content" rows="9" cols="60" id="words" errorClass="{settings.errorClass}" />
 		</div>
-		<p class="help-block allowed-html">
-			<v:switch value="{settings.markup.mode}">
-				<v:case case="html">
-					<f:translate key="allowedHtml" />
-					<f:for each="{settings.allowedHtmlTags->v:iterator.explode()}" as="allowedTag" iteration="tagIteration">
-						<code><f:format.htmlentities><{allowedTag}></f:format.htmlentities></code>
-					</f:for>
-				</v:case>
-				<v:case case="markdown">
-					<h4>
-						<f:translate key="allowedMarkdown" />
-					</h4>
-					<f:translate key="allowedMarkdownExample" /> <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">http://daringfireball.net/projects/markdown/syntax</a>
-				</v:case>
-			</v:switch>
-		</p>
+		<f:if condition="{settings.enableFileUploads}">
+			<div class="controls-row files">
+				<label><f:translate key="attachments" /></label>
+				<div class="controls-row">
+					<v:iterator.loop count="{settings.fileUploadFieldCount}" iteration="iteration">
+						<div class="fileupload fileupload-new" data-provides="fileupload">
+							<button class="btn btn-mini btn-file"><span class="fileupload-new"><f:translate key="chooseFile" /></span>
+								<span class="fileupload-exists"><f:translate key="changeFile" /></span><f:form.upload name="attachments[]" />
+							</button>
+							<span class="fileupload-preview"></span>
+							<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+						</div>
+					</v:iterator.loop>
+				</div>
+			</div>
+		</f:if>
 		<div class="form-actions right">
 			<f:if condition="{discussion}">
 				<f:then>
@@ -507,6 +516,19 @@
 			</f:if>
 			<button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> <f:translate key="buttonSend" /></button>
 		</div>
+		<v:switch value="{settings.markup.mode}">
+			<v:case case="html">
+				<h4><f:translate key="allowedHtml" /></h4>
+				<f:for each="{settings.allowedHtmlTags->v:iterator.explode()}" as="allowedTag" iteration="tagIteration">
+					<code><f:format.htmlentities><{allowedTag}></f:format.htmlentities></code>
+				</f:for>
+			</v:case>
+			<v:case case="markdown">
+				<h4 class="muted"><f:translate key="allowedMarkdown" /></h4>
+				<p class="allowed-html muted"><f:translate key="allowedMarkdownExample" /></p>
+				<p class="muted"><a class="muted" href="http://daringfireball.net/projects/markdown/syntax" target="_blank">http://daringfireball.net/projects/markdown/syntax</a></p>
+			</v:case>
+		</v:switch>
 	</fieldset>
 </f:section>
 
