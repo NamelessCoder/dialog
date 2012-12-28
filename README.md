@@ -112,6 +112,37 @@ The short version better suited for Partials etc.
 </v:security.allow>
 ```
 
+### Rebuilding cached Markdown after upgrade from old version
+
+Anywhere in any controller, implement this short piece of code. Allow at least one execution, then remove the code again. The
+Markdown representation of every Post will be saved (but of course the original, untransformed version remains and is the one
+which will be edited). When saving a Post in any context (except for TYPO3 BE) the Markdown representation is automatically
+renewed.
+
+Please note that Markdown pre-caching this way will silently ignore any Exceptions, fx caused by missing Markdown CLI command.
+
+```php
+
+/**
+ * @var Tx_Dialog_Domain_Repository_PostRepository
+ */
+protected $postRepository;
+
+/**
+ * @param Tx_Dialog_Domain_Repository_PostRepository $postRepository
+ */
+public function injectPostRepository(Tx_Dialog_Domain_Repository_PostRepository $postRepository) {
+	$this->postRepository = $postRepository;
+}
+
+public function anyDesiredActionOrCommand() {
+	foreach ($this->postRepository->findAll() as $post) {
+		$post->setContent($post->getContent());
+		$this->postRepository->update($post);
+	}
+}
+```
+
 ### Core settings
 
 ```

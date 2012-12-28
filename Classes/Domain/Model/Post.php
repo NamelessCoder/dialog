@@ -35,6 +35,11 @@
 class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity {
 
 	/**
+	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 */
+	protected $objectManager;
+
+	/**
 	 * @var string
 	 * @validate NotEmpty
 	 */
@@ -99,6 +104,18 @@ class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity
 	protected $published;
 
 	/**
+	 * @var string
+	 */
+	protected $cachedMarkdown;
+
+	/**
+	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
+	/**
 	 * __construct
 	 *
 	 * @return void
@@ -137,7 +154,16 @@ class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity
 	 * @return void
 	 */
 	public function setContent($content) {
+		/** @var $markdownViewHelper Tx_Vhs_ViewHelpers_Format_MarkdownViewHelper */
+		$markdownViewHelper = $this->objectManager->create('Tx_Vhs_ViewHelpers_Format_MarkdownViewHelper');
 		$this->content = trim($content);
+		try {
+			$cachedMarkdown = $markdownViewHelper->render($content, TRUE);
+			$cachedMarkdown = str_replace('<pre>', '<pre class="prettyprint linenums:1">', $cachedMarkdown);
+			$this->setCachedMarkdown($cachedMarkdown);
+		} catch (Exception $error) {
+			unset($error);
+		}
 	}
 
 	/**
@@ -302,5 +328,18 @@ class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity
 		$this->published = $published;
 	}
 
+	/**
+	 * @param string $cachedMarkdown
+	 */
+	public function setCachedMarkdown($cachedMarkdown) {
+		$this->cachedMarkdown = trim($cachedMarkdown);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCachedMarkdown() {
+		return $this->cachedMarkdown;
+	}
+
 }
-?>

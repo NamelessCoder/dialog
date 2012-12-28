@@ -311,10 +311,17 @@
 			<f:format.raw>{postItem.content}</f:format.raw>
 		</v:case>
 		<v:case case="markdown" break="TRUE">
-			<v:format.replace substring="<pre>" replacement="<pre class='prettyprint linenums:1'>">
-				<v:format.markdown htmlentities="{settings.markup.markdown.htmlentities}"
-				                   trim="{settings.markup.markdown.trim}">{postItem.content}</v:format.markdown>
-			</v:format.replace>
+			<f:if condition="{postItem.cachedMarkdown}">
+				<f:then>
+					<f:format.raw>{postItem.cachedMarkdown}</f:format.raw>
+				</f:then>
+				<f:else>
+					<v:format.replace substring="<pre>" replacement="<pre class='prettyprint linenums:1'>">
+						<v:format.markdown htmlentities="{settings.markup.markdown.htmlentities}"
+						                   trim="{settings.markup.markdown.trim}">{postItem.content}</v:format.markdown>
+					</v:format.replace>
+				</f:else>
+			</f:if>
 		</v:case>
 		<v:case case="template" break="TRUE">
 			<v:render.template file="{settings.markup.template}" variables="{postItem: postItem, settings: settings}" />

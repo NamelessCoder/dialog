@@ -108,6 +108,7 @@ CREATE TABLE tx_dialog_domain_model_post (
 	replies int(11) unsigned DEFAULT '0' NOT NULL,
 	attachments text NOT NULL,
 	images text NOT NULL,
+	cached_markdown text NOT NULL,
 	published tinyint(4) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
