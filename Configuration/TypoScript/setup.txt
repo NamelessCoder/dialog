@@ -19,7 +19,7 @@ plugin.tx_dialog {
 		# gravatars: enable the use of avatars from gravatar.com
 		enableGravatars = 1
 		# gravatars: gravatar width, raw pixels. Gravatar will always be square.
-		gravatarWidth = 180
+		gravatarWidth = 120
 		# gravatars: default image used by gravatar.com when user does not exist
 		gravatarDefault = retro
 		# discussion creation: If enabled, allows users to create new Discussions (root-level object, should normally be controlled by site admin)
