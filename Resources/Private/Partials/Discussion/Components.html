@@ -416,9 +416,7 @@
 			</f:if>
 		</h2>
 		<f:if condition="{parent}">
-			<blockquote>
-				<f:format.nl2br>{parent.content}</f:format.nl2br>
-			</blockquote>
+			<f:render section="PostItem" arguments="{postItem: parent}" />
 			<h2><f:translate key="writeReply" /></h2>
 		</f:if>
 		<f:form action="post" object="{post}" name="post" enctype="multipart/form-data">
