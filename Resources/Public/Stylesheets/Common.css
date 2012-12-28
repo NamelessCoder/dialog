@@ -208,3 +208,11 @@ td.latest-items-options {
 	width: 120px;
 	max-width: 120px;
 }
+
+.tx-dialog-discussion .new-post {
+	color: #d12438;
+}
+
+.tx-dialog-discussion h4 .new-post {
+	margin-left: 3px;
+}

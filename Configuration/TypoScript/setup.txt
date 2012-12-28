@@ -40,6 +40,9 @@ plugin.tx_dialog {
 		postTableClass = table-condensed table-striped
 		# last post max characters: number of characters to display from latest post in Discussion/Thread
 		lastPostMaxCharacters = 150
+		# new post indicator: small piece of HTML inserted just before the title if the Post, Thread or Discussion is more recently updated than viewer's last visit.
+		# A Twitter Bootstrap icon HTML block works well here. Default styles assume FontAwesome is installed in order to color the icon through CSS.
+		newIndicator = <i class="icon icon-envelope-alt new-post"></i>
 		attachments {
 			files {
 				# file uploads: enable uploading of files when posting

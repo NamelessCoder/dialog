@@ -119,6 +119,7 @@
 					</f:link.action>
 				</div>
 				<h4>
+					<dialog:isNew discussion="{discussionItem}" then="{settings.newIndicator -> f:format.raw()}" />
 					<f:link.action action="show" arguments="{discussion: discussionItem.uid}">
 						{discussionItem.title}
 					</f:link.action>
@@ -132,21 +133,16 @@
 							<f:for each="{discussionItem.threads -> v:iterator.sort(sortBy: 'crdate', order: 'DESC') -> v:iterator.slice(length: settings.numberOfLatestPosts)}" as="threadItem">
 								<tr>
 									<td>
-										<f:link.action action="show" arguments="{discussion: discussionItem.uid, thread: threadItem.uid}">
-											{threadItem.subject}
-										</f:link.action>
-										<small>
-											<em><f:translate key="by" /> {threadItem.poster.name}</em>
-										</small>
+										<dialog:isNew thread="{threadItem}" then="{settings.newIndicator -> f:format.raw()}" />
+										<f:link.action action="show" arguments="{discussion: discussionItem.uid, thread: threadItem.uid}">{threadItem.subject}</f:link.action>
+										<small><em><f:translate key="by" /> {threadItem.poster.name}</em></small>
 										<f:if condition="{threadItem.lastPost}">
 											<f:render section="LastPostSnippet" arguments="{post: threadItem.lastPost, threadUid: threadItem.uid, discussionUid: discussionItem.uid}" />
 										</f:if>
 									</td>
 									<td>
 										<span class="pull-right thread-last-update">
-											<small>
-												<f:format.date format="{settings.dateFormat}">{threadItem.crdate}</f:format.date>
-											</small>
+											<small><f:format.date format="{settings.dateFormat}">{threadItem.crdate}</f:format.date></small>
 										</span>
 									</td>
 								</tr>
@@ -189,6 +185,7 @@
 						<f:for each="{paginatedThreads}" as="threadItem">
 							<tr>
 								<td>
+									<dialog:isNew thread="{threadItem}" then="{settings.newIndicator -> f:format.raw()}" />
 									<f:link.action action="show" arguments="{discussion: discussion.uid, thread: threadItem.uid}">
 										<f:if condition="{threadItem.subject}" then="{threadItem.subject -> f:format.htmlentities()}" else="No subject" />
 									</f:link.action>
@@ -266,7 +263,10 @@
 			</div>
 		</div>
 		<div class="media-body">
-			<h4>{postItem.subject}</h4>
+			<h4>
+				<dialog:isNew post="{postItem}" then="{settings.newIndicator -> f:format.raw()}" />
+				{postItem.subject}
+			</h4>
 			<f:render section="PostItem" arguments="{postItem: postItem, uploadFolder: uploadFolder, poster: poster}" />
 			<f:render section="PostOptions" arguments="{_all}" />
 		</div>
@@ -286,6 +286,7 @@
 		</div>
 		<div class="media-body">
 			<h4 class="subject media-heading">
+				<dialog:isNew post="{postItem}" then="{settings.newIndicator -> f:format.raw()}" />
 				{postItem.subject}
 			</h4>
 			<div class="content">

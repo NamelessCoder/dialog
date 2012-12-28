@@ -31,6 +31,29 @@
 class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller_ActionController {
 
 	/**
+	 * @return void
+	 */
+	public function initializeAction() {
+		$key = 'tx_dialog_discussion_recency';
+		$timestamp = time();
+		$expiration = $timestamp + $this->settings['cookieLifetime'];
+		$sessionId = session_id();
+		if (empty($sessionId)) {
+			session_start();
+		}
+		if (isset($_SESSION[$key]) === FALSE) {
+			if (isset($_COOKIE[$key])) {
+				$timestamp = $_COOKIE[$key];
+			}
+			$_SESSION[$key] = array(
+				'timestamp' => $timestamp,
+				'posts' => array()
+			);
+		}
+		setcookie($key, $timestamp, $expiration);
+	}
+
+	/**
 	 * Renders the initial view for Discussions
 	 *
 	 * @param Tx_Dialog_Domain_Model_Discussion $discussion
