@@ -24,26 +24,44 @@
  ***************************************************************/
 
 /**
- * Increments $value by 1
+ * Checks if A equals B
  *
  * @package Dialog
- * @subpackage ViewHelpers/Widget
+ * @subpackage ViewHelpers
  */
-class Tx_Dialog_ViewHelpers_IncrementViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_Dialog_ViewHelpers_ShouldDisplayRepliesViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractConditionViewHelper {
 
 	/**
-	 * @param integer $value
-	 * @param integer $max
-	 * @return integer
+	 * @param array $replies
+	 * @param integer $offset
+	 * @param integer $maximumOffset
+	 * @param integer $minimumOffset
+	 * @param boolean $hideChildren
+	 * @return string
 	 */
-	public function render($value, $max=9999) {
-		if ($value + 1 < $max) {
-			return $value + 1;
+	public function render($replies, $offset, $maximumOffset = NULL, $minimumOffset = NULL, $hideChildren = FALSE) {
+		if (!$replies) {
+			$numReplies = 0;
 		} else {
-			return $max;
+			$numReplies = $replies instanceof Countable || is_array($replies) ? count($replies) : $replies->count();
 		}
-
+		if ($numReplies < 1) {
+			return $this->renderElseChild();
+		}
+		if ($hideChildren > 0) {
+			return $this->renderElseChild();
+		}
+		if ($maximumOffset !== NULL) {
+			if ($offset <= $maximumOffset) {
+				return $this->renderThenChild();
+			}
+		}
+		if ($minimumOffset !== NULL) {
+			if ($offset > $minimumOffset) {
+				return $this->renderThenChild();
+			}
+		}
+		return $this->renderElseChild();
 	}
 
 }
-?>

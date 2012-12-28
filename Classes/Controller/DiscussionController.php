@@ -262,8 +262,8 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		$now = new DateTime();
 
 		$requestAuthorizationEmail = FALSE;
-		$poster = $this->posterRepository->getOrCreatePoster(TRUE);
-		if ($post->getUid() > 0) {
+		$poster = $this->posterRepository->getOrCreatePoster(FALSE);
+		if ($poster && $post->getUid() > 0) {
 			$posterExistsAndMatches = $post->getPoster()->getUid() !== $poster->getUid() && $post->getPoster()->getEmail() !== $poster->getEmail();
 			$editingIsExpired = $post->getCrdate()->getTimestamp() < (time() - $this->settings['editingExpiration']) && $this->settings['editingExpiration'] > 0;
 			if ($posterExistsAndMatches || $editingIsExpired) {
@@ -272,13 +272,22 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 			}
 			$arguments['thread'] = $thread ? $thread->getUid() : NULL;
 			$arguments['discussion'] = $discussion ? $discussion->getUid() : NULL;
+			$poster = $post->getPoster();
 			$post->setPoster($poster);
 			$this->postRepository->update($post);
 			$this->uriBuilder->setSection('p' . $post->getUid());
 			$this->redirectToUri($this->uriBuilder->uriFor('show', $arguments));
 		}
-
-		if ($poster->getEmail()) {
+		if (!$poster) {
+			$existingPoster = $this->posterRepository->findOneByEmail($post->getPoster()->getEmail());
+			if ($existingPoster) {
+				$post->setPublished(0);
+				$poster = $existingPoster;
+				$requestAuthorizationEmail = TRUE;
+			} else {
+				$poster = $post->getPoster();
+			}
+		} elseif ($poster->getUid() > 0) {
 			$post->setPublished(1);
 		} else {
 			$poster = $post->getPoster();

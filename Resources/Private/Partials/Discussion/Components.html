@@ -295,13 +295,14 @@
 			<f:if condition="{hideOptions} < 1">
 				<f:render section="PostOptions" arguments="{_all}" />
 			</f:if>
-			<f:if condition="{hideChildren} < 1">
-				<f:if condition="{postItem.replies}">
-					<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread, uploadFolder: uploadFolder, poster: poster}" />
-				</f:if>
-			</f:if>
+			<dialog:shouldDisplayReplies hideChildren="{hideChildren}" offset="{offset}" maximumOffset="{settings.maximumReplyIndentations}" replies="{postItem.replies}">
+				<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread, uploadFolder: uploadFolder, poster: poster}" />
+			</dialog:shouldDisplayReplies>
 		</div>
 	</div>
+	<dialog:shouldDisplayReplies hideChildren="{hideChildren}" offset="{offset}" minimumOffset="{settings.maximumReplyIndentations}" replies="{postItem.replies}">
+		<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread, uploadFolder: uploadFolder, poster: poster}" />
+	</dialog:shouldDisplayReplies>
 </f:section>
 
 <f:section name="PostItem">

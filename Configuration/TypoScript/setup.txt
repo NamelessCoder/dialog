@@ -36,6 +36,8 @@ plugin.tx_dialog {
 		numberOfLatestPosts = 5
 		# maximum number of Posts to display per page - currently only applies to Post list
 		itemsPerPage = 20
+		# maximum number of reply indendations in threaded Discussion view. Above this limit all replies render as a plain list but (invisibly) grouped by the Post that was replied to.
+		maximumReplyIndentations = 2
 		# postTableClass: class name (Twitter Bootstrap table classes) of tables containing Posts.
 		postTableClass = table-condensed table-striped
 		# last post max characters: number of characters to display from latest post in Discussion/Thread
