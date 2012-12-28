@@ -24,6 +24,8 @@
 
 .tx-dialog textarea {
     width: 99%;
+    max-width: 99%;
+    min-width: 99%;
     height: 110px;
 }
 
