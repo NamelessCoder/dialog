@@ -22,6 +22,8 @@ plugin.tx_dialog {
 		enableEditing = 1
 		# editing expiration: revoke editing access to own Posts after this many seconds. Set to zero to permanently allow editing of any of users' previous Posts.
 		editingExpiration = 3600
+		# expanding textareas: enable as-you-type expansion of textarea height. If disabled, the CSS height is used. If enabled, the CSS height is ignored.
+		enableExpandingTextareas = 1
 		# prefix automatically added to Posts' subjects when Post is made as a reply as opposed to a new topic
 		responsePrefix = Re:
 		# the number of most recent Posts to display in the Discussion list

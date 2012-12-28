@@ -497,7 +497,7 @@
 		</div>
 		<div class="controls-row">
 			<label for="words"><f:translate key="tx_dialog_domain_model_post.content" /></label>
-			<f:form.textarea property="content" rows="9" cols="60" id="words" errorClass="{settings.errorClass}" />
+			<f:form.textarea property="content" rows="9" cols="60" id="words" errorClass="{settings.errorClass}" class="{f:if(condition: settings.enableExpandingTextareas, then: 'expanding')}" />
 		</div>
 		<f:if condition="{settings.attachments.files.enable}">
 			<div class="controls-row files">
