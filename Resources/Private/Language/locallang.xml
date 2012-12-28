@@ -54,7 +54,7 @@
 			<label index="records">Records</label>
 			<label index="discussions">Discussions</label>
 			<label index="discussion.start">Start new discussion</label>
-			<label index="thread.start">Start new subject here</label>
+			<label index="thread.start">Create post here</label>
 			<label index="thread.view">View %s subjects</label>
 			<label index="reply.start">Reply to</label>
 
@@ -143,7 +143,7 @@ Forget this authorization (and let me re-authorize if needed):
 			<label index="records">Database-data</label>
 			<label index="discussions">Diskussioner</label>
 			<label index="discussion.start">Start ny diskussion</label>
-			<label index="thread.start">Start nyt emne her</label>
+			<label index="thread.start">Skriv svar her</label>
 			<label index="thread.view">Vis %s emner</label>
 			<label index="reply.start">Besvar</label>
 
