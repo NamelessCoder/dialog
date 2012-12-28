@@ -90,7 +90,7 @@ plugin.tx_dialog {
 			mode = default
 			# if mode = template, a path to a Fluid (Partial) template which renders each Post text
 			template =
-			# if mode = markdown, this variable determines wether htmlentities() is applied before markdown transformation. May interfere with pasted HTML code examples.
+			# if mode = markdown, this variable determines wether htmlentities() is applied before markdown transformation. Is safer but may interfere with pasted HTML code examples.
 			markdown.htmlentities = 0
 			# if mode = markdown, this variable determins wether trim() is applied before markdown transformation
 			markdown.trim = 1
