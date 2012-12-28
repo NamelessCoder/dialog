@@ -115,78 +115,119 @@ The short version better suited for Partials etc.
 ### Core settings
 
 ```
-plugin.tx_dialog.settings {
-	# format used for all dates
-	dateFormat = Y-m-d H:i
-	# a CSV list of HTML tags that are not removed from Post's text content
-	allowedHtmlTags = pre,code,quote,blockquote,link,list,em,strong
-	# hero unit: the jumbotron text box with topics' descriptions
-	enableHeroUnit = 1
-	# toolbar: a top navigation toolbar to move between sections
-	enableToolbar = 1
-	# direct commenting: place Post form inline in all appropriate views
-	enableDirectCommenting = 1
-	# bread crumb: track of Discussion -> Thread -> Post path as Bootstrap bread crumb component
-	enableBreadCrumb = 1
-	# if enabled, places a button that quickly sends a "user thinks content is inappropriate" email to sysadmin
-	enableInappropriateContentReporting = 1
-	# discussion creation: If enabled, allows users to create new Discussions (root-level object, should normally be controlled by site admin)
-	enableDiscussionCreation = 0
-	# prefix automatically added to Posts' subjects when Post is made as a reply as opposed to a new topic
-	responsePrefix = Re:
-	# the number of most recent Posts to display in the Discussion list
-	numberOfLatestPosts = 5
-	# maximum number of Posts to display per page - currently only applies to Post list
-	itemsPerPage = 20
-	# postTableClass: class name (Twitter Bootstrap table classes) of tables containing Posts.
-	postTableClass = table-condensed table-striped
-	# last post max characters: number of characters to display from latest post in Discussion/Thread
-	lastPostMaxCharacters = 150
-	attachments {
-		files {
-			# file uploads: enable uploading of files when posting
-			enable = 1
-			# file uploads: number of file upload fields
-			count = 5
-			# file uploads: allowed file extensions
-			extensions = php, js, zip, tar, gz, bz, bz2, doc, docx, odt, odf
+plugin.tx_dialog {
+	settings {
+		# format used for all dates
+		dateFormat = Y-m-d H:i
+		# a CSV list of HTML tags that are not removed from Post's text content
+		allowedHtmlTags = pre,code,quote,blockquote,link,list,em,strong
+		# hero unit: the jumbotron text box with topics' descriptions
+		enableHeroUnit = 1
+		# toolbar: a top navigation toolbar to move between sections
+		enableToolbar = 1
+		# subscriptions: if enabled and EXT:notify installed, allows subscription to events (new Posts etc) in the forum
+		enableSubscriptions = 1
+		# direct commenting: place Post form inline in all appropriate views
+		enableDirectCommenting = 1
+		# bread crumb: track of Discussion -> Thread -> Post path as Bootstrap bread crumb component
+		enableBreadCrumb = 1
+		# if enabled, places a button that quickly sends a "user thinks content is inappropriate" email to sysadmin
+		enableInappropriateContentReporting = 1
+		# gravatars: enable the use of avatars from gravatar.com
+		enableGravatars = 1
+		# gravatars: gravatar width, raw pixels. Gravatar will always be square.
+		gravatarWidth = 180
+		# gravatars: default image used by gravatar.com when user does not exist
+		gravatarDefault = retro
+		# discussion creation: If enabled, allows users to create new Discussions (root-level object, should normally be controlled by site admin)
+		enableDiscussionCreation = 0
+		# editing: enable users' ability to edit own Posts
+		enableEditing = 1
+		# editing expiration: revoke editing access to own Posts after this many seconds. Set to zero to permanently allow editing of any of users' previous Posts.
+		editingExpiration = 3600
+		# expanding textareas: enable as-you-type expansion of textarea height. If disabled, the CSS height is used. If enabled, the CSS height is ignored.
+		enableExpandingTextareas = 1
+		# prefix automatically added to Posts' subjects when Post is made as a reply as opposed to a new topic
+		responsePrefix = Re:
+		# the number of most recent Posts to display in the Discussion list
+		numberOfLatestPosts = 5
+		# maximum number of Posts to display per page - currently only applies to Post list
+		itemsPerPage = 20
+		# postTableClass: class name (Twitter Bootstrap table classes) of tables containing Posts.
+		postTableClass = table-condensed table-striped
+		# last post max characters: number of characters to display from latest post in Discussion/Thread
+		lastPostMaxCharacters = 150
+		attachments {
+			files {
+				# file uploads: enable uploading of files when posting
+				enable = 1
+				# file uploads: number of file upload fields
+				count = 5
+				# file uploads: allowed file extensions
+				extensions = php, js, zip, tar, gz, bz, bz2, doc, docx, odt, odf, txt
+			}
+			images {
+				# image uploads: enable uploading of images when posting
+				enable = 1
+				# image uploads: number of image upload fields
+				count = 5
+				# image uploads: allowed file extensions
+				extensions = jpg, jpeg, gif, png
+				# image uploads: width of displayed image attachments, TS object syntax i.e. "350m" to scale and maintain aspect, "500c" to crop at width 500. Default tuned to Bootstrap.
+				width = 770m
+				# image uploads: height of displayed image attachments, suggest a reasonably high value such as "2000m"
+				height = 2000m
+				# image uploads: placeholder image
+				placeholder = http://www.placehold.it/85x85/EFEFEF/AAAAAA&text=Image
+				# image uploads: image display class, Bootstrap (or own) CSS name. Useful values: "img-rounded" and "img-polaroid", less useful but also supported is "img-circle". When using "img-polaroid" subtract padding (default: 5+5 px) from image width setting
+				class = img-polaroid
+			}
+			# extension rename mapping. Uploaded files' extensions are renamed by <original> = <target>
+			renaming {
+				php = phps
+			}
 		}
-		images {
-			# image uploads: enable uploading of images when posting
-			enable = 1
-			# image uploads: number of image upload fields
-			count = 5
-			# image uploads: allowed file extensions
-			extensions = jpg, jpeg, gif, png
-			# image uploads: width of displayed image attachments, TS object syntax i.e. "350m" to scale and maintain aspect, "500c" to crop at width 500. Default tuned to Bootstrap.
-			width = 770m
-			# image uploads: height of displayed image attachments, suggest a reasonably high value such as "2000m"
-			height = 2000m
-			# image uploads: placeholder image
-			placeholder = http://www.placehold.it/40x40/EFEFEF/AAAAAA&text=no+image
+		# duration of the cookie that is sent when a guest user uses the "store in cookie" confirmation link from the confirmation email
+		cookieLifetime = 8046000
+		pagination {
+			above = 1
+			below = 1
 		}
-		# extension rename mapping. Uploaded files' extensions are renamed by <original> = <target>
-		renaming {
-			php = phps
+		subscription {
+			components {
+				heroUnit {
+					# this is an array of settings as used by the Widget for subscriptions, from EXT:dialog
+					display {
+						mode = Button
+						link {
+							subscribed = Notifications enabled
+							unsubscribed = Enable notifications
+							title = Click to enable notifications sent to your email address
+						}
+					}
+				}
+			}
 		}
-	}
-	# duration of the cookie that is sent when a guest user uses the "store in cookie" confirmation link from the confirmation email
-	cookieLifetime = 8046000
-	pagination {
-		above = 1
-		below = 1
-	}
-	email {
-		# The email address used to send emails
-		fromEmail = sysop@mysite.com
-		# The name used in emails sent by the system
-		fromName = MySite Forums
-	}
-	markup {
-		# options: default (html), markdown, raw, nl2br, template. Mode "markdown" requires CLI command "markdown" installed
-		mode = default
-		# if mode = template, a path to a Fluid (Partial) template which renders each Post text
-		template =
+		markup {
+			# options: default (html), markdown, raw, nl2br, template. Mode "markdown" requires CLI command "markdown" installed
+			mode = default
+			# if mode = template, a path to a Fluid (Partial) template which renders each Post text
+			template =
+			# if mode = markdown, this variable determines wether htmlentities() is applied before markdown transformation. Is safer but may interfere with pasted HTML code examples.
+			markdown.htmlentities = 0
+			# if mode = markdown, this variable determins wether trim() is applied before markdown transformation
+			markdown.trim = 1
+		}
+		posting {
+			cleaning {
+				# a value of 3 here allows a single line of space between lines
+				maximumConsequetiveLineBreaksAllowed = 3
+			}
+		}
+		email {
+			fromEmail =
+			fromName =
+		}
 	}
 }
 ```
