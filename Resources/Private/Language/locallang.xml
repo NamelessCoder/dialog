@@ -50,6 +50,7 @@
 			<label index="editPost">Edit post</label>
 			<label index="noAccessHeader">You don't have access to this location</label>
 			<label index="noAccessBody">If you believe this is an error please contact the system administrator.</label>
+			<label index="gravatarChange">Change your avatar at gravatar.com</label>
 
 			<label index="records">Records</label>
 			<label index="discussions">Discussions</label>
@@ -139,6 +140,7 @@ Forget this authorization (and let me re-authorize if needed):
 			<label index="editPost">Redigér emne</label>
 			<label index="noAccessHeader">Du har ikke adgang til dette sted</label>
 			<label index="noAccessBody">Hvis du mener dette er en fejl bør du kontakte systemadministratoren.</label>
+			<label index="gravatarChange">Skift din avatar på gravatar.com</label>
 
 			<label index="records">Database-data</label>
 			<label index="discussions">Diskussioner</label>
@@ -227,6 +229,7 @@ Forget this authorization (and let me re-authorize if needed):
 			<label index="editPost">Redigér emne</label>
 			<label index="noAccessHeader">Du har ikke adgang til dette sted</label>
 			<label index="noAccessBody">Hvis du mener dette er en fejl bør du kontakte systemadministratoren.</label>
+			<label index="gravatarChange">Skift din avatar på gravatar.com</label>
 
 			<label index="records">Database-data</label>
 			<label index="discussions">Diskussioner</label>

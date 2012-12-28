@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2012 Claus Due <claus@wildside.dk>, Wildside A/S
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -118,6 +118,14 @@ class Tx_Dialog_Domain_Model_Poster extends Tx_Extbase_DomainObject_AbstractEnti
 	 */
 	public function setIdentifier($identifier) {
 		$this->identifier = $identifier;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getGravatar() {
+		$md5 = md5(trim(strtolower($this->email)));
+		return 'http://www.gravatar.com/avatar/' . $md5;
 	}
 
 }

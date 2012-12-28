@@ -361,6 +361,12 @@
 		<f:if condition="{postItem.poster.web}">
 			<p><a href="http://{postItem.poster.web}"><i class="icon-bookmark"></i> {postItem.poster.web}</a></p>
 		</f:if>
+		<f:if condition="{settings.enableGravatars}">
+			<a href="http://www.gravatar.com/" rel="tooltip" title="{f:translate(key: 'gravatarChange')}">
+				<img src="{postItem.poster.gravatar}?s={settings.gravatarWidth}&d={settings.gravatarDefault -> f:format.urlencode()}"
+				     alt="{postItem.poster.name}" width="{settings.gravatarWidth}" height="{settings.gravatarWidth}" />
+			</a>
+		</f:if>
 	</div>
 </f:section>
 
