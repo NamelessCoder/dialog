@@ -57,7 +57,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	 */
 	public function editAction(Tx_Dialog_Domain_Model_Post $post = NULL, Tx_Dialog_Domain_Model_Discussion $discussion = NULL, Tx_Dialog_Domain_Model_Thread $thread = NULL) {
 		$poster = $this->posterRepository->getOrCreatePoster(TRUE);
-		if (!$post || ($post && $post->getPoster()->getUid() !== $poster->getUid())) {
+		if (!$post || !$poster || ($post && $post->getPoster() && $post->getPoster()->getUid() !== $poster->getUid())) {
 			$this->view->assign('view', 'NoAccess');
 			return $this->view->render();;
 		}
