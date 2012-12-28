@@ -203,3 +203,8 @@ td.latest-items-options {
 	width: 86px;
 	height: 86px;
 }
+
+.tx-dialog-discussion .media-object {
+	width: 180px;
+	max-width: 180px;
+}

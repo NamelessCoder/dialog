@@ -259,55 +259,47 @@
 </f:section>
 
 <f:section name="PostFirst">
-	<div class="row-fluid post-first">
-		<div class="span2">
-			<f:render section="Poster" arguments="{_all}" />
+	<div class="post-first media">
+		<div class="pull-left">
+			<div class="media-object">
+				<f:render section="Poster" arguments="{_all}" />
+			</div>
 		</div>
-		<div class="span10">
+		<div class="media-body">
 			<h4>{postItem.subject}</h4>
 			<f:render section="PostItem" arguments="{postItem: postItem, uploadFolder: uploadFolder, poster: poster}" />
 			<f:render section="PostOptions" arguments="{_all}" />
 		</div>
-		<f:if condition="{postItem.replies}">
-			<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread, uploadFolder: uploadFolder, poster: poster}" />
-		</f:if>
 	</div>
+	<f:if condition="{postItem.replies}">
+		<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread, uploadFolder: uploadFolder, poster: poster}" />
+	</f:if>
 </f:section>
 
 <f:section name="Post">
-	<div class="post-container">
-		<a name="p{postItem.uid}"></a>
-		<div class="row-fluid post{f:if(condition: offset, else: '-first')}">
-			<f:if condition="{offset}">
-				<f:then>
-					<div class="span{f:if(condition: width.poster, then: width.poster, else: 2)}">
-						<f:render section="Poster" arguments="{_all}" />
-					</div>
-					<div class="span{offset}">&nbsp;</div>
-				</f:then>
-				<f:else>
-					<div class="span{f:if(condition: width.poster, then: width.poster, else: 2)}">
-						<f:render section="Poster" arguments="{_all}" />
-					</div>
-				</f:else>
-			</f:if>
-			<div class="span{dialog:subtract(a: '{f:if(condition: width.postContent, then: width.postContent, else: 10)}', b: offset)}">
-				<h4 class="subject">
-					{postItem.subject}
-				</h4>
-				<div class="content">
-					<f:render section="PostItem" arguments="{_all}" />
-				</div>
-				<f:if condition="{hideOptions} < 1">
-					<f:render section="PostOptions" arguments="{_all}" />
-				</f:if>
+	<div class="post-container post media">
+		<div class="pull-left">
+			<a name="p{postItem.uid}"></a>
+			<div class="media-object">
+				<f:render section="Poster" arguments="{_all}" />
 			</div>
 		</div>
-		<f:if condition="{hideChildren} < 1">
-			<f:if condition="{postItem.replies}">
-				<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread, uploadFolder: uploadFolder, poster: poster}" />
+		<div class="media-body">
+			<h4 class="subject media-heading">
+				{postItem.subject}
+			</h4>
+			<div class="content">
+				<f:render section="PostItem" arguments="{_all}" />
+			</div>
+			<f:if condition="{hideOptions} < 1">
+				<f:render section="PostOptions" arguments="{_all}" />
 			</f:if>
-		</f:if>
+			<f:if condition="{hideChildren} < 1">
+				<f:if condition="{postItem.replies}">
+					<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread, uploadFolder: uploadFolder, poster: poster}" />
+				</f:if>
+			</f:if>
+		</div>
 	</div>
 </f:section>
 
@@ -364,7 +356,7 @@
 
 <f:section name="Poster">
 	<div class="poster">
-		<h4>{postItem.poster.name}</h4>
+		<h4 class="media-heading">{postItem.poster.name}</h4>
 		<p><i class="icon-time"></i> <f:format.date format="{settings.dateFormat}">{postItem.crdate}</f:format.date></p>
 		<f:if condition="{postItem.poster.web}">
 			<p><a href="http://{postItem.poster.web}"><i class="icon-bookmark"></i> {postItem.poster.web}</a></p>
