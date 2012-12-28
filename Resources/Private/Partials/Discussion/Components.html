@@ -265,11 +265,11 @@
 		</div>
 		<div class="span10">
 			<h4>{postItem.subject}</h4>
-			<f:render section="PostItem" arguments="{postItem: postItem, uploadFolder: uploadFolder}" />
+			<f:render section="PostItem" arguments="{postItem: postItem, uploadFolder: uploadFolder, poster: poster}" />
 			<f:render section="PostOptions" arguments="{_all}" />
 		</div>
 		<f:if condition="{postItem.replies}">
-			<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread, uploadFolder: uploadFolder}" />
+			<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread, uploadFolder: uploadFolder, poster: poster}" />
 		</f:if>
 	</div>
 </f:section>
@@ -296,7 +296,7 @@
 					{postItem.subject}
 				</h4>
 				<div class="content">
-					<f:render section="PostItem" arguments="{postItem: postItem, uploadFolder: uploadFolder}" />
+					<f:render section="PostItem" arguments="{_all}" />
 				</div>
 				<f:if condition="{hideOptions} < 1">
 					<f:render section="PostOptions" arguments="{_all}" />
@@ -305,7 +305,7 @@
 		</div>
 		<f:if condition="{hideChildren} < 1">
 			<f:if condition="{postItem.replies}">
-				<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread, uploadFolder: uploadFolder}" />
+				<f:render section="Replies" arguments="{postItem: postItem, offset: '{dialog:increment(value: offset)}', discussion: discussion, thread: thread, uploadFolder: uploadFolder, poster: poster}" />
 			</f:if>
 		</f:if>
 	</div>
@@ -357,7 +357,7 @@
 <f:section name="Replies">
 	<div class="replies">
 		<f:for each="{postItem.replies}" as="reply">
-			<f:render section="Post" arguments="{postItem: reply, offset: offset, discussion: discussion, thread: thread, uploadFolder: uploadFolder}" />
+			<f:render section="Post" arguments="{postItem: reply, offset: offset, discussion: discussion, thread: thread, uploadFolder: uploadFolder, poster: poster}" />
 		</f:for>
 	</div>
 </f:section>
@@ -381,6 +381,17 @@
 			<f:link.action action="report" arguments="{post: postItem.uid}" class="btn btn-mini push-right">
 				<i class="icon-exclamation-sign"></i> <f:translate key="reportInappropriate" />
 			</f:link.action>
+		</f:if>
+		<f:if condition="{settings.enableEditing}">
+			<f:if condition="{postItem.poster} == {poster}">
+				<f:if condition="{settings.editingExpiration}">
+					<f:if condition="{postItem.crdate.timestamp} > {v:system.timestamp() -> v:math.subtract(b: settings.editingExpiration)}">
+						<f:link.action action="edit" arguments="{post: postItem.uid, discussion: discussion.uid, thread: thread.uid}" class="btn btn-mini">
+							<i class="icon-pencil"></i> <f:translate key="editPost" />
+						</f:link.action>
+					</f:if>
+				</f:if>
+			</f:if>
 		</f:if>
 		<f:if condition="{settings.enableSubscriptions}">
 			<v:extension.loaded extensionName="Nofity">
@@ -603,6 +614,13 @@
 				<i class="icon icon-comment"></i> {post.content}</span>
 			</f:format.crop>
 		</f:link.action> <em><f:translate key="by" /> {post.poster.name}</em></small>
+	</div>
+</f:section>
+
+<f:section name="NoAccess">
+	<div class="alert alert-danger no-access">
+		<h1 class="alert-header"><f:translate key="noAccessHeader" /></h1>
+		<f:format.html><f:translate key="noAccessBody" /></f:format.html>
 	</div>
 </f:section>
 

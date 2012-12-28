@@ -50,6 +50,27 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	}
 
 	/**
+	 * @param Tx_Dialog_Domain_Model_Post $post
+	 * @param Tx_Dialog_Domain_Model_Discussion $discussion
+	 * @param Tx_Dialog_Domain_Model_Thread $thread
+	 * @return string
+	 */
+	public function editAction(Tx_Dialog_Domain_Model_Post $post = NULL, Tx_Dialog_Domain_Model_Discussion $discussion = NULL, Tx_Dialog_Domain_Model_Thread $thread = NULL) {
+		$poster = $this->posterRepository->getOrCreatePoster(TRUE);
+		if (!$post || ($post && $post->getPoster()->getUid() !== $poster->getUid())) {
+			$this->view->assign('view', 'NoAccess');
+			return $this->view->render();;
+		}
+		$this->view->assign('view', 'Write');
+		$this->view->assign('discussion', $discussion);
+		$this->view->assign('thread', $thread);
+		$this->view->assign('post', $post);
+		$this->view->assign('frontendUser', $GLOBALS['TSFE']->fe_user->user);
+		$this->view->assign('poster', $poster);
+		$this->view->assign('uploadFolder', $GLOBALS['TCA']['tx_dialog_domain_model_post']['columns']['attachments']['config']['uploadfolder']);
+	}
+
+	/**
 	 * @param Tx_Dialog_Domain_Model_Discussion $discussion
 	 * @param Tx_Dialog_Domain_Model_Thread $thread
 	 * @param integer $page
@@ -73,6 +94,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		$this->view->assign('discussion', $discussion);
 		$this->view->assign('thread', $thread);
 		$this->view->assign('frontendUser', $GLOBALS['TSFE']->fe_user->user);
+		$this->view->assign('poster', $this->posterRepository->getOrCreatePoster(TRUE));
 		$this->view->assign('uploadFolder', $GLOBALS['TCA']['tx_dialog_domain_model_post']['columns']['attachments']['config']['uploadfolder']);
 	}
 
@@ -217,20 +239,29 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		$now = new DateTime();
 
 		$requestAuthorizationEmail = FALSE;
-		$poster = $this->posterRepository->getOrCreatePoster();
-		if (!$poster && $this->posterRepository->findByEmail($post->getPoster()->getEmail())->count() > 0) {
-			$poster = $this->posterRepository->findOneByEmail($post->getPoster()->getEmail());
+		$poster = $this->posterRepository->getOrCreatePoster(TRUE);
+		if ($post->getUid() > 0) {
+			$posterExistsAndMatches = $post->getPoster()->getUid() !== $poster->getUid() && $post->getPoster()->getEmail() !== $poster->getEmail();
+			$editingIsExpired = $post->getCrdate()->getTimestamp() < (time() - $this->settings['editingExpiration']) && $this->settings['editingExpiration'] > 0;
+			if ($posterExistsAndMatches || $editingIsExpired) {
+				$this->view->assign('view', 'NoAccess');
+				return $this->view->render('Show');
+			}
+			$arguments['thread'] = $thread ? $thread->getUid() : NULL;
+			$arguments['discussion'] = $discussion ? $discussion->getUid() : NULL;
+			$post->setPoster($poster);
+			$this->postRepository->update($post);
+			$this->uriBuilder->setSection('p' . $post->getUid());
+			$this->redirectToUri($this->uriBuilder->uriFor('show', $arguments));
+		}
+
+		if ($poster->getEmail()) {
+			$post->setPublished(1);
+		} else {
+			$poster = $post->getPoster();
+			$this->posterRepository->add($poster);
 			$post->setPublished(0);
 			$requestAuthorizationEmail = TRUE;
-		} else {
-			$poster = $this->posterRepository->getOrCreatePoster();
-			if ($poster) {
-				$post->setPublished(1);
-			} else {
-				$poster = $post->getPoster();
-				$requestAuthorizationEmail = TRUE;
-				$this->posterRepository->add($poster);
-			}
 		}
 
 		if ($poster->getEmail() == '') {
@@ -297,12 +328,17 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		if ($hash) {
 			$post->setHash($hash);
 		}
-		$post->setAttachments(implode(',', $this->uploadFiles('attachments', 'files')));
-		$post->setImages(implode(',', $this->uploadFiles('images', 'images')));
 
+		$uploadedFiles = $this->uploadFiles('attachments', 'files');
+		$uploadedImages = $this->uploadFiles('images', 'images');
+		if (count($uploadedFiles) > 0) {
+			$post->setAttachments(implode(',', $uploadedFiles));
+		}
+		if (count($uploadedImages) > 0) {
+			$post->setImages(implode(',', $uploadedImages));
+		}
 		$post->setCrdate($now);
 		$this->postRepository->add($post);
-		$this->cacheService->clearPageCache(array($GLOBALS['TSFE']->id));
 		$this->objectManager->get('Tx_Extbase_Persistence_ManagerInterface')->persistAll();
 		$this->uriBuilder->setSection('p' . $post->getUid());
 		$this->redirectToUri($this->uriBuilder->uriFor('show', $arguments));

@@ -7,11 +7,11 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'Discussion',
 	array(
-		'Discussion' => 'index,write,report,post,show,edit,delete,forget,authorize',
+		'Discussion' => 'index,write,report,post,show,edit,delete,forget,authorize,edit',
 
 	),
 	array(
-		'Discussion' => 'index,write,report,post,show,edit,delete,forget,authorize',
+		'Discussion' => 'index,write,report,post,show,edit,delete,forget,authorize,edit',
 	)
 );
 
