@@ -270,8 +270,3 @@ plugin.tx_dialog {
 * `Dialog` overrides certain parts of a default Twitter Bootstrap theme - if you use a custom them, make sure you override these
   overrides, too.
 * jQuery used but not force-included; may not work on older (below 1.6) versions of jQuery.
-
-## Roadmap
-
-* Indication of new Posts since last visit
-* Editing of own Posts by authenticated users
