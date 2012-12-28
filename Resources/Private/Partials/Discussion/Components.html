@@ -423,7 +423,7 @@
 			</f:if>
 		</h2>
 		<f:if condition="{parent}">
-			<f:render section="PostItem" arguments="{postItem: parent}" />
+			<f:render section="PostItem" arguments="{postItem: parent, uploadFolder: uploadFolder}" />
 			<h2><f:translate key="writeReply" /></h2>
 		</f:if>
 		<f:form action="post" object="{post}" name="post" enctype="multipart/form-data">
