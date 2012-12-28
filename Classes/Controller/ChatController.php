@@ -30,18 +30,6 @@
 class Tx_Dialog_Controller_ChatController extends Tx_Extbase_MVC_Controller_ActionController {
 
 	/**
-	 * @var Tx_Fed_Service_Json
-	 */
-	protected $jsonService;
-
-	/**
-	 * @param Tx_Fed_Service_Json $jsonService
-	 */
-	public function injectJsonService(Tx_Fed_Service_Json $jsonService) {
-		$this->jsonService = $jsonService;
-	}
-
-	/**
 	 * @return void
 	 */
 	public function initializeAction() {
@@ -103,7 +91,7 @@ class Tx_Dialog_Controller_ChatController extends Tx_Extbase_MVC_Controller_Acti
 			$chat = array();
 		} else {
 			$fileContents = trim(file_get_contents($chatFile));
-			$chat = (array) $this->jsonService->decode($fileContents);
+			$chat = (array) json_decode($fileContents, JSON_OBJECT_AS_ARRAY);
 			if (count($chat) > 200) {
 				$chat = array_slice($chat, 200 - count($chat));
 			}
@@ -114,7 +102,7 @@ class Tx_Dialog_Controller_ChatController extends Tx_Extbase_MVC_Controller_Acti
 			'name' => $this->getName(),
 			'message' => $message
 		));
-		$contents = $this->jsonService->encode($chat);
+		$contents = json_encode($chat);
 		file_put_contents($chatFile, $contents);
 		return $contents;
 	}
@@ -173,4 +161,3 @@ class Tx_Dialog_Controller_ChatController extends Tx_Extbase_MVC_Controller_Acti
 	}
 
 }
-?>

@@ -120,7 +120,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 			return $this->view->render();
 		}
 		$settings = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-		$paths = Tx_Fed_Utility_Path::translatePath($settings['view']);
+		$paths = Tx_Flux_Utility_Path::translatePath($settings['view']);
 		$url = $_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http' . '://' . $_SERVER['SERVER_NAME'] . '/';
 		$variables = array(
 			'settings' => $this->settings,
@@ -389,7 +389,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	 */
 	protected function sendAuthenticationEmail(Tx_Dialog_Domain_Model_Poster $poster) {
 		$settings = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-		$paths = Tx_Fed_Utility_Path::translatePath($settings['view']);
+		$paths = Tx_Flux_Utility_Path::translatePath($settings['view']);
 		$url = $_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http' . '://' . $_SERVER['SERVER_NAME'] . '/';
 		$variables = array(
 			'settings' => $this->settings,
@@ -410,12 +410,13 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		$view->setTemplatePathAndFilename($paths['partialRootPath'] . 'Discussion/Emails.html');
 		$view->assignMultiple($variables);
 		$body = $view->render();
-		#$body = str_replace('&amp;', '&', $body);
 		$body = html_entity_decode($body);
 
 		$subject = Tx_Extbase_Utility_Localization::translate('email.authorization.subject', 'dialog');
 		try {
-			$this->emailService->mail($subject, $body, $poster->getEmail(), $poster->getName(), $this->settings['email']['fromEmail'], $this->settings['email']['fromName']);
+			$recipient = array($poster->getEmail() => $poster->getName());
+			$sender = array($this->settings['email']['fromEmail'] => $this->settings['email']['fromName']);
+			$this->emailService->mail($subject, $body, $recipient, $sender);
 		} catch (Exception $e) {
 			t3lib_div::sysLog('Failed to send email message: ' . $e->getMessage(), 'dialog');
 		}
@@ -482,4 +483,3 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	}
 
 }
-?>

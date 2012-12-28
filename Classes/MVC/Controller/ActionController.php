@@ -55,7 +55,7 @@ abstract class Tx_Dialog_MVC_Controller_ActionController extends Tx_Extbase_MVC_
 	protected $view;
 
 	/**
-	 * @var Tx_Fed_Service_Email
+	 * @var Tx_Notify_Service_EmailService
 	 */
 	protected $emailService;
 
@@ -89,9 +89,9 @@ abstract class Tx_Dialog_MVC_Controller_ActionController extends Tx_Extbase_MVC_
 	}
 
 	/**
-	 * @param Tx_Fed_Service_Email $emailService
+	 * @param Tx_Notify_Service_EmailService $emailService
 	 */
-	public function injectEmailService(Tx_Fed_Service_Email $emailService) {
+	public function injectEmailService(Tx_Notify_Service_EmailService $emailService) {
 		$this->emailService = $emailService;
 	}
 
@@ -109,7 +109,7 @@ abstract class Tx_Dialog_MVC_Controller_ActionController extends Tx_Extbase_MVC_
 	public function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {
 		session_start();
 		$settings = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-		$paths = Tx_Fed_Utility_Path::translatePath($settings['view']);
+		$paths = Tx_Flux_Utility_Path::translatePath($settings['view']);
 		$view = $this->objectManager->get('Tx_Fluid_View_TemplateView');
 		$view->setControllerContext($this->controllerContext);
 		$view->setLayoutRootPath($paths['layoutRootPath']);
