@@ -383,9 +383,9 @@
 			</f:link.action>
 		</f:if>
 		<dialog:editable settings="{settings}" post="{postItem}">
-						<f:link.action action="edit" arguments="{post: postItem.uid, discussion: discussion.uid, thread: thread.uid}" class="btn btn-mini">
-							<i class="icon-pencil"></i> <f:translate key="editPost" />
-						</f:link.action>
+			<f:link.action action="edit" arguments="{post: postItem.uid, discussion: discussion.uid, thread: thread.uid}" class="btn btn-mini">
+				<i class="icon-pencil"></i> <f:translate key="editPost" />
+			</f:link.action>
 		</dialog:editable>
 		<f:if condition="{settings.enableSubscriptions}">
 			<v:extension.loaded extensionName="Nofity">
