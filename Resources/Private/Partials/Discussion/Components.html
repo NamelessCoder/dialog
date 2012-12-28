@@ -382,17 +382,11 @@
 				<i class="icon-exclamation-sign"></i> <f:translate key="reportInappropriate" />
 			</f:link.action>
 		</f:if>
-		<f:if condition="{settings.enableEditing}">
-			<f:if condition="{postItem.poster} == {poster}">
-				<f:if condition="{settings.editingExpiration}">
-					<f:if condition="{postItem.crdate.timestamp} > {v:system.timestamp() -> v:math.subtract(b: settings.editingExpiration)}">
+		<dialog:editable settings="{settings}" post="{postItem}">
 						<f:link.action action="edit" arguments="{post: postItem.uid, discussion: discussion.uid, thread: thread.uid}" class="btn btn-mini">
 							<i class="icon-pencil"></i> <f:translate key="editPost" />
 						</f:link.action>
-					</f:if>
-				</f:if>
-			</f:if>
-		</f:if>
+		</dialog:editable>
 		<f:if condition="{settings.enableSubscriptions}">
 			<v:extension.loaded extensionName="Nofity">
 				<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_post" uid="{postItem.uid}" fields="replies"
