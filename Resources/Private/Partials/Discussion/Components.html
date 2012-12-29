@@ -49,7 +49,7 @@
 							<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
 						</f:link.action>
 						<f:if condition="{settings.enableSubscriptions}">
-							<v:extension.loaded extensionName="Nofity">
+							<v:extension.loaded extensionName="Notify">
 								<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_discussion" uid="{discussion.uid}" fields="posts"
 									settings="{settings.subscription.components.heroUnit}" />
 							</v:extension.loaded>
@@ -73,7 +73,7 @@
 							<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
 						</f:link.action>
 						<f:if condition="{settings.enableSubscriptions}">
-							<v:extension.loaded extensionName="Nofity">
+							<v:extension.loaded extensionName="Notify">
 								<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_discussion" uid="{discussion.uid}" fields="threads"
 									settings="{display: { mode: 'button', button: {class: 'btn btn-small'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
 							</v:extension.loaded>
@@ -405,10 +405,14 @@
 			</f:link.action>
 		</dialog:editable>
 		<f:if condition="{settings.enableSubscriptions}">
-			<v:extension.loaded extensionName="Nofity">
-				<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_post" uid="{postItem.uid}" fields="replies"
-					settings="{display: { mode: 'button', button: {class: 'btn btn-mini'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
-			</v:extension.loaded>
+			<f:if condition="{poster}">
+				<v:extension.loaded extensionName="Notify">
+					<div class="pull-right">
+						<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_post" uid="{postItem.uid}" fields="replies"
+							settings="{settings.subscription.components.post}" />
+					</div>
+				</v:extension.loaded>
+			</f:if>
 		</f:if>
 	</div>
 </f:section>

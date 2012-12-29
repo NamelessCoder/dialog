@@ -83,10 +83,25 @@ plugin.tx_dialog {
 		}
 		subscription {
 			components {
+				# subscription Widget in Hero Unit
 				heroUnit {
 					# this is an array of settings as used by the Widget for subscriptions, from EXT:dialog
 					display {
-						mode = Button
+						mode = button
+						class = btn-small
+						link {
+							subscribed = Notifications enabled
+							unsubscribed = Enable notifications
+							title = Click to enable notifications sent to your email address
+						}
+					}
+				}
+				# subscription Widget in post options
+				post {
+					# this is an array of settings as used by the Widget for subscriptions, from EXT:dialog
+					display {
+						mode = button
+						class = btn-small
 						link {
 							subscribed = Notifications enabled
 							unsubscribed = Enable notifications
