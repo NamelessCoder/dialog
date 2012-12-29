@@ -52,12 +52,12 @@ class Tx_Dialog_ViewHelpers_ShouldDisplayRepliesViewHelper extends Tx_Fluid_Core
 			return $this->renderElseChild();
 		}
 		if ($maximumOffset !== NULL) {
-			if ($offset <= $maximumOffset) {
+			if ($offset < $maximumOffset) {
 				return $this->renderThenChild();
 			}
 		}
 		if ($minimumOffset !== NULL) {
-			if ($offset > $minimumOffset) {
+			if ($offset >= $minimumOffset) {
 				return $this->renderThenChild();
 			}
 		}
