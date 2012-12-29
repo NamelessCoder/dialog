@@ -366,9 +366,19 @@
 <f:section name="Poster">
 	<div class="poster">
 		<h4 class="media-heading">{postItem.poster.name}</h4>
-		<p><i class="icon-time"></i> <f:format.date format="{settings.dateFormat}">{postItem.crdate}</f:format.date></p>
+		<p>
+			<small>
+				<i class="icon-time"></i> <f:format.date format="{settings.dateFormat}">{postItem.crdate}</f:format.date>
+			</small>
+		</p>
 		<f:if condition="{postItem.poster.web}">
-			<p><a href="http://{postItem.poster.web}"><i class="icon-bookmark"></i> {postItem.poster.web}</a></p>
+			<p>
+				<small>
+					<a href="http://{postItem.poster.web}" rel="tooltip" title="{postItem.poster.web}">
+						<i class="icon-bookmark"></i> {postItem.poster.web -> f:format.crop(maxCharacters: 15, respectHtml: false)}
+					</a>
+				</small>
+			</p>
 		</f:if>
 		<f:if condition="{settings.enableGravatars}">
 			<a href="http://www.gravatar.com/" rel="tooltip" title="{f:translate(key: 'gravatarChange')}">
