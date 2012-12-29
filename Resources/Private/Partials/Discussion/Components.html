@@ -49,10 +49,10 @@
 							<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
 						</f:link.action>
 						<f:if condition="{settings.enableSubscriptions}">
-							<v:extension.loaded extensionName="Notify">
-								<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_discussion" uid="{discussion.uid}" fields="posts"
+							<f:if condition="{poster}">
+								<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_thread" uid="{thread.uid}" fields="posts"
 									settings="{settings.subscription.components.heroUnit}" url="{v:page.absoluteUrl()}" />
-							</v:extension.loaded>
+							</f:if>
 						</f:if>
 					</div>
 				</f:then>
@@ -73,10 +73,10 @@
 							<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
 						</f:link.action>
 						<f:if condition="{settings.enableSubscriptions}">
-							<v:extension.loaded extensionName="Notify">
+							<f:if condition="{poster}">
 								<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_discussion" uid="{discussion.uid}" fields="threads" url="{v:page.absoluteUrl()}"
 								                         settings="{display: { mode: 'button', button: {class: 'btn btn-small'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
-							</v:extension.loaded>
+							</f:if>
 						</f:if>
 					</div>
 				</f:else>
@@ -406,12 +406,10 @@
 		</dialog:editable>
 		<f:if condition="{settings.enableSubscriptions}">
 			<f:if condition="{poster}">
-				<v:extension.loaded extensionName="Notify">
-					<div class="pull-right">
-						<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_post" uid="{postItem.uid}" fields="replies"
-							settings="{settings.subscription.components.post}" url="{v:page.absoluteUrl()}#p{postItem.uid}"  />
-					</div>
-				</v:extension.loaded>
+				<div class="pull-right">
+					<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_post" uid="{postItem.uid}" fields="replies"
+						settings="{settings.subscription.components.post}" url="{v:page.absoluteUrl()}#p{postItem.uid}"  />
+				</div>
 			</f:if>
 		</f:if>
 	</div>
