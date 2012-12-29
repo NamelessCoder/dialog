@@ -147,7 +147,6 @@ class Tx_Dialog_Domain_Model_Discussion extends Tx_Extbase_DomainObject_Abstract
 	 */
 	public function getDescription() {
 		return preg_replace('/[\s]{2,}/i', "\n", $this->description);
-		#return str_replace("\n\n", "\n", $this->description);
 	}
 
 	/**
