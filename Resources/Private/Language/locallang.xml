@@ -285,6 +285,84 @@ Forget this authorization (and let me re-authorize if needed):
 			<label index="tx_dialog_domain_model_poster.name">Navn</label>
 			<label index="tx_dialog_domain_model_poster.email">Email</label>
 		</languageKey>
+		<languageKey index="de" type="array">
 
+			<label index="title"> Dialog </label>
+			<label index="forget"> Abmelden </label>
+			<label index="forgetAndRemove"> Reset-Identität </label>
+			<label index="forgetAndRemoveTitle"> Profil Daten und Du automatisch abmelden </label>
+			<label index="by"> von </label>
+			<label index="home">Startseite </label>
+			<label index="noDescription"> für diese Diskussion gibt es keine Beschreibung. </label>
+			<label index="discussions"> Posts </label>
+			<label index="noDiscussions"> keine Posts</label>
+			<label index="noThreads"> noch keine Themen </label>
+			<label index="replyTo"> Antwort </label>
+			<label index="reportInappropriate"> Melde unangemessenen Inhalt </label>
+			<label index="writeReply"> Schreiben Sie Ihre Antwort: </label>
+			<label index="personalInfo"> persönliche Info </label>
+			<label index="emailFieldMessage"> Ihre E-Mail aufgenommen wird aber nicht angezeigt. </label>
+			<label index="webFieldMessage"> bitte nicht http:// in der URL. </label>
+			<label index="allowedHtml"> erlaubter HTML Code: </label>
+			<label index="latestPosts"> neueste Meldungen </label>
+
+			<label index="reportTitle"> Beitrag melden </label>
+			<label index="reportHover"> Keine Sorge - Sie bleiben anonym. Allerdings, wenn Sie  illegale Aktivitäten vermuten wenden Sie sich bitte direkt an uns. </label>
+			<label index="reportHeader"> Möchten Sie diesen Beitrag melden? </label>
+			<label index="reportReceived"> Bericht erhielt </label>
+			<label index="reportReceived"> Wir haben Ihre Meldung erhalten - vielen Dank! </label>
+			<label index="reportReturn"> zurück zum Post </label>
+			<label index="reportLegend"> Bericht bestätigen  vor dem Senden </label>
+			<label index="reportWhatWillHappen"> Was wird geschehen? </label>
+			<label index="reportWhatWillHappenElaboration"> Eine E-Mail wird an den Site-Administrator gesendet.</label>
+			<label index="reportSendButton"> sende Bericht </label>
+			<label index="or"> oder </label>
+
+			<label index="buttonSend"> senden </label>
+			<label index="buttonCancel"> abbrechen </label>
+
+			<label index="records"> Aufzeichnungen </label>
+			<label index="discussions"> Posts </label>
+			<label index="discussion.start"> Start einen neuen Post </label>
+			<label index="thread.start"> neuen  Thread starten </label>
+			<label index="reply.start"> Antwort </label>
+
+			<label index="email.authorization.subject"> Bitte autorisieren Ihre E-Mail Adressse </label>
+			<label index="email.salutation"> Sehr geehrter% s, </label>
+			<label index="email.signature"> Mit freundlichen Grüßen,
+				% S </label>
+			<label index="email.authorization.explanation"> Bitte autohrisieren Sie den Post:
+
+				% S
+
+				Shop Genehmigung in Cookie (permanent):
+				% S
+
+				Shop Genehmigung in Session (temporär):
+				% S
+
+				Keine Genehmigung:
+				% S </label>
+
+			<label index="tx_dialog_domain_model_discussion"> Post </label>
+			<label index="tx_dialog_domain_model_discussion.title"> Titel </label>
+			<label index="tx_dialog_domain_model_discussion.mode"> Modus </label>
+			<label index="tx_dialog_domain_model_discussion.last_activity"> Letzte Aktivität </label>
+			<label index="tx_dialog_domain_model_discussion.hash"> Hash-Kennung </label>
+			<label index="tx_dialog_domain_model_discussion.threads"> Themen </label>
+			<label index="tx_dialog_domain_model_discussion.posts"> Beiträge </label>
+			<label index="tx_dialog_domain_model_thread"> Thema </label>
+			<label index="tx_dialog_domain_model_thread.hash"> Hash-Kennung </label>
+			<label index="tx_dialog_domain_model_thread.posts"> Beiträge </label>
+			<label index="tx_dialog_domain_model_post"> Wörter </label>
+			<label index="tx_dialog_domain_model_post.content"> Meldetext </label>
+			<label index="tx_dialog_domain_model_post.hash"> Hash-Kennung </label>
+			<label index="tx_dialog_domain_model_post.replies"> Antworten </label>
+			<label index="tx_dialog_domain_model_post.subject"> Betreff </label>
+
+			<label index="tx_dialog_domain_model_poster"> Poster </label>
+			<label index="tx_dialog_domain_model_poster.name"> Vorname </label>
+			<label index="tx_dialog_domain_model_poster.email"> E-Mail </label>
+		</languageKey>
 	</data>
 </T3locallang>
