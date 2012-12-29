@@ -51,7 +51,7 @@
 						<f:if condition="{settings.enableSubscriptions}">
 							<v:extension.loaded extensionName="Notify">
 								<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_discussion" uid="{discussion.uid}" fields="posts"
-									settings="{settings.subscription.components.heroUnit}" />
+									settings="{settings.subscription.components.heroUnit}" url="{v:page.absoluteUrl()}" />
 							</v:extension.loaded>
 						</f:if>
 					</div>
@@ -74,8 +74,8 @@
 						</f:link.action>
 						<f:if condition="{settings.enableSubscriptions}">
 							<v:extension.loaded extensionName="Notify">
-								<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_discussion" uid="{discussion.uid}" fields="threads"
-									settings="{display: { mode: 'button', button: {class: 'btn btn-small'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
+								<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_discussion" uid="{discussion.uid}" fields="threads" url="{v:page.absoluteUrl()}"
+								                         settings="{display: { mode: 'button', button: {class: 'btn btn-small'}, link: {subscribed: 'Notifications enabled', unsubscribed: 'Enable notifications'}}}" />
 							</v:extension.loaded>
 						</f:if>
 					</div>
@@ -409,7 +409,7 @@
 				<v:extension.loaded extensionName="Notify">
 					<div class="pull-right">
 						<notify:widget.subscribe mode="1" table="tx_dialog_domain_model_post" uid="{postItem.uid}" fields="replies"
-							settings="{settings.subscription.components.post}" />
+							settings="{settings.subscription.components.post}" url="{v:page.absoluteUrl()}#p{postItem.uid}"  />
 					</div>
 				</v:extension.loaded>
 			</f:if>
