@@ -46,4 +46,8 @@ t3lib_extMgm::addTypoScript($_EXTKEY, 'setup', "
 	}
 ");
 
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['Tx_Notify_Extraction']['tx_dialog_domain_model_thread'] = 'Tx_Dialog_Extraction_ThreadExtractor';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['Tx_Notify_Extraction']['tx_dialog_domain_model_discussion'] = 'Tx_Dialog_Extraction_DiscussionExtractor';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['Tx_Notify_Extraction']['tx_dialog_domain_model_post'] = 'Tx_Dialog_Extraction_PostExtractor';
+
 ?>
