@@ -101,16 +101,6 @@ td.time {
     opacity: 0.5;
 }
 
-.hero-unit-button .btn {
-    margin-top: 0px;
-}
-
-.hero-unit-button .btn.primary {
-	font-size: 16px;
-    margin-bottom: 5px;
-	width: 100%;
-}
-
 .poster h4, .poster p {
     margin-bottom: 0.3em;
 }
@@ -153,12 +143,9 @@ td.latest-items-options {
 	margin-right: 0.5em;
 }
 
-/*
-.tx-dialog-discussion .fileupload-exists {
-	float: none;
-	clear: both;
+.tx-dialog-discussion .hero-unit .btn {
+	margin-bottom: 0.5em;
 }
-*/
 
 .tx-dialog-discussion .controls-row label {
 	margin-top: 1em;
