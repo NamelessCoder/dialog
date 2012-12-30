@@ -130,7 +130,7 @@
 				<div class="latest-posts">
 					<f:if condition="{discussionItem.threads}">
 						<table class="table {settings.postTableClass}">
-							<f:for each="{discussionItem.threads -> v:iterator.sort(sortBy: 'crdate', order: 'DESC') -> v:iterator.slice(length: settings.numberOfLatestPosts)}" as="threadItem">
+							<f:for each="{discussionItem.threads -> v:iterator.sort(sortBy: 'lastActivity', order: 'DESC') -> v:iterator.slice(length: settings.numberOfLatestPosts)}" as="threadItem">
 								<tr>
 									<td>
 										<dialog:isNew thread="{threadItem}" then="{settings.newIndicator -> f:format.raw()}" />
@@ -142,7 +142,7 @@
 									</td>
 									<td>
 										<span class="pull-right thread-last-update">
-											<small><f:format.date format="{settings.dateFormat}">{threadItem.crdate}</f:format.date></small>
+											<small><f:format.date format="{settings.dateFormat}">{threadItem.lastActivity}</f:format.date></small>
 										</span>
 									</td>
 								</tr>
