@@ -322,7 +322,6 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 			$discussion->setDescription($post->getContent());
 			$discussion->setPoster($poster);
 			$discussion->setLastPost($post);
-			$discussion->setLastActivity($now);
 			$this->discussionRepository->add($discussion);
 			$this->cacheService->clearPageCache(array($GLOBALS['TSFE']->id));
 			$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
@@ -335,20 +334,11 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 			$thread->addPost($post);
 			$thread->setHash($hash);
 			$thread->setLastPost($post);
-			$thread->setLastActivity($now);
 			$this->threadRepository->add($thread);
 		} else {
 			$hash = $thread->getHash();
-			$thread->setLastActivity($now);
 			$thread->setLastPost($post);
 			$this->threadRepository->update($thread);
-			$arguments['thread'] = $thread->getUid();
-		}
-		if ($discussion !== NULL) {
-			$arguments['discussion'] = $discussion->getUid();
-			$discussion->addThread($thread);
-			$discussion->setLastActivity($now);
-			$this->discussionRepository->update($discussion);
 		}
 		if ($parent) {
 			$hash = $parent->getHash();
@@ -356,11 +346,14 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 			$this->postRepository->update($parent);
 		} else {
 			$thread->addPost($post);
-		}
-		if ($hash) {
-			$post->setHash($hash);
+			$hash = $thread->getHash();
 		}
 
+		$discussion->addThread($thread);
+		$discussion->setLastActivity($now);
+		$thread->setLastActivity($now);
+		$post->setCrdate($now);
+		$post->setHash($hash);
 		$uploadedFiles = $this->uploadFiles('attachments', 'files');
 		$uploadedImages = $this->uploadFiles('images', 'images');
 		if (count($uploadedFiles) > 0) {
@@ -369,9 +362,11 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		if (count($uploadedImages) > 0) {
 			$post->setImages(implode(',', $uploadedImages));
 		}
-		$post->setCrdate($now);
 		$this->postRepository->add($post);
+		$this->discussionRepository->update($discussion);
 		$this->objectManager->get('Tx_Extbase_Persistence_ManagerInterface')->persistAll();
+		$arguments['discussion'] = $discussion->getUid();
+		$arguments['thread'] = $thread->getUid();
 		$this->uriBuilder->setSection('p' . $post->getUid());
 		$this->redirectToUri($this->uriBuilder->uriFor('show', $arguments));
 	}
