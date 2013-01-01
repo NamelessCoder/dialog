@@ -11,8 +11,8 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'Dialog - Lightweight discussion module',
-	'description' => 'Fluid AJAX Widget discussion component which can be used from any Fluid template or as a content element. Features automatic setup. Configurable threaded, flat or chat mode.',
+	'title' => 'Dialog: Lightweight discussion module',
+	'description' => 'Fluid Widget discussion components which can be used from any Fluid template or as a content elements. Features automatic setup. Configurable threaded or flat (comments style) displays.',
 	'category' => 'plugin',
 	'shy' => 0,
 	'version' => '2.0.0',
