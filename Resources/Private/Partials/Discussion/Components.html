@@ -226,7 +226,7 @@
 			<f:render section="Write" arguments="{_all}" />
 		</f:then>
 		<f:else>
-			<f:link.action action="write" class="btn btn-large btn-primary white">
+			<f:link.action action="write" arguments="{discussion: discussion.uid}" class="btn btn-large btn-primary white">
 				<i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></a>
 			</f:link.action>
 		</f:else>
