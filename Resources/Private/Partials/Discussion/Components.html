@@ -59,13 +59,18 @@
 				<f:else>
 					<div class="span9">
 						<h1>{discussion.title}</h1>
-						<f:if condition="{discussion.description}">
-							<f:then>
-								<p><f:format.html>{discussion.description}</f:format.html></p>
-							</f:then>
-								<f:else>
-								<p><f:translate key="noDescription" /></p>
-							</f:else>
+						<f:if condition="{settings.discussion.show.displayDescription}">
+							<f:if condition="{discussion.description}">
+								<f:then>
+									<f:format.html>{f:if(condition: settings.discussion.show.displayDescriptionCharacters,
+										then: '{discussion.description -> f:format.crop(maxCharacters: settings.discussion.show.displayDescriptionCharacters)}',
+										else: discussion.description
+										)}</f:format.html>
+								</f:then>
+									<f:else>
+									<p><f:translate key="noDescription" /></p>
+								</f:else>
+							</f:if>
 						</f:if>
 					</div>
 					<div class="span3 hero-unit-button">
@@ -110,14 +115,6 @@
 	<f:if condition="{discussions}">
 		<f:then>
 			<f:for each="{discussions}" as="discussionItem" iteration="iteration">
-				<div class="pull-right btn-group">
-					<f:link.action action="write" arguments="{discussion: discussionItem.uid}" class="btn btn-mini">
-						<i class="icon-pencil"></i> <f:translate key="thread.start" /></a>
-					</f:link.action>
-					<f:link.action action="show" arguments="{discussion: discussionItem.uid}" class="btn btn-mini">
-						<i class="icon-comment"></i> <f:translate key="thread.view" arguments="{0: '{discussionItem.threads -> f:count()}'}" /></a>
-					</f:link.action>
-				</div>
 				<h4>
 					<dialog:isNew discussion="{discussionItem}" then="{settings.newIndicator -> f:format.raw()}" />
 					<f:link.action action="show" arguments="{discussion: discussionItem.uid}">
@@ -127,6 +124,24 @@
 						<em><f:translate key="by" /> {discussionItem.poster.name}</em>
 					</small>
 				</h4>
+				<f:if condition="{settings.discussion.list.displayDescription}">
+					<f:if condition="{discussionItem.description}">
+						<div class="discussion-list-description">
+							<f:format.html>{f:if(condition: settings.discussion.list.displayDescriptionCharacters,
+								then: '{discussionItem.description -> f:format.crop(maxCharacters: settings.discussion.list.displayDescriptionCharacters)}',
+								else: discussionItem.description
+								)}</f:format.html>
+						</div>
+					</f:if>
+				</f:if>
+				<p class="btn-group">
+					<f:link.action action="write" arguments="{discussion: discussionItem.uid}" class="btn btn-mini">
+						<i class="icon-pencil"></i> <f:translate key="thread.start" /></a>
+					</f:link.action>
+					<f:link.action action="show" arguments="{discussion: discussionItem.uid}" class="btn btn-mini">
+						<i class="icon-comment"></i> <f:translate key="thread.view" arguments="{0: '{discussionItem.threads -> f:count()}'}" /></a>
+					</f:link.action>
+				</p>
 				<div class="latest-posts">
 					<f:if condition="{discussionItem.threads}">
 						<table class="table {settings.postTableClass}">

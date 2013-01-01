@@ -188,6 +188,20 @@ plugin.tx_dialog {
 		postTableClass = table-condensed table-striped
 		# last post max characters: number of characters to display from latest post in Discussion/Thread
 		lastPostMaxCharacters = 150
+		discussion {
+		list {
+			# Discussion overview description display: wether or not to display the description of each Discussion in the main Discussion list, before list of most recently active Threads
+				displayDescription = 1
+				# Discussion overview description display, maxCharacters: how many characters to display at maximum from the Discussion description. Zero disables cropping.
+				displayDescriptionCharacters = 140
+			}
+			show {
+				# Discussion overview description display: wether or not to display the description of each Discussion in the main Discussion list, before list of most recently active Threads
+				displayDescription = 1
+				# Discussion overview description display, maxCharacters: how many characters to display at maximum from the Discussion description. Zero disables cropping.
+				displayDescriptionCharacters = 0
+			}
+		}
 		attachments {
 			files {
 				# file uploads: enable uploading of files when posting

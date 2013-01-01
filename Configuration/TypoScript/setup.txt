@@ -45,6 +45,20 @@ plugin.tx_dialog {
 		# new post indicator: small piece of HTML inserted just before the title if the Post, Thread or Discussion is more recently updated than viewer's last visit.
 		# A Twitter Bootstrap icon HTML block works well here. Default styles assume FontAwesome is installed in order to color the icon through CSS.
 		newIndicator = <i class="icon icon-envelope-alt new-post"></i>
+		discussion {
+			list {
+                # Discussion overview description display: wether or not to display the description of each Discussion in the main Discussion list, before list of most recently active Threads
+				displayDescription = 1
+				# Discussion overview description display, maxCharacters: how many characters to display at maximum from the Discussion description. Zero disables cropping.
+				displayDescriptionCharacters = 140
+            }
+			show {
+				# Discussion overview description display: wether or not to display the description of each Discussion in the main Discussion list, before list of most recently active Threads
+				displayDescription = 1
+				# Discussion overview description display, maxCharacters: how many characters to display at maximum from the Discussion description. Zero disables cropping.
+				displayDescriptionCharacters = 0
+			}
+		}
 		attachments {
 			files {
 				# file uploads: enable uploading of files when posting
