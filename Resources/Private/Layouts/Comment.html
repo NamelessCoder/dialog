@@ -1,4 +1,5 @@
 {namespace dialog=Tx_Dialog_ViewHelpers}
+{namespace v=Tx_Vhs_ViewHelpers}
 <f:layout name="Comment" />
 
 <f:if condition="{placeholder}">
@@ -16,6 +17,6 @@
 				arguments="{postItem: post, discussion: discussion, hideOptions: 1, width: width}" optional="TRUE" />
 		</f:for>
 		<input type="hidden" id="hash" value="{hash}" />
-		<f:render partial="Discussion/Components" section="Form" arguments="{_all}" />
+		<f:render partial="Discussion/Components" section="{v:security.allow(anyFrontendUser: TRUE, then: 'Form', else: 'Write')}" arguments="{_all}" />
 	</f:else>
 </f:if>
