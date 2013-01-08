@@ -43,7 +43,7 @@
 }
 
 .tx-dialog .mini-layout .poster-name {
-	width: 210px;
+	width: 180px;
 }
 
 .tx-dialog .mini-layout .poster-email {
@@ -51,7 +51,11 @@
 }
 
 .tx-dialog .mini-layout .poster-web {
-	width: 150px;
+	width: 148px;
+}
+
+.tx-dialog .mini-layout .form-actions {
+	padding-left: 60px;
 }
 
 .tx-dialog .mini-layout .words-form .control-label {

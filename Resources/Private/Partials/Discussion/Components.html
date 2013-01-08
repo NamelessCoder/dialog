@@ -472,31 +472,37 @@
 						<div class="span4">
 							<fieldset>
 								<legend><f:translate key="personalInfo" /></legend>
-								<div class="controls-row {f:if(condition: errors.name, then: ' error')}">
-									<label for="name"><f:translate key="tx_dialog_domain_model_poster.name" /></label>
-									<div class="input-prepend">
-										<span class="add-on"><i class="icon-user"></i></span>
-										<f:form.textfield class="poster-name" property="poster.name" value="{poster.name}" id="name" errorClass="{settings.errorClass}" />
+								<div class="control-group {f:if(condition: errors.name, then: ' error')}">
+									<label class="control-label" for="name"><f:translate key="tx_dialog_domain_model_poster.name" /></label>
+									<div class="controls">
+										<div class="input-prepend">
+											<span class="add-on"><i class="icon-user"></i></span>
+											<f:form.textfield class="poster-name" property="poster.name" value="{poster.name}" id="name" errorClass="{settings.errorClass}" />
+										</div>
 									</div>
 								</div>
-								<div class="controls-row{f:if(condition: errors.email, then: ' error')}">
-									<label for="email"><f:translate key="tx_dialog_domain_model_poster.email" /></label>
-									<div class="input-prepend">
-										<span class="add-on email"><i class="icon-envelope"></i></span>
-										<f:form.textfield property="poster.email" value="{poster.email}" id="email" class="email poster-email" errorClass="{settings.errorClass}" />
+								<div class="control-group {f:if(condition: errors.email, then: ' error')}">
+									<label class="control-label" for="email"><f:translate key="tx_dialog_domain_model_poster.email" /></label>
+									<div class="controls">
+										<div class="input-prepend">
+											<span class="add-on"><i class="icon-envelope"></i></span>
+											<f:form.textfield property="poster.email" value="{poster.email}" id="email" class="email poster-email" errorClass="{settings.errorClass}" />
+										</div>
+										<p class="help-block"><f:translate key="emailFieldMessage" /></p>
 									</div>
-									<p class="help-block"><f:translate key="emailFieldMessage" /></p>
 								</div>
-								<div class="controls-row">
-									<label for="web">Web</label>
-									<div class="input-prepend">
-										<span class="add-on web">http://</span>
-										<f:form.textfield property="poster.web" value="{poster.web}" id="web" class="web poster-web" errorClass="{settings.errorClass}" />
+								<div class="control-group {f:if(condition: errors.web, then: ' error')}">
+									<label class="control-label" for="web">Web</label>
+									<div class="controls">
+										<div class="input-prepend">
+											<span class="add-on web">http://</span>
+											<f:form.textfield property="poster.web" value="{poster.web}" id="web" class="web poster-web" errorClass="{settings.errorClass}" />
+										</div>
+										<p class="help-block"><f:translate key="webFieldMessage" /></p>
 									</div>
-									<p class="help-block"><f:translate key="webFieldMessage" /></p>
 								</div>
 								<f:if condition="{poster.identifier}">
-									<div class="controls-row">
+									<div class="controls-row form-actions">
 										<f:link.action action="forget" arguments="{identifier: poster.identifier, remove: 1}" id="removeAndForget" class="btn btn-inverse"><f:translate key="forgetAndRemove" /></f:link.action>
 										<f:link.action action="forget" arguments="{identifier: poster.identifier}" class="btn btn-danger"><f:translate key="forget" /></f:link.action>
 									</div>
