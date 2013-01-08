@@ -219,17 +219,6 @@
 							</tr>
 						</f:for>
 					</tbody>
-					<f:if condition="{settings.enableHeroUnit} < 1">
-						<tfoot>
-							<tr>
-								<td colspan="2">
-									<f:link.action action="write" arguments="{discussion: discussion.uid}" class="btn btn-primary white">
-										<i class="icon-comment icon-white"></i> <f:translate key="thread.start" />
-									</f:link.action>
-								</td>
-								</tr>
-						</tfoot>
-					</f:if>
 				</table>
 			</f:widget.paginate>
 		</f:then>
