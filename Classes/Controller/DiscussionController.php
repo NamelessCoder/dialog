@@ -187,6 +187,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	 * @param Tx_Dialog_Domain_Model_Thread $thread
 	 * @param Tx_Dialog_Domain_Model_Post $parent
 	 * @param Tx_Dialog_Domain_Model_Post $post
+	 * @param Tx_Dialog_Domain_Model_Poster $poster
 	 * @param array $errors
 	 * @return string
 	 * @dontvalidate $discussion
@@ -194,14 +195,14 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	 * @dontvalidate $parent
 	 * @dontvalidate $post
 	 * @route off $post
-	 * @route off $errors
 	 */
 	public function writeAction(
 			Tx_Dialog_Domain_Model_Discussion $discussion=NULL,
 			Tx_Dialog_Domain_Model_Thread $thread=NULL,
 			Tx_Dialog_Domain_Model_Post $parent=NULL,
 			Tx_Dialog_Domain_Model_Post $post=NULL,
-			$errors=array()) {
+			Tx_Dialog_Domain_Model_Post $poster=NULL,
+			array $errors = array()) {
 		$poster = $this->posterRepository->getOrCreatePoster();
 		if ($poster === NULL) {
 			$poster = $this->objectManager->create('Tx_Dialog_Domain_Model_Poster');
@@ -258,61 +259,75 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		if ($url) {
 			sleep(99999999);
 		}
-		$arguments = array();
+		$requestAuthorizationEmail = FALSE;
+		$arguments = $this->request->getArguments();
 		$now = new DateTime();
 
-		$requestAuthorizationEmail = FALSE;
-		$poster = $this->posterRepository->getOrCreatePoster(TRUE);
-		if ($poster && $post->getUid() > 0) {
-			$posterExistsAndMatches = $post->getPoster()->getUid() !== $poster->getUid() && $post->getPoster()->getEmail() !== $poster->getEmail();
-			$editingIsExpired = $post->getCrdate()->getTimestamp() < (time() - $this->settings['editingExpiration']) && $this->settings['editingExpiration'] > 0;
-			if ($posterExistsAndMatches || $editingIsExpired) {
+		$poster = $post->getPoster();
+			// validate Poster identity
+		$currentIdentity = $this->posterRepository->getOrCreatePoster(TRUE);
+		if ($currentIdentity) {
+				// Poster recognised, check his identity against submitted personal info
+			if ($poster->getEmail() != $currentIdentity->getEmail()) {
+					// Poster is attempting to write a Post as another identity; reject.
 				$this->view->assign('view', 'NoAccess');
 				return $this->view->render('Show');
+			} else {
+					// is validated; replace unpersisted Poster on
+				$post->setPoster($currentIdentity);
+				$post->setPublished(1);
+					// Poster attempting an update. Check for expiration of access (identity match is checked above)
+				if ($post->getUid() > 0) {
+					$editingIsExpired = $post->getCrdate()->getTimestamp() < (time() - $this->settings['editingExpiration']) && $this->settings['editingExpiration'] > 0;
+					if ($editingIsExpired) {
+						$this->view->assign('view', 'NoAccess');
+						return $this->view->render('Show');
+					}
+					$arguments['thread'] = $thread ? $thread->getUid() : NULL;
+					$arguments['discussion'] = $discussion ? $discussion->getUid() : NULL;
+						// immediately update, bypassing any sending of authorization email requests
+					$this->postRepository->update($post);
+					$this->uriBuilder->setSection('p' . $post->getUid());
+					$this->redirectToUri($this->uriBuilder->uriFor('show', $arguments));
+				}
 			}
-			$arguments['thread'] = $thread ? $thread->getUid() : NULL;
-			$arguments['discussion'] = $discussion ? $discussion->getUid() : NULL;
-			$post->setPoster($poster);
-			$this->postRepository->update($post);
-			$this->uriBuilder->setSection('p' . $post->getUid());
-			$this->redirectToUri($this->uriBuilder->uriFor('show', $arguments));
 		}
-		if (!$poster) {
+			// reload Poster, in case Poster was replaced above. Validate and exit with errors if invalid
+		$poster = $post->getPoster();
+		$posterErrors = array();
+		if (trim($poster->getEmail()) == '') {
+			$posterErrors['email'] = 1;
+		}
+		if (trim($poster->getName()) == '') {
+			$posterErrors['name'] = 1;
+		}
+		if (count($posterErrors) > 0) {
+			$arguments['errors'] = $posterErrors;
+			$this->forward('write', NULL, NULL, $arguments);
+		}
+			// case matched if current identity exists and matches Poster details given in Post,
+			// which means it is safe to publish the Post right away. Else, add the new Poster,
+			// set published to "no" and request sending of an authorization email message.
+		if ($currentIdentity) {
+			$post->setPublished(1);
+			$requestAuthorizationEmail = FALSE;
+		} else {
 			$existingPoster = $this->posterRepository->findOneByEmail($poster->getEmail());
 			if ($existingPoster) {
-				$post->setPublished(0);
 				$poster = $existingPoster;
-				$requestAuthorizationEmail = TRUE;
 			} else {
-				$poster = $post->getPoster();
+				$this->posterRepository->add($poster);
 			}
-		} elseif ($poster->getUid() > 0) {
-			$post->setPublished(1);
-		} else {
-			$poster = $post->getPoster();
-			$this->posterRepository->add($poster);
 			$post->setPublished(0);
 			$requestAuthorizationEmail = TRUE;
-		}
-
-		if ($poster->getEmail() == '') {
-			$this->posterErrors['email'] = 'ERR';
-		}
-		if ($poster->getName() == '') {
-			$this->posterErrors['name'] = 'ERR';
-		}
-		if (count($this->posterErrors) > 0) {
-			$requestArguments = $this->request->getArguments();
-			$requestArguments['errors'] = $this->posterErrors;
-			$this->forward('write', NULL, NULL, $requestArguments);
 		}
 		if ($requestAuthorizationEmail === TRUE) {
 			if ($poster->getIdentifier() == '') {
 				$poster->setIdentifier(md5(microtime(TRUE) * time()));
 			}
 			$this->sendAuthenticationEmail($poster);
+			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('authorizationRequestSent', 'Dialog'));
 		}
-
 		$hash = NULL;
 		$post->setPoster($poster);
 		if ($discussion === NULL) {
@@ -445,6 +460,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 			$this->emailService->mail($subject, $body, $recipient, $sender);
 		} catch (Exception $e) {
 			t3lib_div::sysLog('Failed to send email message: ' . $e->getMessage(), 'dialog');
+			throw $e;
 		}
 
 	}
