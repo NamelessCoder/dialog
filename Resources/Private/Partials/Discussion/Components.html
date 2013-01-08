@@ -19,16 +19,16 @@
 			<div class="container">
 				<li class="brand"><f:translate key="title" /></li>
 				<ul class="nav pull-right">
-					<li class="{dialog:equals(a: view, b: 'list', then: 'active')}">
-						<f:link.action action="index" class="nav pull-left"><i class="icon-home icon-white"></i> <f:translate key="home" /></f:link.action>
-					</li>
 					<f:if condition="{discussion}">
 						<f:if condition="{settings.enableHeroUnit} < 1">
 							<li class="{dialog:equals(a: view, b: 'write', then: 'active')}">
-								<f:link.action action="write" arguments="{discussion: discussion.uid}" class="nav pull-left"><i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></f:link.action>
+								<f:link.action action="write" arguments="{discussion: discussion.uid, thread: thread.uid}" class="nav pull-left"><i class="icon-comment icon-white"></i> <f:translate key="thread.start" /></f:link.action>
 							</li>
 						</f:if>
 					</f:if>
+					<li class="{dialog:equals(a: view, b: 'list', then: 'active')}">
+						<f:link.action action="index" class="nav pull-left"><i class="icon-home icon-white"></i> <f:translate key="home" /></f:link.action>
+					</li>
 				</ul>
 			</div>
 		</div>
