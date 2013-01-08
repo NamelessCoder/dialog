@@ -59,6 +59,7 @@
 			<label index="thread.view">View %s subjects</label>
 			<label index="reply.start">Reply to</label>
 
+			<label index="authorizationRequestSent">Your post has not yet been published. Since you are posting as a guest, an authorization email has been sent to the email address you used when posting. Use this email to authorize your post - and thereby publish it.</label>
 			<label index="email.authorization.subject">Please authorize your email addres</label>
 			<label index="email.salutation">Dear %s,</label>
 			<label index="email.signature">Kind regards,
@@ -149,6 +150,7 @@ Forget this authorization (and let me re-authorize if needed):
 			<label index="thread.view">Vis %s emner</label>
 			<label index="reply.start">Besvar</label>
 
+			<label index="authorizationRequestSent">Dit svar er endnu ikke blevet offentliggjort. Da du svarer som gæst er der blevet sendt en email til den adresse du brugte i dit svar. Brug denne email til at godkende - og samtidig offentliggøre - dit svar.</label>
 			<label index="email.salutation">Dear %s,</label>
 			<label index="email.signature">Kind regards,
 %s</label>
@@ -238,6 +240,7 @@ Forget this authorization (and let me re-authorize if needed):
 			<label index="thread.view">Vis %s emner</label>
 			<label index="reply.start">Besvar</label>
 
+			<label index="authorizationRequestSent">Dit svar er endnu ikke blevet offentliggjort. Da du svarer som gæst er der blevet sendt en email til den adresse du brugte i dit svar. Brug denne email til at godkende - og samtidig offentliggøre - dit svar.</label>
 			<label index="email.salutation">Dear %s,</label>
 			<label index="email.signature">Kind regards,
 %s</label>
