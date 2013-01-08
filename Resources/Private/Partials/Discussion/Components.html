@@ -112,6 +112,7 @@
 </f:section>
 
 <f:section name="Discussions">
+	<f:flashMessages class="alert alert-info" renderMode="div" />
 	<f:if condition="{discussions}">
 		<f:then>
 			<f:for each="{discussions}" as="discussionItem" iteration="iteration">
