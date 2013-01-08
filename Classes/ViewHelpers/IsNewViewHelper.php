@@ -56,6 +56,9 @@ class Tx_Dialog_ViewHelpers_IsNewViewHelper extends Tx_Fluid_Core_ViewHelper_Abs
 			$postUid = $post->getUid();
 			$isContainedInStorage = in_array($postUid, $storage['posts']);
 			if (!$isContainedInStorage) {
+				if (!isset($_SESSION[$key]['posts'])) {
+					$_SESSION[$key]['posts'] = array();
+				}
 				array_push($_SESSION[$key]['posts'], $postUid);
 			}
 		} elseif ($thread) {
