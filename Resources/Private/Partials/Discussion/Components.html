@@ -535,9 +535,9 @@
 				<label><f:translate key="attachments" /></label>
 				<v:iterator.loop count="{settings.attachments.files.count}" iteration="iteration">
 					<div class="fileupload fileupload-new" data-provides="fileupload">
-						<button class="btn btn-mini btn-file"><span class="fileupload-new"><f:translate key="chooseFile" /></span>
+						<span class="btn btn-mini btn-file"><span class="fileupload-new"><f:translate key="chooseFile" /></span>
 							<span class="fileupload-exists"><f:translate key="changeFile" /></span><f:form.upload name="attachments[{iteration.cycle}]" />
-						</button>
+						</span>
 						<span class="fileupload-preview"></span>
 						<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
 					</div>
@@ -557,9 +557,9 @@
 						</div>
 						<div class="fileupload-preview fileupload-exists thumbnail"></div>
 						<div>
-							<button class="btn btn-mini btn-file"><span class="fileupload-new"><f:translate key="chooseFile" /></span>
+							<span class="btn btn-mini btn-file"><span class="fileupload-new"><f:translate key="chooseFile" /></span>
 								<span class="fileupload-exists"><f:translate key="changeFile" /></span><f:form.upload name="images[{iteration.cycle}]" />
-							</button>
+							</span>
 						</div>
 						<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
 					</div>
