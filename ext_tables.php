@@ -16,6 +16,7 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 );
 
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Dialog - Lightweight discussion module');
+t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Styles', 'Dialog - Bootstrap CSS from NetDNA CDN');
 
 t3lib_div::loadTCA('tt_content');
 $TCA['tt_content']['types']['list']['subtypes_addlist']['dialog_discussion'] = 'pi_flexform';
