@@ -27,7 +27,7 @@
  * @package Dialog
  * @subpackage Controller
  */
-class Tx_Dialog_Controller_ChatController extends Tx_Extbase_MVC_Controller_ActionController {
+class Tx_Dialog_Controller_ChatController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
 	 * @return void

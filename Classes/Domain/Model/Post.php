@@ -32,10 +32,10 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_Dialog_Domain_Model_Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 */
 	protected $objectManager;
 
@@ -68,7 +68,7 @@ class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity
 	/**
 	 * Replies
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Dialog_Domain_Model_Post>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Dialog_Domain_Model_Post>
 	 * @lazy
 	 */
 	protected $replies;
@@ -109,9 +109,9 @@ class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity
 	protected $cachedMarkdown;
 
 	/**
-	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
+	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 
@@ -121,7 +121,7 @@ class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity
 	 * @return void
 	 */
 	public function __construct() {
-		$this->replies = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->replies = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 	/**
@@ -155,7 +155,7 @@ class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity
 	 */
 	public function setContent($content) {
 		/** @var $markdownViewHelper Tx_Vhs_ViewHelpers_Format_MarkdownViewHelper */
-		$markdownViewHelper = $this->objectManager->create('Tx_Vhs_ViewHelpers_Format_MarkdownViewHelper');
+		$markdownViewHelper = $this->objectManager->get('Tx_Vhs_ViewHelpers_Format_MarkdownViewHelper');
 		$this->content = trim($content);
 		try {
 			$cachedMarkdown = $markdownViewHelper->render($content, TRUE);
@@ -222,10 +222,10 @@ class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity
 	/**
 	 * Returns the replies
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Dialog_Domain_Model_Post> $replies
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Dialog_Domain_Model_Post> $replies
 	 */
 	public function getReplies() {
-		$storage = new Tx_Extbase_Persistence_ObjectStorage();
+		$storage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		foreach ($this->replies as $reply) {
 			if ($reply->getPublished()) {
 				$storage->attach($reply);
@@ -237,10 +237,10 @@ class Tx_Dialog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity
 	/**
 	 * Sets the replies
 	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_Dialog_Domain_Model_Post> $replies
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Dialog_Domain_Model_Post> $replies
 	 * @return void
 	 */
-	public function setReplies(Tx_Extbase_Persistence_ObjectStorage $replies) {
+	public function setReplies(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $replies) {
 		$this->replies = $replies;
 	}
 

@@ -36,7 +36,7 @@
  *
  * @author Claus Due <claus@wildside.dk>
  */
-class Tx_Dialog_Domain_Model_ThreadTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class Tx_Dialog_Domain_Model_ThreadTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @var Tx_Dialog_Domain_Model_Thread
 	 */
@@ -72,7 +72,7 @@ class Tx_Dialog_Domain_Model_ThreadTest extends Tx_Extbase_Tests_Unit_BaseTestCa
 	 * @test
 	 */
 	public function getPostsReturnsInitialValueForObjectStorageContainingTx_Dialog_Domain_Model_Post() { 
-		$newObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
 			$this->fixture->getPosts()
@@ -84,7 +84,7 @@ class Tx_Dialog_Domain_Model_ThreadTest extends Tx_Extbase_Tests_Unit_BaseTestCa
 	 */
 	public function setPostsForObjectStorageContainingTx_Dialog_Domain_Model_PostSetsPosts() { 
 		$post = new Tx_Dialog_Domain_Model_Post();
-		$objectStorageHoldingExactlyOnePosts = new Tx_Extbase_Persistence_ObjectStorage();
+		$objectStorageHoldingExactlyOnePosts = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOnePosts->attach($post);
 		$this->fixture->setPosts($objectStorageHoldingExactlyOnePosts);
 
@@ -99,7 +99,7 @@ class Tx_Dialog_Domain_Model_ThreadTest extends Tx_Extbase_Tests_Unit_BaseTestCa
 	 */
 	public function addPostToObjectStorageHoldingPosts() {
 		$post = new Tx_Dialog_Domain_Model_Post();
-		$objectStorageHoldingExactlyOnePost = new Tx_Extbase_Persistence_ObjectStorage();
+		$objectStorageHoldingExactlyOnePost = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOnePost->attach($post);
 		$this->fixture->addPost($post);
 
@@ -114,7 +114,7 @@ class Tx_Dialog_Domain_Model_ThreadTest extends Tx_Extbase_Tests_Unit_BaseTestCa
 	 */
 	public function removePostFromObjectStorageHoldingPosts() {
 		$post = new Tx_Dialog_Domain_Model_Post();
-		$localObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($post);
 		$localObjectStorage->detach($post);
 		$this->fixture->addPost($post);

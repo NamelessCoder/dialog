@@ -3,30 +3,29 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-Tx_Extbase_Utility_Extension::registerPlugin(
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 	$_EXTKEY,
 	'Discussion',
 	'Dialog: Discussion/Comment'
 );
 
-Tx_Extbase_Utility_Extension::registerPlugin(
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 	$_EXTKEY,
 	'Chat',
 	'Dialog: Chat'
 );
 
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Dialog - Lightweight discussion module');
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Styles', 'Dialog - Bootstrap CSS from NetDNA CDN');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Dialog - Lightweight discussion module');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Styles', 'Dialog - Bootstrap CSS from NetDNA CDN');
 
-t3lib_div::loadTCA('tt_content');
 $TCA['tt_content']['types']['list']['subtypes_addlist']['dialog_discussion'] = 'pi_flexform';
 $TCA['tt_content']['types']['list']['subtypes_addlist']['dialog_chat'] = 'pi_flexform';
 
-Tx_Flux_Core::registerConfigurationProvider('Tx_Dialog_Provider_Configuration_DiscussionPluginConfigurationProvider');
-Tx_Flux_Core::registerConfigurationProvider('Tx_Dialog_Provider_Configuration_ChatPluginConfigurationProvider');
+\FluidTYPO3\Flux\Core::registerConfigurationProvider('Tx_Dialog_Provider_Configuration_DiscussionPluginConfigurationProvider');
+\FluidTYPO3\Flux\Core::registerConfigurationProvider('Tx_Dialog_Provider_Configuration_ChatPluginConfigurationProvider');
 
-t3lib_extMgm::addLLrefForTCAdescr('tx_dialog_domain_model_discussion', 'EXT:dialog/Resources/Private/Language/locallang_csh_tx_dialog_domain_model_discussion.xml');
-t3lib_extMgm::allowTableOnStandardPages('tx_dialog_domain_model_discussion');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_dialog_domain_model_discussion', 'EXT:dialog/Resources/Private/Language/locallang_csh_tx_dialog_domain_model_discussion.xml');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_dialog_domain_model_discussion');
 $TCA['tx_dialog_domain_model_discussion'] = array(
 	'ctrl' => array(
 		'title'	=> 'LLL:EXT:dialog/Resources/Private/Language/locallang_db.xml:tx_dialog_domain_model_discussion',
@@ -48,13 +47,13 @@ $TCA['tx_dialog_domain_model_discussion'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Discussion.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_dialog_domain_model_discussion.gif'
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Discussion.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_dialog_domain_model_discussion.gif'
 	),
 );
 
-t3lib_extMgm::addLLrefForTCAdescr('tx_dialog_domain_model_thread', 'EXT:dialog/Resources/Private/Language/locallang_csh_tx_dialog_domain_model_thread.xml');
-t3lib_extMgm::allowTableOnStandardPages('tx_dialog_domain_model_thread');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_dialog_domain_model_thread', 'EXT:dialog/Resources/Private/Language/locallang_csh_tx_dialog_domain_model_thread.xml');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_dialog_domain_model_thread');
 $TCA['tx_dialog_domain_model_thread'] = array(
 	'ctrl' => array(
 		'title'	=> 'LLL:EXT:dialog/Resources/Private/Language/locallang_db.xml:tx_dialog_domain_model_thread',
@@ -76,13 +75,13 @@ $TCA['tx_dialog_domain_model_thread'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Thread.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_dialog_domain_model_thread.gif'
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Thread.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_dialog_domain_model_thread.gif'
 	),
 );
 
-t3lib_extMgm::addLLrefForTCAdescr('tx_dialog_domain_model_post', 'EXT:dialog/Resources/Private/Language/locallang_csh_tx_dialog_domain_model_post.xml');
-t3lib_extMgm::allowTableOnStandardPages('tx_dialog_domain_model_post');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_dialog_domain_model_post', 'EXT:dialog/Resources/Private/Language/locallang_csh_tx_dialog_domain_model_post.xml');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_dialog_domain_model_post');
 $TCA['tx_dialog_domain_model_post'] = array(
 	'ctrl' => array(
 		'title'	=> 'LLL:EXT:dialog/Resources/Private/Language/locallang_db.xml:tx_dialog_domain_model_post',
@@ -104,13 +103,13 @@ $TCA['tx_dialog_domain_model_post'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Post.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_dialog_domain_model_post.gif'
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Post.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_dialog_domain_model_post.gif'
 	),
 );
 
-t3lib_extMgm::addLLrefForTCAdescr('tx_dialog_domain_model_poster', 'EXT:dialog/Resources/Private/Language/locallang_csh_tx_dialog_domain_model_poster.xml');
-t3lib_extMgm::allowTableOnStandardPages('tx_dialog_domain_model_poster');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_dialog_domain_model_poster', 'EXT:dialog/Resources/Private/Language/locallang_csh_tx_dialog_domain_model_poster.xml');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_dialog_domain_model_poster');
 $TCA['tx_dialog_domain_model_poster'] = array(
 	'ctrl' => array(
 		'title'	=> 'LLL:EXT:dialog/Resources/Private/Language/locallang_db.xml:tx_dialog_domain_model_poster',
@@ -131,8 +130,8 @@ $TCA['tx_dialog_domain_model_poster'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Poster.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_dialog_domain_model_poster.gif'
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Poster.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_dialog_domain_model_poster.gif'
 	),
 );
 ?>

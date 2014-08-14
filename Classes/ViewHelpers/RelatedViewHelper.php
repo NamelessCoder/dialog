@@ -29,15 +29,15 @@
  * @package Dialog
  * @subpackage ViewHelpers/Widget
  */
-class Tx_Dialog_ViewHelpers_RelatedViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_Dialog_ViewHelpers_RelatedViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * @var Tx_Dialog_Domain_Reposityr_PostRepository
+	 * @var Tx_Dialog_Domain_Repository_PostRepository
 	 */
 	protected $postRepository;
 
 	/**
-	 * @param Tx_Dialog_Domain_Reposityr_PostRepository $postRepository
+	 * @param Tx_Dialog_Domain_Repository_PostRepository $postRepository
 	 */
 	public function injectPostRepository(Tx_Dialog_Domain_Repository_PostRepository $postRepository) {
 		$this->postRepository = $postRepository;
@@ -46,7 +46,7 @@ class Tx_Dialog_ViewHelpers_RelatedViewHelper extends Tx_Fluid_Core_ViewHelper_A
 	/**
 	 * @param string $hash
 	 * @param Tx_Dialog_Domain_Model_Discussion
-	 * @return Tx_Extbase_Persistence_QueryResult
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
 	 */
 	public function render($hash=NULL, Tx_Dialog_Domain_Model_Discussion $discussion=NULL) {
 		if ($hash !== NULL) {

@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_Dialog_Domain_Model_Thread extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_Dialog_Domain_Model_Thread extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * @var string
@@ -50,7 +50,7 @@ class Tx_Dialog_Domain_Model_Thread extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Posts
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Dialog_Domain_Model_Post>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Dialog_Domain_Model_Post>
 	 * @lazy
 	 */
 	protected $posts;
@@ -88,7 +88,7 @@ class Tx_Dialog_Domain_Model_Thread extends Tx_Extbase_DomainObject_AbstractEnti
 	 * @return void
 	 */
 	public function __construct() {
-		$this->posts = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->posts = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 	/**
@@ -147,10 +147,10 @@ class Tx_Dialog_Domain_Model_Thread extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Returns the posts
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Dialog_Domain_Model_Post> $posts
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Dialog_Domain_Model_Post> $posts
 	 */
 	public function getPosts() {
-		$storage = new Tx_Extbase_Persistence_ObjectStorage();
+		$storage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		foreach ($this->posts as $post) {
 			if ($post->getPublished()) {
 				$storage->attach($post);
@@ -162,10 +162,10 @@ class Tx_Dialog_Domain_Model_Thread extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Sets the posts
 	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_Dialog_Domain_Model_Post> $posts
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Dialog_Domain_Model_Post> $posts
 	 * @return void
 	 */
-	public function setPosts(Tx_Extbase_Persistence_ObjectStorage $posts) {
+	public function setPosts(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $posts) {
 		$this->posts = $posts;
 	}
 

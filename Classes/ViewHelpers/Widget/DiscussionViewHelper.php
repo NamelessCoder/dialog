@@ -27,7 +27,7 @@
  * @package Dialog
  * @subpackage ViewHelpers/Widget
  */
-class Tx_Dialog_ViewHelpers_Widget_DiscussionViewHelper extends Tx_Fluid_Core_Widget_AbstractWidgetViewHelper {
+class Tx_Dialog_ViewHelpers_Widget_DiscussionViewHelper extends \TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetViewHelper {
 
 	/**
 	 * @var string
@@ -61,6 +61,7 @@ class Tx_Dialog_ViewHelpers_Widget_DiscussionViewHelper extends Tx_Fluid_Core_Wi
 	/**
 	 * Render
 	 *
+	 * @throws Exception
 	 * @return string
 	 */
 	public function render() {

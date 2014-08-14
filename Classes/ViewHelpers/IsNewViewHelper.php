@@ -32,7 +32,7 @@
  * @package Dialog
  * @subpackage ViewHelpers
  */
-class Tx_Dialog_ViewHelpers_IsNewViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractConditionViewHelper {
+class Tx_Dialog_ViewHelpers_IsNewViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
 
 	/**
 	 * Checks a Post, Thread or Discussion for recency - which that
@@ -41,6 +41,7 @@ class Tx_Dialog_ViewHelpers_IsNewViewHelper extends Tx_Fluid_Core_ViewHelper_Abs
 	 * @param Tx_Dialog_Domain_Model_Post $post Optional Post to check against
 	 * @param Tx_Dialog_Domain_Model_Thread $thread Optional Thread to check against
 	 * @param Tx_Dialog_Domain_Model_Discussion $discussion Optional Discussion to check against
+	 * @throws Exception
 	 * @return string
 	 */
 	public function render(Tx_Dialog_Domain_Model_Post $post = NULL, Tx_Dialog_Domain_Model_Thread $thread = NULL, Tx_Dialog_Domain_Model_Discussion $discussion = NULL) {

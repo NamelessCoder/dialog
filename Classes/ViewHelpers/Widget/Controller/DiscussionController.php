@@ -27,7 +27,7 @@
  * @package Dialog
  * @subpackage ViewHelpers/Widget/Controller
  */
-class Tx_Dialog_ViewHelpers_Widget_Controller_DiscussionController extends Tx_Fluid_Core_Widget_AbstractWidgetController {
+class Tx_Dialog_ViewHelpers_Widget_Controller_DiscussionController extends \TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetController {
 
 	/**
 	 * @var Tx_Dialog_Domain_Repository_ThreadRepository

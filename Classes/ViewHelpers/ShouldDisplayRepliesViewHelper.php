@@ -29,7 +29,7 @@
  * @package Dialog
  * @subpackage ViewHelpers
  */
-class Tx_Dialog_ViewHelpers_ShouldDisplayRepliesViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractConditionViewHelper {
+class Tx_Dialog_ViewHelpers_ShouldDisplayRepliesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
 
 	/**
 	 * @param array $replies

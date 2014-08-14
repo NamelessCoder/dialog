@@ -3,7 +3,7 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-Tx_Extbase_Utility_Extension::configurePlugin(
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	$_EXTKEY,
 	'Discussion',
 	array(
@@ -15,7 +15,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
-Tx_Extbase_Utility_Extension::configurePlugin(
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	$_EXTKEY,
 	'Chat',
 	array(
@@ -27,7 +27,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
-t3lib_extMgm::addTypoScript($_EXTKEY, 'setup', "
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScript($_EXTKEY, 'setup', "
 	[GLOBAL]
 	DialogChat = PAGE
 	DialogChat {
@@ -39,7 +39,7 @@ t3lib_extMgm::addTypoScript($_EXTKEY, 'setup', "
 		headerData >
 		1326130203 = USER_INT
 		1326130203 {
-			userFunc = tx_extbase_core_bootstrap->run
+			userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
 			extensionName = Dialog
 			pluginName = Chat
 		}

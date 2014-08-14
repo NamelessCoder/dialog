@@ -27,7 +27,7 @@
  * @package Dialog
  * @subpackage Controller
  */
-abstract class Tx_Dialog_MVC_Controller_ActionController extends Tx_Extbase_MVC_Controller_ActionController {
+abstract class Tx_Dialog_MVC_Controller_ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
 	 * @var Tx_Dialog_Domain_Repository_DiscussionRepository
@@ -50,7 +50,7 @@ abstract class Tx_Dialog_MVC_Controller_ActionController extends Tx_Extbase_MVC_
 	protected $posterRepository;
 
 	/**
-	 * @var Tx_Extbase_MVC_View_ViewInterface
+	 * @var \TYPO3\CMS\Extbase\Mvc\View\ViewInterface
 	 */
 	protected $view;
 
@@ -103,14 +103,14 @@ abstract class Tx_Dialog_MVC_Controller_ActionController extends Tx_Extbase_MVC_
 	}
 
 	/**
-	 * @param Tx_Extbase_MVC_View_ViewInterface $view
+	 * @param \TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view
 	 * @return void
 	 */
-	public function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {
+	public function initializeView(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view) {
 		session_start();
-		$settings = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+		$settings = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		$paths = Tx_Flux_Utility_Path::translatePath($settings['view']);
-		$view = $this->objectManager->get('Tx_Fluid_View_TemplateView');
+		$view = $this->objectManager->get('TYPO3\CMS\Fluid\View\TemplateView');
 		$view->setControllerContext($this->controllerContext);
 		$view->setLayoutRootPath($paths['layoutRootPath']);
 		$view->setPartialRootPath($paths['partialRootPath']);
@@ -125,7 +125,7 @@ abstract class Tx_Dialog_MVC_Controller_ActionController extends Tx_Extbase_MVC_
 	 */
 	protected function assignDiscussionTemplateVariables() {
 		if ($this->settings['discussions']) {
-			$discussionUids = t3lib_div::trimExplode(',', $this->settings['discussions']);
+			$discussionUids = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->settings['discussions']);
 			$discussions = $this->discussionRepository->findByUids($discussionUids);
 		} else {
 			$discussions = $this->discussionRepository->findAll();

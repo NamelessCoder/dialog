@@ -6,7 +6,7 @@
  * Time: 6:46 PM
  * To change this template use File | Settings | File Templates.
  */
-class Tx_Dialog_ViewHelpers_RenderViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractTagBasedViewHelper {
+class Tx_Dialog_ViewHelpers_RenderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
 
 	/**
 	 * @var string
