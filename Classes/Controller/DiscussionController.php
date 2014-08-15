@@ -195,6 +195,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	 * @dontvalidate $thread
 	 * @dontvalidate $parent
 	 * @dontvalidate $post
+	 * @dontvalidate $poster
 	 * @route off $post
 	 */
 	public function writeAction(
@@ -202,7 +203,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 			Tx_Dialog_Domain_Model_Thread $thread=NULL,
 			Tx_Dialog_Domain_Model_Post $parent=NULL,
 			Tx_Dialog_Domain_Model_Post $post=NULL,
-			Tx_Dialog_Domain_Model_Post $poster=NULL,
+			Tx_Dialog_Domain_Model_Poster $poster=NULL,
 			array $errors = array()) {
 		$poster = $this->posterRepository->getOrCreatePoster();
 		if ($poster === NULL) {
@@ -238,6 +239,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	public function initializePostAction() {
 		$this->arguments->getArgumentNames();
 		$this->arguments->getArgument('post')->getPropertyMappingConfiguration()->allowCreationForSubProperty('poster');
+		$this->arguments->getArgument('post')->getPropertyMappingConfiguration()->allowProperties('poster');
 		$this->arguments->getArgument('thread')->setRequired(FALSE); // getPropertyMappingConfiguration()->;
 	}
 
@@ -428,6 +430,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 
 	/**
 	 * @param Tx_Dialog_Domain_Model_Poster $poster
+	 * @throws Exception
 	 */
 	protected function sendAuthenticationEmail(Tx_Dialog_Domain_Model_Poster $poster) {
 		$settings = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
