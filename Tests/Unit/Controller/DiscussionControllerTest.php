@@ -36,7 +36,7 @@
  *
  * @author Claus Due <claus@wildside.dk>
  */
-class Tx_Dialog_Controller_DiscussionControllerTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class Tx_Dialog_Controller_DiscussionControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @var Tx_Dialog_Domain_Model_Discussion
 	 */

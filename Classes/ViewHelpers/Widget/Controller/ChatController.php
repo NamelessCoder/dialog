@@ -27,7 +27,7 @@
  * @package Dialog
  * @subpackage Widget/Chat/Controller
  */
-class Tx_Dialog_ViewHelpers_Widget_Controller_ChatController extends Tx_Fluid_Core_Widget_AbstractWidgetController {
+class Tx_Dialog_ViewHelpers_Widget_Controller_ChatController extends \TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetController {
 
 	/**
 	 * @return void

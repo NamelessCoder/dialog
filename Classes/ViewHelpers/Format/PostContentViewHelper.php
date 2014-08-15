@@ -29,7 +29,7 @@
  * @package Dialog
  * @subpackage ViewHelpers/Format
  */
-class Tx_Dialog_ViewHelpers_Format_PostContentViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_Dialog_ViewHelpers_Format_PostContentViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * @var boolean
@@ -37,26 +37,26 @@ class Tx_Dialog_ViewHelpers_Format_PostContentViewHelper extends Tx_Fluid_Core_V
 	protected $escapingInterceptorEnabled = FALSE;
 
 	/**
-	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
 	 */
 	protected $configurationManager;
 
 	/**
-	 * @var Tx_Extbase_Object_ObjectManager
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
 	 */
 	protected $objectManager;
 
 	/**
-	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
+	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
 	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
+	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager) {
 		$this->configurationManager = $configurationManager;
 	}
 
 	/**
-	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 * @param \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
+	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManager $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 
@@ -65,11 +65,11 @@ class Tx_Dialog_ViewHelpers_Format_PostContentViewHelper extends Tx_Fluid_Core_V
 	 */
 	public function render() {
 		$content = $this->renderChildren();
-		$settings = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, 'dialog', 'Discussion');
+		$settings = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, 'dialog', 'Discussion');
 		$content = trim($content);
 		$content = htmlentities($content, ENT_COMPAT, 'UTF-8', FALSE);
 				// restore allowed tags and perform tag closing check. Self-closed tags are not treated/allowed
-		$tags = t3lib_div::trimExplode(',', $settings['allowedHtmlTags']);
+		$tags = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $settings['allowedHtmlTags']);
 		foreach ($tags as $tag) {
 			$closingTags = $openingTags = 0;
 			$content = str_replace('&lt;' . $tag . '&gt;', '<dialog:render tagName="' . $tag . '">' , $content, $openingTags);
@@ -99,7 +99,7 @@ class Tx_Dialog_ViewHelpers_Format_PostContentViewHelper extends Tx_Fluid_Core_V
 	 */
 	protected function renderAsFluidTemplate($content) {
 		$content = '{namespace dialog=Tx_Dialog_ViewHelpers}' . LF . $content;
-		$template = $this->objectManager->get('Tx_Fluid_View_StandaloneView');
+		$template = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
 		$template->setTemplateSource($content);
 		return $template->render();
 	}

@@ -27,7 +27,7 @@
  * @package Dialog
  * @subpackage Widget/Chat/Controller
  */
-class Tx_Dialog_ViewHelpers_Widget_Controller_CommentController extends Tx_Fluid_Core_Widget_AbstractWidgetController {
+class Tx_Dialog_ViewHelpers_Widget_Controller_CommentController extends \TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetController {
 
 	/**
 	 * @var Tx_Dialog_Domain_Repository_DiscussionRepository
@@ -107,7 +107,7 @@ class Tx_Dialog_ViewHelpers_Widget_Controller_CommentController extends Tx_Fluid
 	public function writeAction($hash, $subject, $comment) {
 		$discussion = $this->discussionRepository->getOrCreateByHash($hash, TRUE);
 		/** @var $post Tx_Dialog_Domain_Model_Post */
-		$post = $this->objectManager->create('Tx_Dialog_Domain_Model_Post');
+		$post = $this->objectManager->get('Tx_Dialog_Domain_Model_Post');
 		$poster = $this->posterRepository->getOrCreatePoster(TRUE);
 		$post->setPoster($poster);
 		$post->setSubject($subject);

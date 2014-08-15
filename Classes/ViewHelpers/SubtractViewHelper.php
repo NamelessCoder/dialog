@@ -29,7 +29,7 @@
  * @package Dialog
  * @subpackage ViewHelpers/Widget
  */
-class Tx_Dialog_ViewHelpers_SubtractViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_Dialog_ViewHelpers_SubtractViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * @param integer $a

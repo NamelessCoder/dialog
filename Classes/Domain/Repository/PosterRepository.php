@@ -50,7 +50,7 @@ class Tx_Dialog_Domain_Repository_PosterRepository extends Tx_Dialog_Persistence
 			$userRecord = $GLOBALS['TSFE']->fe_user->user;
 			$poster = $this->findOneByEmail($userRecord['email']);
 			if (!$poster) {
-				$poster = $this->objectManager->create('Tx_Dialog_Domain_Model_Poster');
+				$poster = $this->objectManager->get('Tx_Dialog_Domain_Model_Poster');
 				$poster->setName($userRecord['name']);
 				$poster->setEmail($userRecord['email']);
 				if ($autoAddIfFrontendUserLoggedIn === TRUE) {

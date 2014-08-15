@@ -22,6 +22,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @package Dialog
@@ -142,7 +143,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		if ((bool) $confirmed === FALSE) {
 			return $this->view->render();
 		}
-		$settings = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+		$settings = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		$paths = Tx_Flux_Utility_Path::translatePath($settings['view']);
 		$url = $_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http' . '://' . $_SERVER['SERVER_NAME'] . '/';
 		$variables = array(
@@ -152,7 +153,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 
 			))
 		);
-		$view = $this->objectManager->get('Tx_Fluid_View_TemplateView');
+		$view = $this->objectManager->get('TYPO3\CMS\Fluid\View\TemplateView');
 		$view->setControllerContext($this->controllerContext);
 		$view->setLayoutRootPath($paths['layoutRootPath']);
 		$view->setPartialRootPath($paths['partialRootPath']);
@@ -161,11 +162,11 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		$view->assignMultiple($variables);
 		$body = $view->render();
 
-		$subject = Tx_Extbase_Utility_Localization::translate('subject', 'dialog');
+		$subject = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('subject', 'dialog');
 		try {
 			$this->emailService->mail($subject, $body, $this->settings['email']['fromEmail'], $this->settings['email']['fromName'], $this->settings['email']['fromEmail'], $this->settings['email']['fromName']);
 		} catch (Exception $e) {
-			t3lib_div::sysLog('Failed to send email message: ' . $e->getMessage(), 'dialog');
+			GeneralUtility::sysLog('Failed to send email message: ' . $e->getMessage(), 'dialog');
 		}
 	}
 
@@ -194,6 +195,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	 * @dontvalidate $thread
 	 * @dontvalidate $parent
 	 * @dontvalidate $post
+	 * @dontvalidate $poster
 	 * @route off $post
 	 */
 	public function writeAction(
@@ -201,15 +203,15 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 			Tx_Dialog_Domain_Model_Thread $thread=NULL,
 			Tx_Dialog_Domain_Model_Post $parent=NULL,
 			Tx_Dialog_Domain_Model_Post $post=NULL,
-			Tx_Dialog_Domain_Model_Post $poster=NULL,
+			Tx_Dialog_Domain_Model_Poster $poster=NULL,
 			array $errors = array()) {
 		$poster = $this->posterRepository->getOrCreatePoster();
 		if ($poster === NULL) {
-			$poster = $this->objectManager->create('Tx_Dialog_Domain_Model_Poster');
+			$poster = $this->objectManager->get('Tx_Dialog_Domain_Model_Poster');
 		}
 		if ($post === NULL) {
 			$respondPrefix = $this->settings['responsePrefix'];
-			$post = $this->objectManager->create('Tx_Dialog_Domain_Model_Post');
+			$post = $this->objectManager->get('Tx_Dialog_Domain_Model_Post');
 			$post->setPoster($poster);
 			if ($parent) {
 				$subject = $parent->getSubject();
@@ -237,6 +239,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	public function initializePostAction() {
 		$this->arguments->getArgumentNames();
 		$this->arguments->getArgument('post')->getPropertyMappingConfiguration()->allowCreationForSubProperty('poster');
+		$this->arguments->getArgument('post')->getPropertyMappingConfiguration()->allowProperties('poster');
 		$this->arguments->getArgument('thread')->setRequired(FALSE); // getPropertyMappingConfiguration()->;
 	}
 
@@ -326,23 +329,23 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 				$poster->setIdentifier(md5(microtime(TRUE) * time()));
 			}
 			$this->sendAuthenticationEmail($poster);
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('authorizationRequestSent', 'Dialog'));
+			$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('authorizationRequestSent', 'Dialog'));
 		}
 		$hash = NULL;
 		$post->setPoster($poster);
 		if ($discussion === NULL) {
-			$discussion = $this->objectManager->create('Tx_Dialog_Domain_Model_Discussion');
+			$discussion = $this->objectManager->get('Tx_Dialog_Domain_Model_Discussion');
 			$discussion->setTitle($post->getSubject());
 			$discussion->setDescription($post->getContent());
 			$discussion->setPoster($poster);
 			$discussion->setLastPost($post);
 			$this->discussionRepository->add($discussion);
 			$this->cacheService->clearPageCache(array($GLOBALS['TSFE']->id));
-			$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
+			$this->objectManager->get('TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager')->persistAll();
 			$this->redirect('show', NULL, NULL, array('discussion' => $discussion->getUid()));
 		} elseif ($thread === NULL) {
 			$hash = md5(microtime(TRUE) * time());
-			$thread = $this->objectManager->create('Tx_Dialog_Domain_Model_Thread');
+			$thread = $this->objectManager->get('Tx_Dialog_Domain_Model_Thread');
 			$thread->setSubject($post->getSubject());
 			$thread->setPoster($poster);
 			$thread->addPost($post);
@@ -378,7 +381,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		}
 		$this->postRepository->add($post);
 		$this->discussionRepository->update($discussion);
-		$this->objectManager->get('Tx_Extbase_Persistence_ManagerInterface')->persistAll();
+		$this->objectManager->get('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface')->persistAll();
 		$arguments['discussion'] = $discussion->getUid();
 		$arguments['thread'] = $thread->getUid();
 		$this->uriBuilder->setSection('p' . $post->getUid());
@@ -427,9 +430,10 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 
 	/**
 	 * @param Tx_Dialog_Domain_Model_Poster $poster
+	 * @throws Exception
 	 */
 	protected function sendAuthenticationEmail(Tx_Dialog_Domain_Model_Poster $poster) {
-		$settings = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+		$settings = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		$paths = Tx_Flux_Utility_Path::translatePath($settings['view']);
 		$url = $_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http' . '://' . $_SERVER['SERVER_NAME'] . '/';
 		$variables = array(
@@ -438,12 +442,12 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 			'section' => 'Authorization',
 			'links' => array(
 				$poster->getEmail(),
-				$url . $this->buildEmailLink('authorize', array('identifier' => $poster->getIdentifier(), 'cookie' => 1)),
-				$url . $this->buildEmailLink('authorize', array('identifier' => $poster->getIdentifier(), 'cookie' => 0)),
-				$url . $this->buildEmailLink('forget', array('identifier' => $poster->getIdentifier()))
+				$this->buildEmailLink('authorize', array('identifier' => $poster->getIdentifier(), 'cookie' => 1)),
+				$this->buildEmailLink('authorize', array('identifier' => $poster->getIdentifier(), 'cookie' => 0)),
+				$this->buildEmailLink('forget', array('identifier' => $poster->getIdentifier()))
 			)
 		);
-		$view = $this->objectManager->get('Tx_Fluid_View_TemplateView');
+		$view = $this->objectManager->get('TYPO3\CMS\Fluid\View\TemplateView');
 		$view->setControllerContext($this->controllerContext);
 		$view->setLayoutRootPath($paths['layoutRootPath']);
 		$view->setPartialRootPath($paths['partialRootPath']);
@@ -453,13 +457,13 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 		$body = $view->render();
 		$body = html_entity_decode($body);
 
-		$subject = Tx_Extbase_Utility_Localization::translate('email.authorization.subject', 'dialog');
+		$subject = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('email.authorization.subject', 'dialog');
 		try {
 			$recipient = array($poster->getEmail() => $poster->getName());
 			$sender = array($this->settings['email']['fromEmail'] => $this->settings['email']['fromName']);
 			$this->emailService->mail($subject, $body, $recipient, $sender);
 		} catch (Exception $e) {
-			t3lib_div::sysLog('Failed to send email message: ' . $e->getMessage(), 'dialog');
+			GeneralUtility::sysLog('Failed to send email message: ' . $e->getMessage(), 'dialog');
 			throw $e;
 		}
 
@@ -481,7 +485,7 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 	 * @return array
 	 */
 	protected function uploadFiles($fieldName, $settingName) {
-		$allowedExtensions = t3lib_div::trimExplode(',', $this->settings['attachments'][$settingName]['extensions']);
+		$allowedExtensions = GeneralUtility::trimExplode(',', $this->settings['attachments'][$settingName]['extensions']);
 		$extensionMap = $this->settings['attachments']['renaming'];
 		$files = array();
 		if (isset($_FILES['tx_dialog_discussion'])) {
@@ -496,8 +500,8 @@ class Tx_Dialog_Controller_DiscussionController extends Tx_Dialog_MVC_Controller
 			}
 		}
 		$filenames = array();
-		/** @var $fileHandler t3lib_basicFileFunctions */
-		$fileHandler = t3lib_div::makeInstance('t3lib_basicFileFunctions');
+		/** @var $fileHandler \TYPO3\CMS\Core\Utility\File\BasicFileUtility */
+		$fileHandler = GeneralUtility::makeInstance('TYPO3\CMS\Core\Utility\File\BasicFileUtility');
 		$targetDir = PATH_site . $GLOBALS['TCA']['tx_dialog_domain_model_post']['columns'][$fieldName]['config']['uploadfolder'] . '/';
 		foreach ($files as $uploadedFile) {
 			if (is_uploaded_file($uploadedFile['tmp_name']) === TRUE) {

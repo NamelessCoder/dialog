@@ -29,7 +29,7 @@
  * @package Dialog
  * @subpackage ViewHelpers/Widget
  */
-class Tx_Dialog_ViewHelpers_IncrementViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_Dialog_ViewHelpers_IncrementViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * @param integer $value

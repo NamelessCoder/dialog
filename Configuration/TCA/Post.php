@@ -160,7 +160,7 @@ $TCA['tx_dialog_domain_model_post'] = array(
 		),
 		'published' => array(
 			'config' => array(
-				'type' => 'checkbox',
+				'type' => 'check',
 			),
 		),
 		'discussion' => array(

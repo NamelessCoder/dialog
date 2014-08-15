@@ -30,7 +30,7 @@
  * @package Dialog
  * @subpackage ViewHelpers
  */
-class Tx_Dialog_ViewHelpers_EditableViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractConditionViewHelper {
+class Tx_Dialog_ViewHelpers_EditableViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
 
 	/**
 	 * @var Tx_Dialog_Domain_Repository_PosterRepository

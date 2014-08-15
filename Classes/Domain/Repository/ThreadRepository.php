@@ -35,11 +35,11 @@
 class Tx_Dialog_Domain_Repository_ThreadRepository extends Tx_Dialog_Persistence_Repository {
 
 	/**
-	 * @return Tx_Extbase_Persistence_QueryInterface
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
 	 */
 	public function createQuery() {
 		$query = parent::createQuery();
-		$query->setOrderings(array('last_activity' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING));
+		$query->setOrderings(array('last_activity' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING));
 		return $query;
 	}
 

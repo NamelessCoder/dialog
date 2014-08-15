@@ -29,7 +29,7 @@
  * @package Dialog
  * @subpackage ViewHelpers/Widget
  */
-class Tx_Dialog_ViewHelpers_EqualsViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractConditionViewHelper {
+class Tx_Dialog_ViewHelpers_EqualsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
 
 	/**
 	 * Initialize

@@ -35,7 +35,7 @@
 class Tx_Dialog_Domain_Repository_PostRepository extends Tx_Dialog_Persistence_Repository {
 
 	/**
-	 * @return Tx_Extbase_Persistence_QueryResultInterface
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function findAll() {
 		$query = $this->createQuery();
@@ -45,7 +45,7 @@ class Tx_Dialog_Domain_Repository_PostRepository extends Tx_Dialog_Persistence_R
 
 	/**
 	 * @param integer $limit
-	 * @return Tx_Extbase_Persistence_QueryResultInterface
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function findLatest($limit) {
 		$limit = intval($limit);
@@ -53,7 +53,7 @@ class Tx_Dialog_Domain_Repository_PostRepository extends Tx_Dialog_Persistence_R
 			$limit = 99999;
 		}
 		$query = $this->createQuery();
-		$query->setOrderings(array('crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING));
+		$query->setOrderings(array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING));
 		$query->setLimit($limit);
 		$query->matching($query->equals('published', 1));
 		return $query->execute();
@@ -61,7 +61,7 @@ class Tx_Dialog_Domain_Repository_PostRepository extends Tx_Dialog_Persistence_R
 
 	/**
 	 * @param Tx_Dialog_Domain_Model_Poster $poster
-	 * @return Tx_Extbase_Persistence_QueryResultInterface
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function findByPosterAndUnpublished(Tx_Dialog_Domain_Model_Poster $poster) {
 		$query = $this->createQuery();

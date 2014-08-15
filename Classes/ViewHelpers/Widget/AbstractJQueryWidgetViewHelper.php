@@ -29,7 +29,7 @@
  * @package Dialog
  * @subpackage ViewHelpers/Widget
  */
-abstract class Tx_Dialog_ViewHelpers_Widget_AbstractJQueryWidgetViewHelper extends Tx_Fluid_Core_Widget_AbstractWidgetViewHelper {
+abstract class Tx_Dialog_ViewHelpers_Widget_AbstractJQueryWidgetViewHelper extends \TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetViewHelper {
 
 	/**
 	 * Initializes a jQuery-based Widget using options and giving in an instance name in JS
@@ -38,6 +38,7 @@ abstract class Tx_Dialog_ViewHelpers_Widget_AbstractJQueryWidgetViewHelper exten
 	 * @param type $widgetType The name of the function on jQuery.fn which is used to initialize the Widget (for example: "autocomplete" for jQuery('someelement').autocomplete() widget)
 	 * @param type $widgetOptions An array of options used to initialize the jQuery Widget
 	 * @param type $instanceName If you do not care about the instance variable name used in JS you can leave this out
+	 * @return string
 	 */
 	protected function initializeWidget($domElementId, $widgetType, $widgetOptions, $instanceName=NULL) {
 		if (!is_array($widgetOptions) || count($widgetOptions) == 0) {

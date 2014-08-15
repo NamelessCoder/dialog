@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_Dialog_Domain_Model_Poster extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_Dialog_Domain_Model_Poster extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * @var string

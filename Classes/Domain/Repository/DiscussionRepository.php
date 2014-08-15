@@ -44,7 +44,7 @@ class Tx_Dialog_Domain_Repository_DiscussionRepository extends Tx_Dialog_Persist
 		/** @var $discussion Tx_Dialog_Domain_Model_Discussion */
 		$discussion = $this->findOneByHash($hash);
 		if (!$discussion) {
-			$discussion = $this->objectManager->create('Tx_Dialog_Domain_Model_Discussion');
+			$discussion = $this->objectManager->get('Tx_Dialog_Domain_Model_Discussion');
 			$discussion->setHash($hash);
 			if ($autoAddIfMissing) {
 				$this->add($discussion);

@@ -29,17 +29,17 @@
  * @package Dialog
  * @subpackage ViewHelpers
  */
-class Tx_Dialog_ViewHelpers_ThreadPostLinkViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_Dialog_ViewHelpers_ThreadPostLinkViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * @var Tx_Extbase_MVC_Web_Routing_UriBuilder
+	 * @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder
 	 */
 	protected $uriBuilder;
 
 	/**
-	 * @param Tx_Extbase_MVC_Web_Routing_UriBuilder $uriBuilder
+	 * @param \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder
 	 */
-	public function injectUriBuilder(Tx_Extbase_MVC_Web_Routing_UriBuilder $uriBuilder) {
+	public function injectUriBuilder(\TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder) {
 		$this->uriBuilder = $uriBuilder;
 	}
 

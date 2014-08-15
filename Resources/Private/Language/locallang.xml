@@ -339,6 +339,8 @@ Forget this authorization (and let me re-authorize if needed):
 			<label index="thread.start">Neues Thema starten</label>
             <label index="thread.view">%s Themen anzeigen</label>
 			<label index="reply.start">Antworten</label>
+
+            <label index="authorizationRequestSent">Ihr Beitrag wurde noch nicht veröffentlicht. Eine Bestätigungs-E-Mail wurde an Ihre Adresse gesendet. Sie können den Beitrag mit den in der E-Mail enthaltenen Links freigeben.</label>
 			<label index="email.authorization.subject">Bitte bestätigen Sie Ihre E-Mail-Adresse</label>
 			<label index="email.salutation">Sehr geehrte/r %s, </label>
 			<label index="email.signature">Mit freundlichen Grüßen,

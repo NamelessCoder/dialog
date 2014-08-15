@@ -96,7 +96,7 @@ class Tx_Dialog_ViewHelpers_Widget_CommentViewHelper extends Tx_Dialog_ViewHelpe
 	 * @return string
 	 */
 	protected function getScriptBlock() {
-		$scriptUrl = t3lib_extMgm::siteRelPath('dialog') . 'Resources/Public/Javascripts/Plugins/Comment.js';
+		$scriptUrl = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('dialog') . 'Resources/Public/Javascripts/Plugins/Comment.js';
 		$block = <<< EOD
 <script type="text/javascript" src="$scriptUrl"></script>
 <script type="text/javascript">

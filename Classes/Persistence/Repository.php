@@ -32,13 +32,13 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_Dialog_Persistence_Repository extends Tx_Extbase_Persistence_Repository {
+class Tx_Dialog_Persistence_Repository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
 	 * Finds a list of Discussions by Uids
 	 *
 	 * @param array $uids
-	 * @return Tx_Extbase_Persistence_QueryResult
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
 	 */
 	public function findByUids(array $uids) {
 		$query = $this->createQuery();

@@ -36,7 +36,7 @@
  *
  * @author Claus Due <claus@wildside.dk>
  */
-class Tx_Dialog_Domain_Model_PostTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class Tx_Dialog_Domain_Model_PostTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @var Tx_Dialog_Domain_Model_Post
 	 */
@@ -89,7 +89,7 @@ class Tx_Dialog_Domain_Model_PostTest extends Tx_Extbase_Tests_Unit_BaseTestCase
 	 * @test
 	 */
 	public function getRepliesReturnsInitialValueForObjectStorageContainingTx_Dialog_Domain_Model_Post() { 
-		$newObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
 			$this->fixture->getReplies()
@@ -101,7 +101,7 @@ class Tx_Dialog_Domain_Model_PostTest extends Tx_Extbase_Tests_Unit_BaseTestCase
 	 */
 	public function setRepliesForObjectStorageContainingTx_Dialog_Domain_Model_PostSetsReplies() { 
 		$reply = new Tx_Dialog_Domain_Model_Post();
-		$objectStorageHoldingExactlyOneReplies = new Tx_Extbase_Persistence_ObjectStorage();
+		$objectStorageHoldingExactlyOneReplies = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneReplies->attach($reply);
 		$this->fixture->setReplies($objectStorageHoldingExactlyOneReplies);
 
@@ -116,7 +116,7 @@ class Tx_Dialog_Domain_Model_PostTest extends Tx_Extbase_Tests_Unit_BaseTestCase
 	 */
 	public function addReplyToObjectStorageHoldingReplies() {
 		$reply = new Tx_Dialog_Domain_Model_Post();
-		$objectStorageHoldingExactlyOneReply = new Tx_Extbase_Persistence_ObjectStorage();
+		$objectStorageHoldingExactlyOneReply = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneReply->attach($reply);
 		$this->fixture->addReply($reply);
 
@@ -131,7 +131,7 @@ class Tx_Dialog_Domain_Model_PostTest extends Tx_Extbase_Tests_Unit_BaseTestCase
 	 */
 	public function removeReplyFromObjectStorageHoldingReplies() {
 		$reply = new Tx_Dialog_Domain_Model_Post();
-		$localObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($reply);
 		$localObjectStorage->detach($reply);
 		$this->fixture->addReply($reply);
